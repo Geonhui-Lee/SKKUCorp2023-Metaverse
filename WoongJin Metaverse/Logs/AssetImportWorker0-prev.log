@@ -22,7 +22,7 @@ AssetImportWorker0
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-59854
+51736
 Successfully changed project path to: /Users/yongha/SKKUCorp2023_Metaverse/WoongJin Metaverse
 /Users/yongha/SKKUCorp2023_Metaverse/WoongJin Metaverse
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -56,12 +56,12 @@ Successfully changed project path to: /Users/yongha/SKKUCorp2023_Metaverse/Woong
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [8439471616] Host "[IP] 172.30.1.51 [Port] 0 [Flags] 2 [Guid] 392861482 [EditorId] 392861482 [Version] 1048832 [Id] OSXEditor(0,iyonghaui-MacBookAir.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [8439471616] Host "[IP] 172.30.1.95 [Port] 0 [Flags] 2 [Guid] 2283664400 [EditorId] 2283664400 [Version] 1048832 [Id] OSXEditor(0,iyonghaui-MacBookAir.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [8439471616] Host "[IP] 172.30.1.51 [Port] 0 [Flags] 2 [Guid] 392861482 [EditorId] 392861482 [Version] 1048832 [Id] OSXEditor(0,iyonghaui-MacBookAir.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [8439471616] Host "[IP] 172.30.1.95 [Port] 0 [Flags] 2 [Guid] 2283664400 [EditorId] 2283664400 [Version] 1048832 [Id] OSXEditor(0,iyonghaui-MacBookAir.local) [Debug] 1 [PackageName] OSXEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
 [Physics::Module] Initialized MultithreadedJobDispatcher with 7 workers.
-Refreshing native plugins compatible for Editor in 9.25 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 4.23 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.9f1 (ea401c316338)
 [Subsystems] Discovering subsystems at path /Applications/Unity/Hub/Editor/2022.3.9f1/Unity.app/Contents/Resources/UnitySubsystems
@@ -76,46 +76,46 @@ Initialize mono
 Mono path[0] = '/Applications/Unity/Hub/Editor/2022.3.9f1/Unity.app/Contents/Managed'
 Mono path[1] = '/Applications/Unity/Hub/Editor/2022.3.9f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityjit-macos'
 Mono config path = '/Applications/Unity/Hub/Editor/2022.3.9f1/Unity.app/Contents/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56433
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56467
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: /Applications/Unity/Hub/Editor/2022.3.9f1/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: /Applications/Unity/Hub/Editor/2022.3.9f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
-Registered in 0.003138 seconds.
-- Loaded All Assemblies, in  0.275 seconds
+Registered in 0.003134 seconds.
+- Loaded All Assemblies, in  0.243 seconds
 Native extension for OSXStandalone target not found
 Native extension for WebGL target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.157 seconds
-Domain Reload Profiling: 432ms
-	BeginReloadAssembly (94ms)
+- Finished resetting the current domain, in  0.145 seconds
+Domain Reload Profiling: 388ms
+	BeginReloadAssembly (85ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (1ms)
-	RebuildCommonClasses (26ms)
+		CreateAndSetChildDomain (0ms)
+	RebuildCommonClasses (22ms)
 	RebuildNativeTypeToScriptingClass (8ms)
-	initialDomainReloadingComplete (36ms)
-	LoadAllAssembliesAndSetupDomain (110ms)
-		LoadAssemblies (95ms)
+	initialDomainReloadingComplete (32ms)
+	LoadAllAssembliesAndSetupDomain (95ms)
+		LoadAssemblies (86ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (107ms)
-			TypeCache.Refresh (106ms)
-				TypeCache.ScanAssembly (93ms)
+		AnalyzeDomain (93ms)
+			TypeCache.Refresh (92ms)
+				TypeCache.ScanAssembly (83ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
-			ResolveRequiredComponents (1ms)
-	FinalizeReload (157ms)
+			ResolveRequiredComponents (0ms)
+	FinalizeReload (145ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (118ms)
+		SetupLoadedEditorAssemblies (108ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (5ms)
-			SetLoadedEditorAssemblies (4ms)
+			InitializePlatformSupportModulesInManaged (4ms)
+			SetLoadedEditorAssemblies (3ms)
 			RefreshPlugins (0ms)
 			BeforeProcessingInitializeOnLoad (1ms)
-			ProcessInitializeOnLoadAttributes (78ms)
-			ProcessInitializeOnLoadMethodAttributes (30ms)
+			ProcessInitializeOnLoadAttributes (73ms)
+			ProcessInitializeOnLoadMethodAttributes (27ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -123,8 +123,8 @@ Domain Reload Profiling: 432ms
 ========================================================================
 Worker process is ready to serve import requests
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.409 seconds
-Refreshing native plugins compatible for Editor in 0.86 ms, found 2 plugins.
+- Loaded All Assemblies, in  0.392 seconds
+Refreshing native plugins compatible for Editor in 0.68 ms, found 2 plugins.
 Native extension for OSXStandalone target not found
 Native extension for WebGL target not found
 Package Manager log level set to [2]
@@ -132,49 +132,78 @@ Package Manager log level set to [2]
 [Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
 [Package Manager] Cannot connect to Unity Package Manager local server
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.345 seconds
-Domain Reload Profiling: 754ms
-	BeginReloadAssembly (77ms)
+- Finished resetting the current domain, in  0.338 seconds
+Domain Reload Profiling: 730ms
+	BeginReloadAssembly (75ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (3ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (17ms)
+		CreateAndSetChildDomain (18ms)
 	RebuildCommonClasses (23ms)
 	RebuildNativeTypeToScriptingClass (8ms)
-	initialDomainReloadingComplete (23ms)
-	LoadAllAssembliesAndSetupDomain (277ms)
-		LoadAssemblies (187ms)
+	initialDomainReloadingComplete (22ms)
+	LoadAllAssembliesAndSetupDomain (264ms)
+		LoadAssemblies (180ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (125ms)
-			TypeCache.Refresh (116ms)
-				TypeCache.ScanAssembly (102ms)
+		AnalyzeDomain (116ms)
+			TypeCache.Refresh (106ms)
+				TypeCache.ScanAssembly (92ms)
 			ScanForSourceGeneratedMonoScriptInfo (7ms)
 			ResolveRequiredComponents (2ms)
-	FinalizeReload (346ms)
+	FinalizeReload (338ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (249ms)
+		SetupLoadedEditorAssemblies (241ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (3ms)
 			SetLoadedEditorAssemblies (2ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (33ms)
-			ProcessInitializeOnLoadAttributes (199ms)
+			BeforeProcessingInitializeOnLoad (32ms)
+			ProcessInitializeOnLoadAttributes (192ms)
 			ProcessInitializeOnLoadMethodAttributes (10ms)
 			AfterProcessingInitializeOnLoad (1ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (2ms)
 Launching external process: /Applications/Unity/Hub/Editor/2022.3.9f1/Unity.app/Contents/Tools/UnityShaderCompiler
-Launched and connected shader compiler UnityShaderCompiler after 0.07 seconds
-Refreshing native plugins compatible for Editor in 0.85 ms, found 2 plugins.
+Launched and connected shader compiler UnityShaderCompiler after 0.05 seconds
+Refreshing native plugins compatible for Editor in 0.74 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 3069 Unused Serialized files (Serialized files now loaded: 0)
 Unloading 31 unused Assets / (50.5 KB). Loaded Objects now: 3531.
-Memory consumption went from 119.7 MB to 119.6 MB.
-Total: 2.445500 ms (FindLiveObjects: 0.139666 ms CreateObjectMapping: 0.044209 ms MarkObjects: 2.178958 ms  DeleteObjects: 0.082000 ms)
+Memory consumption went from 119.9 MB to 119.8 MB.
+Total: 2.394791 ms (FindLiveObjects: 0.108917 ms CreateObjectMapping: 0.036916 ms MarkObjects: 2.158125 ms  DeleteObjects: 0.089875 ms)
 
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:AudioImporter_EditorPlatform: 3918e3fc78b5a79bad01e8451be0beb8 -> 
+  custom:framework-osx-AVFoundation: e770b220cccbd017edd2c1fefb359320 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 464462.860970 seconds.
+  path: Assets/Scenes/SampleScene.unity
+  artifactKey: Guid(9fc0d4010bbf28b4594072e72b8655ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/SampleScene.unity using Guid(9fc0d4010bbf28b4594072e72b8655ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a85bec50c8be757587fedfaade313866') in 0.001407 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 0.77 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 1 unused Assets / (0.9 KB). Loaded Objects now: 3531.
+Memory consumption went from 70.8 MB to 70.8 MB.
+Total: 2.312750 ms (FindLiveObjects: 0.162916 ms CreateObjectMapping: 0.047959 ms MarkObjects: 2.087208 ms  DeleteObjects: 0.013583 ms)
+
+Prepare: number of updated asset objects reloaded= 0
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
@@ -190,185 +219,121 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 457454.953879 seconds.
-  path: Assets/Other Assets
-  artifactKey: Guid(11658c1046c8e44b584699590ed0be66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Other Assets using Guid(11658c1046c8e44b584699590ed0be66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1a9f2ba4f324c5f6c92e763a1cf0bae') in 0.001251 seconds
+  Time since last request: 1172.114729 seconds.
+  path: Assets/Imported Assets/SimplePoly City - Low Poly Assets/Models
+  artifactKey: Guid(fac5102d6ee34954fb147ea5cb33d8d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/SimplePoly City - Low Poly Assets/Models using Guid(fac5102d6ee34954fb147ea5cb33d8d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4e1ee15e289f41a5d02fabade56deba0') in 0.010292 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
 ========================================================================
 Received Import Request.
-  Time since last request: 21.505782 seconds.
-  path: Assets/Imported Assets
-  artifactKey: Guid(11658c1046c8e44b584699590ed0be66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets using Guid(11658c1046c8e44b584699590ed0be66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56d69fb1ccbf5743750adff6afc4769a') in 0.000337 seconds
+  Time since last request: 0.639590 seconds.
+  path: Assets/Imported Assets/SimplePoly City - Low Poly Assets/Prefab
+  artifactKey: Guid(01ddcc7def6e986459dd0d27059031fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/SimplePoly City - Low Poly Assets/Prefab using Guid(01ddcc7def6e986459dd0d27059031fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ad1c3c5f91b87ccbe4e8657247847fc9') in 0.000430 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
 ========================================================================
 Received Import Request.
-  Time since last request: 3.115852 seconds.
-  path: Assets/Imported Assets/Alstrainfinite
-  artifactKey: Guid(ad591a32dd2d846fcb21069d4ccc179f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Alstrainfinite using Guid(ad591a32dd2d846fcb21069d4ccc179f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29d8ac2d56343943032a8a770c595e3f') in 0.000492 seconds
+  Time since last request: 0.525195 seconds.
+  path: Assets/Imported Assets/SimplePoly City - Low Poly Assets/Prefab/Roads
+  artifactKey: Guid(93ef14120b36e164397150d7a274e398) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/SimplePoly City - Low Poly Assets/Prefab/Roads using Guid(93ef14120b36e164397150d7a274e398) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c063931e194d0ccc134cbd9b8fc8a047') in 0.000801 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
 ========================================================================
 Received Import Request.
-  Time since last request: 3.334184 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs
-  artifactKey: Guid(d071b74f70a5acf4f95e7707679f90dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs using Guid(d071b74f70a5acf4f95e7707679f90dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '94051c62f6a745b4bcf8ce685ae154f3') in 0.000456 seconds
+  Time since last request: 0.783459 seconds.
+  path: Assets/Imported Assets/SimplePoly City - Low Poly Assets/Prefab/Buildings
+  artifactKey: Guid(d61ddd7e72f01ea43934706c0e011066) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/SimplePoly City - Low Poly Assets/Prefab/Buildings using Guid(d61ddd7e72f01ea43934706c0e011066) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e4525c18f56a53b0d721cf8d08827e6') in 0.001388 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
 ========================================================================
 Received Import Request.
-  Time since last request: 8.516158 seconds.
-  path: Assets/Imported Assets/BrokenVector
-  artifactKey: Guid(4c0689037ea2c4b318f3fa0c3041f8e2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/BrokenVector using Guid(4c0689037ea2c4b318f3fa0c3041f8e2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fcb4887e79395214e1f1c3939204ac92') in 0.000486 seconds
+  Time since last request: 0.794273 seconds.
+  path: Assets/Imported Assets/SimplePoly City - Low Poly Assets/Prefab/Natures
+  artifactKey: Guid(94e8f44afd4ace94ea59afec7166ff0e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/SimplePoly City - Low Poly Assets/Prefab/Natures using Guid(94e8f44afd4ace94ea59afec7166ff0e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8944b968c0908c2b53000f95fd84aa4b') in 0.001329 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
 ========================================================================
 Received Import Request.
-  Time since last request: 4.081443 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Textures
-  artifactKey: Guid(014dba4293beb1047b9b342a3f9bca3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Textures using Guid(014dba4293beb1047b9b342a3f9bca3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20b02b248c9c5a03a2c31e606ed38296') in 0.000423 seconds
+  Time since last request: 56.097855 seconds.
+  path: Assets/Imported Assets/SimplePoly City - Low Poly Assets/Prefab/Roads/Road Concrete Tile.prefab
+  artifactKey: Guid(d34e8533c8de8ec45869f9144584d929) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/SimplePoly City - Low Poly Assets/Prefab/Roads/Road Concrete Tile.prefab using Guid(d34e8533c8de8ec45869f9144584d929) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b230866917a9dc9f33d96fe49948492') in 0.313174 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 9
+========================================================================
+Received Import Request.
+  Time since last request: 4.638825 seconds.
+  path: Assets/Imported Assets/BrokenVector/LowPolyTreePack
+  artifactKey: Guid(762d9af53e4f12743bc5e56e83602567) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/BrokenVector/LowPolyTreePack using Guid(762d9af53e4f12743bc5e56e83602567) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd16762560d0c219e8ff313311d65ddef') in 0.000626 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
 ========================================================================
 Received Import Request.
-  Time since last request: 1.902385 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads
-  artifactKey: Guid(eac07d6134105734096f498b085c4e00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads using Guid(eac07d6134105734096f498b085c4e00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '008dddd737cd59a089071d5ff78ef73d') in 0.000512 seconds
+  Time since last request: 43.698590 seconds.
+  path: Assets/Imported Assets/SimplePoly City - Low Poly Assets/Demo
+  artifactKey: Guid(57ac69cc31687cc4d80c5fe20dd30058) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/SimplePoly City - Low Poly Assets/Demo using Guid(57ac69cc31687cc4d80c5fe20dd30058) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a7a0293ed5af9d322a5a8b0403b9915') in 0.000919 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
 ========================================================================
 Received Import Request.
-  Time since last request: 0.711837 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Buildings
-  artifactKey: Guid(2ca84a2c7ef128a4e8dd01fd6ccc4cd1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Buildings using Guid(2ca84a2c7ef128a4e8dd01fd6ccc4cd1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5067f80b907659e92bf06b0adeb425c0') in 0.000472 seconds
+  Time since last request: 0.908448 seconds.
+  path: Assets/Imported Assets/SimplePoly City - Low Poly Assets/Demo/SimplePoly City - Low Poly Assets_Demo Scene.unity
+  artifactKey: Guid(7e6d3f4e5d896154ab4438845532ac3e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/SimplePoly City - Low Poly Assets/Demo/SimplePoly City - Low Poly Assets_Demo Scene.unity using Guid(7e6d3f4e5d896154ab4438845532ac3e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ee9354c9a8f300b6ac32073597baf3d') in 0.000481 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
 ========================================================================
 Received Import Request.
-  Time since last request: 1.350419 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Props
-  artifactKey: Guid(18e3d70496d487f48bd04872fbf59c18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Props using Guid(18e3d70496d487f48bd04872fbf59c18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9c0d757b2a6191e548d4cddf759b5911') in 0.000422 seconds
+  Time since last request: 203.021446 seconds.
+  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Scenes
+  artifactKey: Guid(6ea315d0fd7389c41b19996891e99ae3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Scenes using Guid(6ea315d0fd7389c41b19996891e99ae3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '81c328eaa686ea6ec9a8a9505cc07a90') in 0.002198 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
 ========================================================================
 Received Import Request.
-  Time since last request: 14.355740 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads/Road_2.prefab
-  artifactKey: Guid(210e703d8d45460438ee6a6e8f13042d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads/Road_2.prefab using Guid(210e703d8d45460438ee6a6e8f13042d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4cf1bcf429491dde62bc8f3260745cdb') in 0.386245 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 14
-========================================================================
-Received Import Request.
-  Time since last request: 0.274548 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads/Road_1.prefab
-  artifactKey: Guid(1be2c87a457f9e044a0d468f0d07147c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads/Road_1.prefab using Guid(1be2c87a457f9e044a0d468f0d07147c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e81a2cd472845be5385b19f40b76695b') in 0.008125 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 14
-========================================================================
-Received Import Request.
-  Time since last request: 62.777907 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads/Road_Crossroads_3.prefab
-  artifactKey: Guid(c74f0a74f29605d4da88a3dc0585a604) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads/Road_Crossroads_3.prefab using Guid(c74f0a74f29605d4da88a3dc0585a604) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '21538c928579da43211e17f6c0aeb300') in 0.031871 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 14
-========================================================================
-Received Import Request.
-  Time since last request: 144.490721 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads/Road_Railroad_1.prefab
-  artifactKey: Guid(b541a7bc12d4da94a8573c88e0fa7c1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads/Road_Railroad_1.prefab using Guid(b541a7bc12d4da94a8573c88e0fa7c1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ed8a360a5f7162b1744a2b50b32d9ad') in 0.023858 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 14
-========================================================================
-Received Import Request.
-  Time since last request: 1.306186 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads/Road_Railroad_2.prefab
-  artifactKey: Guid(f44a6c025356e6e4b9c94d5a0a34c88c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads/Road_Railroad_2.prefab using Guid(f44a6c025356e6e4b9c94d5a0a34c88c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08f98544b0ff02590a04cb202ce65564') in 0.010562 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 14
-========================================================================
-Received Import Request.
-  Time since last request: 6.714528 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads/Road_Roadworks.prefab
-  artifactKey: Guid(80ec7b6c9ef49ac49af4b930d2450ca5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads/Road_Roadworks.prefab using Guid(80ec7b6c9ef49ac49af4b930d2450ca5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7ada4886ecb1aacc8407dce07d2da164') in 0.006751 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 14
-========================================================================
-Received Import Request.
-  Time since last request: 10.863817 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads/Road_Stopline_1.prefab
-  artifactKey: Guid(466ab9b3944e2a14f89c782c19e61658) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Roads/Road_Stopline_1.prefab using Guid(466ab9b3944e2a14f89c782c19e61658) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67f2a496d7e1b7dfa9f3aee8454934e4') in 0.009814 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 14
-========================================================================
-Received Import Request.
-  Time since last request: 154.562350 seconds.
-  path: Assets/Imported Assets/SimpleNaturePack
-  artifactKey: Guid(30341396a589664418cb8e33d2b6dc29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/SimpleNaturePack using Guid(30341396a589664418cb8e33d2b6dc29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f481c92a12412f5835d9d6ced1de1fc') in 0.002525 seconds
+  Time since last request: 3.362092 seconds.
+  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Scenes/Low Poly Simple Urban City 3D Asset Pack.unity
+  artifactKey: Guid(86e8f662bd10449459dc2c4fa27f8712) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Scenes/Low Poly Simple Urban City 3D Asset Pack.unity using Guid(86e8f662bd10449459dc2c4fa27f8712) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9629c717d8a8b22464dde7096e24909f') in 0.000553 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
 ========================================================================
 Received Import Request.
-  Time since last request: 2.982673 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Models
-  artifactKey: Guid(2ff670e02af6e144db96e6da6945b848) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Models using Guid(2ff670e02af6e144db96e6da6945b848) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '945d57a71348b5bf24a95820ff1efe7e') in 0.000514 seconds
+  Time since last request: 10.381656 seconds.
+  path: Assets/Scenes/Yongha.unity
+  artifactKey: Guid(479df79c702004411bc6b496d6a34fae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Yongha.unity using Guid(479df79c702004411bc6b496d6a34fae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '255d53abe11e4fcc55f03016c8ae455e') in 0.000602 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
 ========================================================================
 Received Import Request.
-  Time since last request: 6.531121 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Props/Road_Signs
-  artifactKey: Guid(2b48ea6b45bc72043a39da3d1f1bb29e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Props/Road_Signs using Guid(2b48ea6b45bc72043a39da3d1f1bb29e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '445778be8e120f0b2a995afe33889566') in 0.000787 seconds
+  Time since last request: 19.638019 seconds.
+  path: Assets/Imported Assets/Alstrainfinite/KitchenAppliances
+  artifactKey: Guid(8674e063b21574f85a6fd2cf25beb6bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/Alstrainfinite/KitchenAppliances using Guid(8674e063b21574f85a6fd2cf25beb6bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '03681fbac6f84ee73efe6e709aba13fa') in 0.000520 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
 ========================================================================
 Received Import Request.
-  Time since last request: 17.566110 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Vehicles
-  artifactKey: Guid(a36e33884fefdbf41bca44a52019684d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Vehicles using Guid(a36e33884fefdbf41bca44a52019684d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '42e8e3a651e66ca9529556468f548d0e') in 0.000480 seconds
+  Time since last request: 2.604142 seconds.
+  path: Assets/Imported Assets/SimpleNaturePack/Prefabs
+  artifactKey: Guid(245080b10b3a2d542a041d0b8f4fe0dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/SimpleNaturePack/Prefabs using Guid(245080b10b3a2d542a041d0b8f4fe0dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c9379c6368cd6e144ed952fa7bc8a7fe') in 0.000432 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 0
 ========================================================================
 Received Import Request.
-  Time since last request: 27.447674 seconds.
-  path: Assets/Imported Assets/SimplePoly City - Low Poly Assets
-  artifactKey: Guid(1302f01e2ca1140f7ae15299a8a2d199) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/SimplePoly City - Low Poly Assets using Guid(1302f01e2ca1140f7ae15299a8a2d199) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d9bc2f7c569cf304ef37d3689e415de') in 0.000998 seconds
+  Time since last request: 124.378316 seconds.
+  path: Assets/Imported Assets/SimpleNaturePack/Prefabs/Tree_03.prefab
+  artifactKey: Guid(c60edd51c065ceb46b345849a03bc106) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Imported Assets/SimpleNaturePack/Prefabs/Tree_03.prefab using Guid(c60edd51c065ceb46b345849a03bc106) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '373a97b65b7f869c6e70a1343829754d') in 0.078532 seconds
 Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 0
-========================================================================
-Received Import Request.
-  Time since last request: 3.212248 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Textures/tex.png
-  artifactKey: Guid(6ba3a5cce46238648bfa02d4356aaa1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Textures/tex.png using Guid(6ba3a5cce46238648bfa02d4356aaa1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e504efc11928994141546d370c7e0a70') in 0.029989 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 2
-========================================================================
-Received Import Request.
-  Time since last request: 475.571830 seconds.
-  path: Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Buildings/Building_3.prefab
-  artifactKey: Guid(7497d6b5522b3ef4c975da4d035b26ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Imported Assets/Low Poly Simple Urban City 3D Asset Pack/Prefabs/Buildings/Building_3.prefab using Guid(7497d6b5522b3ef4c975da4d035b26ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a04e287779f803a8a5959e72b2947d2f') in 0.023477 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 14
+Number of asset objects unloaded after import = 18
