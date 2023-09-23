@@ -1,10 +1,10 @@
 from django.http import HttpResponse, JsonResponse
-from mv_backend.api.load import get_body_from_request
 from mv_backend.settings import OPENAI_API_KEY
-import openai
+import json, openai
 
 def call(request):
-    body = get_body_from_request(request)
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
 
     openai.api_key = OPENAI_API_KEY
     openai_response = openai.ChatCompletion.create(

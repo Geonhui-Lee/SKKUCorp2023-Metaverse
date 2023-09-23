@@ -7,11 +7,6 @@ from mv_backend.api.function.hello_world import call as hello_world
 
 from mv_backend.api.function.gpt import call as gpt
 
-def get_body_from_request(request):
-    body_unicode = request.body.decode('utf-8')
-    body = json.loads(body_unicode)
-    return body
-
 def api_render(name, output):
     return path(
         'api/' + name + '/',
