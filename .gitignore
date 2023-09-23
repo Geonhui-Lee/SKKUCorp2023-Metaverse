@@ -1,4 +1,6 @@
-# bacakend (pycache)
+.env
+
+# backend (pycache)
 *.pyc
 */*.pyc
 */__pycache__/*
