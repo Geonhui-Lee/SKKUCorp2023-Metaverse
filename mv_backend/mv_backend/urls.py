@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from mv_backend.api.load import api_path
 
-urlpatterns = [
+urlpatterns = api_path() + [
     path('admin/', admin.site.urls),
 ]
