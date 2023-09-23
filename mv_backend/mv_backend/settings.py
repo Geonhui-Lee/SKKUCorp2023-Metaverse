@@ -31,11 +31,6 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = 'django-insecure-39fw-#d1oujr_+g+l_a7khjn60l-9na4hccu-*3!@po=g)0n90'
 
 OPENAI_API_KEY = env('OPENAI_API_KEY')
-SERPAPI_API_KEY = env('SERPAPI_API_KEY')
-DB_MYSQL_HOST = env('DB_MYSQL_HOST')
-DB_MYSQL_USER = env('DB_MYSQL_USER')
-DB_MYSQL_PASSWORD = env('DB_MYSQL_PASSWORD')
-DB_MYSQL_DATABASE = env('DB_MYSQL_DATABASE')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
