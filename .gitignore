@@ -1,3 +1,4 @@
-# pycache
+# bacakend (pycache)
 *.pyc
 */*.pyc
+*/__pycache__/*
