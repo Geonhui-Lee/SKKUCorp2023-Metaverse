@@ -16,7 +16,7 @@ public class OnInputText : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             StartCoroutine(UserTalk());
-            inputField.IsActive();
+            inputField.ActivateInputField();
         }
     }
 
