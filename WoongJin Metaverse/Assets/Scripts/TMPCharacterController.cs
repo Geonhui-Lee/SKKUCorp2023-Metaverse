@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TMPCharacterController: MonoBehaviour
@@ -8,7 +9,7 @@ public class TMPCharacterController: MonoBehaviour
     private Transform characterBody;
     [SerializeField]
     private Transform cameraArm;
-
+    public TMP_InputField inputField;
     Animator animator;
 
     void Start()
@@ -16,10 +17,17 @@ public class TMPCharacterController: MonoBehaviour
         animator = characterBody.GetComponent<Animator>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         LookAround();
-        Move();
+        if (!inputField.isFocused)
+        {
+            Move();
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     private void LookAround()
