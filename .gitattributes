@@ -1,0 +1,5 @@
+/Users/yongha/SKKUCorp2023_Metaverse/mv_frontend filter=lfs diff=lfs merge=lfs -text
+/Users/yongha/SKKUCorp2023_Metaverse/mv_frontend/WoongJin filter=lfs diff=lfs merge=lfs -text
+mv_frontend filter=lfs diff=lfs merge=lfs -text
+/Users/yongha/SKKUCorp2023_Metaverse/mv_frontend/WoongJin/Build/WoongJin.wasm filter=lfs diff=lfs merge=lfs -text
+/Users/yongha/SKKUCorp2023_Metaverse/mv_frontend/WoongJin/Build/WoongJin.wasm[[:space:]] filter=lfs diff=lfs merge=lfs -text
