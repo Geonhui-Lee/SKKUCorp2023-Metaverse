@@ -138,7 +138,7 @@ def call(request):
     cosine = np.dot(embedings, embedded_query)/(norm(embedings, axis=1)*norm(embedded_query))
     print(cosine)
 
-    chat_data_score = dict(zip(all_chat_data, cosine))
+    chat_data_score = dict(zip(all_chat_data_node, cosine))
     # retrieve to find 30 chat data with the generated query, embedding vetors, recency
     data_num = 0
     recency = 1
