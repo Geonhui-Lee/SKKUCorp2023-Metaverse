@@ -103,7 +103,8 @@ def call(request):
     # ___reflect code start___
     
     # reflect condition check
-    if important < 100:
+    # if important < 100:
+    if important < -1:
         score = 0
         event_script = body["messsages"][-1]["content"]
 
