@@ -139,12 +139,12 @@ def call(request):
     # retrieve to find 30 chat data with the generated query, embedding vetors, recency
     data_num = 0
     recency = 1
-    for chat_data in reversed(body["messages"]):
+    for chat_data in all_chat_data:
         data_num += 1
         if data_num > 100:
             break
         recency *= 0.995
-        score = int(important_score.run(event = chat_data["role"] + ": " + chat_data["content"], name = "assisstant"))
+        score = int(important_score.run(event = chat_data, name = "assisstant"))
         chat_data_score[chat_data] += 0.1*score + recency
     
     sorted_dict = sorted(chat_data_score.items(), key = lambda item: item[1], reverse = True)
