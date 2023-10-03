@@ -13,9 +13,7 @@ import numpy as np
 from numpy.linalg import norm
 from langchain.embeddings import OpenAIEmbeddings
 
-openai.api_key = OPENAI_API_KEY
-import os
-os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
+
 
 chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 # every prompts for this code
@@ -88,7 +86,7 @@ def call(request):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
 
-    
+    openai.api_key = OPENAI_API_KEY
     # openai_response = openai.ChatCompletion.create(
     #     model="gpt-3.5-turbo",
     #     messages=body["messages"]
