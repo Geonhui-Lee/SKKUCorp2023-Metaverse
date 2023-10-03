@@ -1,6 +1,8 @@
+# common
 .env
+*/gitignore/*
 
-# backend (pycache)
+# backend-specific
 *.pyc
 */*.pyc
 */__pycache__/*
