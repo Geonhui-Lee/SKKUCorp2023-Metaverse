@@ -128,7 +128,7 @@ public class OnInputText : MonoBehaviour
 
         MessagesData info = JsonUtility.FromJson<MessagesData>(json);
         Debug.Log(info);
-
+        NPCText.text = info.messages[-1].content;
     }
 
     //private new void SendMessage(string UserText)
