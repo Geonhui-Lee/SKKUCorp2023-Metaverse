@@ -1,13 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using OpenAI;
-using static System.Net.Mime.MediaTypeNames;
-using System.Linq;
 using System.Threading;
-using Unity.VisualScripting;
+
+public class MessageData {
+    public string role;
+    public string content;
+}
+
+public class MessagesData
+{
+    public List<MessageData> messages;
+}
+
+
 
 public class OnInputText : MonoBehaviour
 {
@@ -21,6 +32,7 @@ public class OnInputText : MonoBehaviour
     private OpenAIApi openai = new OpenAIApi();
     private CancellationTokenSource token = new CancellationTokenSource();
     private bool OnTrigger = false;
+    private string baseURL = "https://skkucorp2023.geonhui.com/";
 
     string prompt = "You *always* act like a villager. Talk as friendly as a friend, and talk as briefly as possible.";
 
@@ -71,7 +83,7 @@ public class OnInputText : MonoBehaviour
         {
             UserCanvas.SetActive(true);
             UserText.text = inputField.text;
-            SendMessage(inputField.text);
+            SendMessage(UserText.text);
             inputField.text = "";
             yield return new WaitForSeconds(2f);
             UserCanvas.SetActive(false);
@@ -81,39 +93,79 @@ public class OnInputText : MonoBehaviour
 
     private new void SendMessage(string UserText)
     {
+        MessageData systemMessage = new MessageData();
+        systemMessage.role = "system";
+        systemMessage.content = prompt;
 
-        var message = new List<ChatMessage>
-            {
-                new ChatMessage()
-                {
-                    Role = "system",
-                    Content = prompt
-                },
+        MessageData userMessage = new MessageData();
+        systemMessage.role = "user";
+        systemMessage.content = UserText;
 
-                new ChatMessage()
-                {
-                    Role = "user",
-                    Content = UserText
-                }
-            };
+        MessagesData inputMessages = new MessagesData();
+        List<MessageData> inputMessageList = new List<MessageData>();
+        inputMessageList.Add(systemMessage);
+        inputMessageList.Add(userMessage);
+        inputMessages.messages = inputMessageList;
 
-        openai.CreateChatCompletionAsync(new CreateChatCompletionRequest()
+        string str = JsonUtility.ToJson(inputMessages);
+        var bytes = System.Text.Encoding.UTF8.GetBytes(str);
+
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(baseURL);
+        request.Method = "POST";
+        request.ContentType = "application/json";
+        request.ContentLength = bytes.Length;
+
+        using(var stream = request.GetRequestStream())
         {
-            Model = "gpt-3.5-turbo-0301",
-            Messages = message,
-            Stream = true
-        }, HandleResponse, null, token);
+            stream.Write(bytes, 0, bytes.Length);
+            stream.Flush();
+            stream.Close();
+        }
+
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        StreamReader reader = new StreamReader(response.GetResponseStream());
+        string json = reader.ReadToEnd();
+
+        MessagesData info = JsonUtility.FromJson<MessagesData>(json);
+        Debug.Log(info);
+
     }
 
-    private void HandleResponse(List<CreateChatCompletionResponse> responses)
-    {
-        NPCText.text = string.Join("", responses.Select(r => r.Choices[0].Delta.Content));
-    }
+    //private new void SendMessage(string UserText)
+    //{
 
-    private void OnDestroy()
-    {
-        token.Cancel();
-    }
+    //    var message = new List<ChatMessage>
+    //        {
+    //            new ChatMessage()
+    //            {
+    //                Role = "system",
+    //                Content = prompt
+    //            },
+
+    //            new ChatMessage()
+    //            {
+    //                Role = "user",
+    //                Content = UserText
+    //            }
+    //        };
+
+    //    openai.CreateChatCompletionAsync(new CreateChatCompletionRequest()
+    //    {
+    //        Model = "gpt-3.5-turbo-0301",
+    //        Messages = message,
+    //        Stream = true
+    //    }, HandleResponse, null, token);
+    //}
+
+    //private void HandleResponse(List<CreateChatCompletionResponse> responses)
+    //{
+    //    NPCText.text = string.Join("", responses.Select(r => r.Choices[0].Delta.Content));
+    //}
+
+    //private void OnDestroy()
+    //{
+    //    token.Cancel();
+    //}
 
     IEnumerator Typing(string text)
     {
