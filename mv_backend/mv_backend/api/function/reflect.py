@@ -118,6 +118,7 @@ def call(request):
         important = 0
     
     all_chat_data = []
+    all_chat_data_node = []
     all_chat_data_string = ""
     # now reflect with 100 message data (we wil generate only one query)
     data_num = 0
@@ -125,6 +126,7 @@ def call(request):
         data_num += 1
         if data_num > 100:
             break
+        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["role"] + ": " + chat_data["content"])
         all_chat_data.append(chat_data["role"] + ": " + chat_data["content"])
         all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
     
@@ -146,7 +148,7 @@ def call(request):
             break
         recency *= 0.995
         score = int(important_score.run(event = chat_data, name = "assisstant"))
-        chat_data_score[chat_data] += 0.1*score + recency
+        chat_data_score["[" + str(data_num) + "]" + chat_data] += 0.1*score + recency
     
     sorted_dict = sorted(chat_data_score.items(), key = lambda item: item[1], reverse = True)
     print(sorted_dict)
@@ -158,7 +160,7 @@ def call(request):
         data_num += 1
         if data_num > 30:
             break
-        important_data_string += "[" + str(data_num) + "]" + chat_data[0] + "\n"
+        important_data_string += chat_data[0] + "\n"
     insights = generate_insights.run(name = "assisstant's 5", event = important_data_string)
 
     # json output
