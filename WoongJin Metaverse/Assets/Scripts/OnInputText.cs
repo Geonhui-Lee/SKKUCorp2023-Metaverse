@@ -126,14 +126,16 @@ public class OnInputText : MonoBehaviour
             stream.Flush();
             stream.Close();
         }
-
+        Debug.Log("Complete Requsest");
         HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        Debug.Log(response);
         StreamReader reader = new StreamReader(response.GetResponseStream());
         string json = reader.ReadToEnd();
-
+        Debug.Log(json);
         MessagesData info = JsonUtility.FromJson<MessagesData>(json);
         Debug.Log(info);
         NPCText.text = info.messages[info.messages.Count-1].content;
+        Debug.Log("Complete Response");
     }
 
     //private new void SendMessage(string UserText)
