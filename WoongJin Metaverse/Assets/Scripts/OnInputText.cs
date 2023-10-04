@@ -8,11 +8,13 @@ using TMPro;
 using OpenAI;
 using System.Threading;
 
+[System.Serializable]
 public class MessageData {
     public string role;
     public string content;
 }
 
+[System.Serializable]
 public class MessagesData
 {
     public List<MessageData> messages;
@@ -98,16 +100,19 @@ public class OnInputText : MonoBehaviour
         systemMessage.content = prompt;
 
         MessageData userMessage = new MessageData();
-        systemMessage.role = "user";
-        systemMessage.content = UserText;
+        userMessage.role = "user";
+        userMessage.content = UserText;
 
         MessagesData inputMessages = new MessagesData();
-        List<MessageData> inputMessageList = new List<MessageData>();
-        inputMessageList.Add(systemMessage);
-        inputMessageList.Add(userMessage);
+        List<MessageData> inputMessageList = new List<MessageData>
+        {
+            systemMessage,
+            userMessage
+        };
         inputMessages.messages = inputMessageList;
 
         string str = JsonUtility.ToJson(inputMessages);
+        Debug.Log(str);
         var bytes = System.Text.Encoding.UTF8.GetBytes(str);
 
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create(baseURL);
@@ -128,7 +133,7 @@ public class OnInputText : MonoBehaviour
 
         MessagesData info = JsonUtility.FromJson<MessagesData>(json);
         Debug.Log(info);
-        NPCText.text = info.messages[-1].content;
+        NPCText.text = info.messages[info.messages.Count-1].content;
     }
 
     //private new void SendMessage(string UserText)

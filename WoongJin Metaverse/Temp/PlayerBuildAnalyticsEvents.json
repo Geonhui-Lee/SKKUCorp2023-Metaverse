@@ -3,7 +3,7 @@
     {
       "type": "il2cppData",
       "msg": {
-        "build_event_id": "190cbbec8d6484f15926207eda284fdf",
+        "build_event_id": "a9d79c37394194140979f8e9200438ef",
         "node_executed": true,
         "attribute_total_count_eager_static_constructor": 9,
         "attribute_total_count_set_option": 0,
@@ -42,64 +42,16 @@
     {
       "type": "playerBuildTimingData",
       "msg": {
-        "build_event_id": "190cbbec8d6484f15926207eda284fdf",
-        "build_player": 206136,
-        "preprocess_player": 246,
-        "produce_player_script_assemblies": 11519,
-        "build_scripts_dlls": 15,
-        "postprocess_built_player": 193650,
+        "build_event_id": "a9d79c37394194140979f8e9200438ef",
+        "build_player": 98787,
+        "preprocess_player": 40,
+        "produce_player_script_assemblies": 718,
+        "build_scripts_dlls": 10,
+        "postprocess_built_player": 97486,
         "node_summary_table": [
           {
-            "name": "Csc",
-            "duration": 5013
-          },
-          {
-            "name": "Csc",
-            "duration": 1033
-          },
-          {
-            "name": "Csc",
-            "duration": 5013
-          },
-          {
-            "name": "Csc",
-            "duration": 1818
-          },
-          {
-            "name": "Csc",
-            "duration": 662
-          },
-          {
-            "name": "Csc",
-            "duration": 436
-          },
-          {
-            "name": "Csc",
-            "duration": 184
-          },
-          {
-            "name": "Csc",
-            "duration": 171
-          },
-          {
-            "name": "Csc",
-            "duration": 1012
-          },
-          {
-            "name": "Csc",
-            "duration": 1389
-          },
-          {
-            "name": "Csc",
-            "duration": 662
-          },
-          {
-            "name": "UnityLinker.exe",
-            "duration": 4024
-          },
-          {
             "name": "il2cpp.exe",
-            "duration": 8590
+            "duration": 7351
           }
         ]
       },
@@ -108,8 +60,8 @@
     {
       "type": "unityLinkerData",
       "msg": {
-        "build_event_id": "190cbbec8d6484f15926207eda284fdf",
-        "node_executed": true,
+        "build_event_id": "a9d79c37394194140979f8e9200438ef",
+        "node_executed": false,
         "attribute_marked_count_always_link_assembly": 0,
         "attribute_swept_count_always_link_assembly": 1,
         "attribute_total_count_always_link_assembly": 1,
