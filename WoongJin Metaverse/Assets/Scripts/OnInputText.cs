@@ -34,7 +34,7 @@ public class OnInputText : MonoBehaviour
     public TextMeshProUGUI NPCText;
 
     private bool OnTrigger = false;
-    private string baseURL = "http://127.0.0.1:8000/";
+    private string baseURL = "http://127.0.0.1:8000/api/gpt";
 
     string prompt = "You *always* act like a villager. Talk as friendly as a friend, and talk as briefly as possible.";
 
