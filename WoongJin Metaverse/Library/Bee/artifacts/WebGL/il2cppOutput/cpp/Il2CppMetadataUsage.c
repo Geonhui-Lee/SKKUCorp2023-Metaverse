@@ -15323,6 +15323,7 @@ RuntimeMethod* Oid_FromOidValue_m44CB94625A6CFB2780CA8E50CF845801A1A6E18C_Runtim
 RuntimeMethod* OidCollection_System_Collections_ICollection_CopyTo_m4EF1FB9A18E822BA196BF3F0204B7C06178B9CFC_RuntimeMethod_var = (RuntimeMethod*)(uintptr_t)1610678187;
 RuntimeMethod* OidLookup_ToFriendlyName_m701DBD29D72B7D43C2513E29E8433B1E12C3A0AF_RuntimeMethod_var = (RuntimeMethod*)(uintptr_t)1610676701;
 RuntimeMethod* OidLookup_ToOid_m084AE2948BA1D784EAC148B97B6D5EF94F0D58B0_RuntimeMethod_var = (RuntimeMethod*)(uintptr_t)1610676703;
+RuntimeMethod* OnInputText_SendMessage_m298F3942705419BC8FED5DD58B23DA21E0FB35C5_RuntimeMethod_var = (RuntimeMethod*)(uintptr_t)1610720167;
 RuntimeMethod* OnScreenControl_SendValueToControl_TisSingle_t4530F2FF86FCB0DC29F35385CA1BD21BE294761C_mDB2DC79F1724A6E638E35C2AFB3CC7E6B5951745_RuntimeMethod_var = (RuntimeMethod*)(uintptr_t)3221328429;
 RuntimeMethod* OnScreenControl_SendValueToControl_TisVector2_t1FD6F485C871E832B347AB2DC8CBA08B739D8DF7_m671D355740E4BC40EBDDECE5204680E0E605C664_RuntimeMethod_var = (RuntimeMethod*)(uintptr_t)3221328431;
 RuntimeMethod* OnScreenStick_OnDrag_mD897BCAED2A45E2F7C7A803B775E5D9CDA6220C7_RuntimeMethod_var = (RuntimeMethod*)(uintptr_t)1610658493;
@@ -21972,7 +21973,7 @@ String_t* _stringLiteral480D2996F0237C983BBBCC925098492AFCFE152D = (String_t*)(u
 String_t* _stringLiteralD630737C40293214B7C477A7997282202DB9EF40 = (String_t*)(uintptr_t)2684359277;
 String_t* _stringLiteral7C6F54E4A80662E73F59D5DA5C880976EE98BB60 = (String_t*)(uintptr_t)2684359279;
 String_t* _stringLiteralCC3D91506BA6CACBADB94459BC4247D0A1F068CB = (String_t*)(uintptr_t)2684359281;
-String_t* _stringLiteral10954F0BD5A699A9D94FE4C516E70C60CE4D9C25 = (String_t*)(uintptr_t)2684359283;
+String_t* _stringLiteral71B1B46BB7A653E1C26AD4D31545DD8FB245F9BF = (String_t*)(uintptr_t)2684359283;
 String_t* _stringLiteral1B2BBE408A8C2C765A9C4ADF7AB83268FBD3FAA6 = (String_t*)(uintptr_t)2684359285;
 String_t* _stringLiteral90D0CC381023FE0D37214E31FE6FB734DDD49BFC = (String_t*)(uintptr_t)2684359287;
 String_t* _stringLiteralF75DC67588823AE0C08DE330F5761B48B6A018B2 = (String_t*)(uintptr_t)2684359289;

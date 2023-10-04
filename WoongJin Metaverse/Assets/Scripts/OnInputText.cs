@@ -130,7 +130,7 @@ public class OnInputText : MonoBehaviour
                 stream.Flush();
                 stream.Close();
             }
-            Debug.Log("Complete Requsest");
+            Debug.Log("Complete Request");
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             Debug.Log(response);
             StreamReader reader = new StreamReader(response.GetResponseStream());
@@ -144,7 +144,7 @@ public class OnInputText : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log(e);
-            throw;
+            throw e;
         }
     }
 
