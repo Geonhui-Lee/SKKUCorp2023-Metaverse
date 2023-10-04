@@ -16595,7 +16595,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool XmlDocument_AddIdInfo_mF6E5BE7379C76DA2C
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_1 = __this->___htElementIDAttrDecl;
 		XmlName_t0704430D24D202146901D342E34D878246E14F33* L_2 = ___0_eleName;
 		RuntimeObject* L_3;
-		L_3 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_1, L_2);
+		L_3 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_1, L_2);
 		if (L_3)
 		{
 			goto IL_0038;
@@ -16662,7 +16662,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR XmlName_t0704430D24D202146901D342E34D878246E1
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_7 = __this->___htElementIDAttrDecl;
 		XmlName_t0704430D24D202146901D342E34D878246E14F33* L_8 = V_0;
 		RuntimeObject* L_9;
-		L_9 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_7, L_8);
+		L_9 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_7, L_8);
 		return ((XmlName_t0704430D24D202146901D342E34D878246E14F33*)CastclassClass((RuntimeObject*)L_9, XmlName_t0704430D24D202146901D342E34D878246E14F33_il2cpp_TypeInfo_var));
 	}
 
@@ -16959,7 +16959,7 @@ IL_004a:
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_14 = __this->___htElementIdMap;
 		String_t* L_15 = ___0_id;
 		RuntimeObject* L_16;
-		L_16 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_14, L_15);
+		L_16 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_14, L_15);
 		V_1 = ((ArrayList_t7A8E5AF0C4378015B5731ABE2BED8F2782FEEF8A*)CastclassClass((RuntimeObject*)L_16, ArrayList_t7A8E5AF0C4378015B5731ABE2BED8F2782FEEF8A_il2cpp_TypeInfo_var));
 		ArrayList_t7A8E5AF0C4378015B5731ABE2BED8F2782FEEF8A* L_17 = V_1;
 		XmlElement_t9A08B533E9A6B3548A1DE35476186F7ECCDF6FF1* L_18 = ___1_elem;
@@ -17015,7 +17015,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void XmlDocument_RemoveElementWithId_mD930DEA
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_4 = __this->___htElementIdMap;
 		String_t* L_5 = ___0_id;
 		RuntimeObject* L_6;
-		L_6 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_4, L_5);
+		L_6 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_4, L_5);
 		V_0 = ((ArrayList_t7A8E5AF0C4378015B5731ABE2BED8F2782FEEF8A*)CastclassClass((RuntimeObject*)L_6, ArrayList_t7A8E5AF0C4378015B5731ABE2BED8F2782FEEF8A_il2cpp_TypeInfo_var));
 		ArrayList_t7A8E5AF0C4378015B5731ABE2BED8F2782FEEF8A* L_7 = V_0;
 		XmlElement_t9A08B533E9A6B3548A1DE35476186F7ECCDF6FF1* L_8 = ___1_elem;
@@ -17043,7 +17043,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void XmlDocument_RemoveElementWithId_mD930DEA
 	{
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_15 = __this->___htElementIdMap;
 		String_t* L_16 = ___0_id;
-		VirtualActionInvoker1< RuntimeObject* >::Invoke(36, L_15, L_16);
+		VirtualActionInvoker1< RuntimeObject* >::Invoke(37, L_15, L_16);
 	}
 
 IL_004f:

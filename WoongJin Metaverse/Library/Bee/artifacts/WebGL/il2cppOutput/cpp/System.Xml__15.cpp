@@ -20591,7 +20591,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void XsdBuilder_StartChildren_mFFB54ACD171F51
 	{
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_2 = __this->___namespaces;
 		int32_t L_3;
-		L_3 = VirtualFuncInvoker0< int32_t >::Invoke(38, L_2);
+		L_3 = VirtualFuncInvoker0< int32_t >::Invoke(39, L_2);
 		if ((((int32_t)L_3) <= ((int32_t)0)))
 		{
 			goto IL_003b;
