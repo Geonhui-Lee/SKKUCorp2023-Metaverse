@@ -143,7 +143,9 @@ public class OnInputText : MonoBehaviour
             }
             else
             {
-                Debug.Log(request.downloadHandler.text);
+                MessagesData messagesData = JsonUtility.FromJson<MessagesData>(request.downloadHandler.text);
+                Debug.Log(messagesData);
+                NPCText.text = messagesData.messages[messagesData.messages.Count - 1].content;
             }
 
         }
