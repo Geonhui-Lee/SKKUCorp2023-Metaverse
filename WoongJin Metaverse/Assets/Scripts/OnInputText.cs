@@ -33,8 +33,6 @@ public class OnInputText : MonoBehaviour
     public TextMeshProUGUI UserText;
     public TextMeshProUGUI NPCText;
 
-    private OpenAIApi openai = new OpenAIApi();
-    private CancellationTokenSource token = new CancellationTokenSource();
     private bool OnTrigger = false;
     private string baseURL = "https://skkucorp2023.geonhui.com/";
 
@@ -87,7 +85,7 @@ public class OnInputText : MonoBehaviour
         {
             UserCanvas.SetActive(true);
             UserText.text = inputField.text;
-            SendMessage(UserText.text);
+            StartCoroutine(SendMessage(UserText.text));
             inputField.text = "";
             yield return new WaitForSeconds(2f);
             UserCanvas.SetActive(false);
@@ -95,8 +93,13 @@ public class OnInputText : MonoBehaviour
         
     }
 
-    private new void SendMessage(string UserText)
+    private new IEnumerator SendMessage(string UserText)
     {
+        ServicePointManager.ServerCertificateValidationCallback = delegate
+        {
+            return true;
+        };
+
         MessageData systemMessage = new MessageData();
         systemMessage.role = "system";
         systemMessage.content = prompt;
@@ -117,35 +120,48 @@ public class OnInputText : MonoBehaviour
         Debug.Log(str);
         var bytes = System.Text.Encoding.UTF8.GetBytes(str);
 
-        try
+
+        //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(baseURL);
+        //Debug.Log(request);
+        //request.Method = "POST";
+        //request.ContentType = "application/json";
+        //request.ContentLength = bytes.Length;
+        //using (var stream = request.GetRequestStream())
+        //{
+        //    Debug.Log(stream);
+        //    stream.Write(bytes, 0, bytes.Length);
+        //    stream.Flush();
+        //    stream.Close();
+        //}
+
+        WWWForm form = new WWWForm();
+
+
+        UnityWebRequest unityWebRequest = UnityWebRequest.Get(baseURL);
+        Debug.Log("Complete Request");
+
+        yield return unityWebRequest.SendWebRequest();
+
+        if(unityWebRequest.error == null)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(baseURL);
-            Debug.Log(request);
-            request.Method = "POST";
-            request.ContentType = "application/json";
-            request.ContentLength = bytes.Length;
-            using (var stream = request.GetRequestStream())
-            {
-                stream.Write(bytes, 0, bytes.Length);
-                stream.Flush();
-                stream.Close();
-            }
-            Debug.Log("Complete Request");
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Debug.Log(response);
-            StreamReader reader = new StreamReader(response.GetResponseStream());
-            string json = reader.ReadToEnd();
-            Debug.Log(json);
-            MessagesData info = JsonUtility.FromJson<MessagesData>(json);
-            Debug.Log(info);
-            NPCText.text = info.messages[info.messages.Count - 1].content;
+            Debug.Log(unityWebRequest.downloadHandler.text);
+            //Debug.Log(response);
+            //StreamReader reader = new StreamReader(response.GetResponseStream());
+            //string json = reader.ReadToEnd();
+            //Debug.Log(json);
+            //MessagesData info = JsonUtility.FromJson<MessagesData>(json);
+            //Debug.Log(info);
+            //NPCText.text = info.messages[info.messages.Count - 1].content;
             Debug.Log("Complete Response");
         }
-        catch (Exception e)
+
+        else
         {
-            Debug.Log(e);
-            throw e;
+            Debug.Log("error");
+            Debug.Log(unityWebRequest.error);
         }
+            
+        
     }
 
     //private new void SendMessage(string UserText)

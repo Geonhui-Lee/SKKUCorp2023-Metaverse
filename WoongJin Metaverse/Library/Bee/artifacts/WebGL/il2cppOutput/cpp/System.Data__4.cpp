@@ -8007,7 +8007,7 @@ IL_0132:
 		PropertyCollection_t531D3CA9714C3D7818C1B1C139A9C4F04B73EE7C* L_86;
 		L_86 = Constraint_get_ExtendedProperties_mCC2213ACF5F8572949C34BAC2BBCC730C7938F22(__this, NULL);
 		RuntimeObject* L_87;
-		L_87 = VirtualFuncInvoker0< RuntimeObject* >::Invoke(35, L_86);
+		L_87 = VirtualFuncInvoker0< RuntimeObject* >::Invoke(34, L_86);
 		RuntimeObject* L_88;
 		L_88 = InterfaceFuncInvoker0< RuntimeObject* >::Invoke(0, IEnumerable_t6331596D5DD37C462B1B8D49CF6B319B00AB7131_il2cpp_TypeInfo_var, L_87);
 		V_9 = L_88;
@@ -8058,8 +8058,8 @@ IL_0183_1:
 				L_97 = Constraint_get_ExtendedProperties_mCC2213ACF5F8572949C34BAC2BBCC730C7938F22(__this, NULL);
 				RuntimeObject* L_98 = V_10;
 				RuntimeObject* L_99;
-				L_99 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_97, L_98);
-				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_95, L_96, L_99);
+				L_99 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_97, L_98);
+				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_95, L_96, L_99);
 			}
 
 IL_01a7_1:
@@ -8237,7 +8237,7 @@ IL_008c:
 		PropertyCollection_t531D3CA9714C3D7818C1B1C139A9C4F04B73EE7C* L_50;
 		L_50 = Constraint_get_ExtendedProperties_mCC2213ACF5F8572949C34BAC2BBCC730C7938F22(__this, NULL);
 		RuntimeObject* L_51;
-		L_51 = VirtualFuncInvoker0< RuntimeObject* >::Invoke(35, L_50);
+		L_51 = VirtualFuncInvoker0< RuntimeObject* >::Invoke(34, L_50);
 		RuntimeObject* L_52;
 		L_52 = InterfaceFuncInvoker0< RuntimeObject* >::Invoke(0, IEnumerable_t6331596D5DD37C462B1B8D49CF6B319B00AB7131_il2cpp_TypeInfo_var, L_51);
 		V_7 = L_52;
@@ -8288,8 +8288,8 @@ IL_00db_1:
 				L_61 = Constraint_get_ExtendedProperties_mCC2213ACF5F8572949C34BAC2BBCC730C7938F22(__this, NULL);
 				RuntimeObject* L_62 = V_8;
 				RuntimeObject* L_63;
-				L_63 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_61, L_62);
-				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_59, L_60, L_63);
+				L_63 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_61, L_62);
+				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_59, L_60, L_63);
 			}
 
 IL_00ff_1:
@@ -11366,7 +11366,7 @@ IL_000a:
 	{
 		PropertyCollection_t531D3CA9714C3D7818C1B1C139A9C4F04B73EE7C* L_1 = ___0_src;
 		RuntimeObject* L_2;
-		L_2 = VirtualFuncInvoker0< RuntimeObject* >::Invoke(30, L_1);
+		L_2 = VirtualFuncInvoker0< RuntimeObject* >::Invoke(29, L_1);
 		V_0 = L_2;
 		goto IL_003b;
 	}
@@ -11385,7 +11385,7 @@ IL_0013:
 		RuntimeObject* L_6;
 		L_6 = InterfaceFuncInvoker0< RuntimeObject* >::Invoke(0, IDictionaryEnumerator_tE129D608FCDB7207E0F0ECE33473CC950A83AD16_il2cpp_TypeInfo_var, L_5);
 		RuntimeObject* L_7;
-		L_7 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_4, L_6);
+		L_7 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_4, L_6);
 		if (L_7)
 		{
 			goto IL_003b;
@@ -11401,7 +11401,7 @@ IL_0029:
 		RuntimeObject* L_11 = V_0;
 		RuntimeObject* L_12;
 		L_12 = InterfaceFuncInvoker0< RuntimeObject* >::Invoke(1, IDictionaryEnumerator_tE129D608FCDB7207E0F0ECE33473CC950A83AD16_il2cpp_TypeInfo_var, L_11);
-		VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_8, L_10, L_12);
+		VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_8, L_10, L_12);
 	}
 
 IL_003b:
@@ -11691,7 +11691,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject* PropertyCollection_Clone_m4C66
 		PropertyCollection__ctor_m1E6CA6F6C025ADE9F3C5AB0D7DC88040EBF13EE5(L_0, NULL);
 		V_0 = L_0;
 		RuntimeObject* L_1;
-		L_1 = VirtualFuncInvoker0< RuntimeObject* >::Invoke(30, __this);
+		L_1 = VirtualFuncInvoker0< RuntimeObject* >::Invoke(29, __this);
 		V_1 = L_1;
 	}
 	{
@@ -18141,7 +18141,7 @@ IL_00a3:
 		String_t* L_23;
 		L_23 = SimpleType_get_Namespace_mCF13A7A26F291B9582CCF155C48F60B552ABAAE8_inline(L_22, NULL);
 		RuntimeObject* L_24;
-		L_24 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_21, L_23);
+		L_24 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_21, L_23);
 		G_B11_0 = ((String_t*)CastclassSealed((RuntimeObject*)L_24, String_t_il2cpp_TypeInfo_var));
 	}
 
@@ -19300,7 +19300,7 @@ IL_00a1:
 		PropertyCollection_t531D3CA9714C3D7818C1B1C139A9C4F04B73EE7C* L_43;
 		L_43 = Constraint_get_ExtendedProperties_mCC2213ACF5F8572949C34BAC2BBCC730C7938F22(__this, NULL);
 		RuntimeObject* L_44;
-		L_44 = VirtualFuncInvoker0< RuntimeObject* >::Invoke(35, L_43);
+		L_44 = VirtualFuncInvoker0< RuntimeObject* >::Invoke(34, L_43);
 		RuntimeObject* L_45;
 		L_45 = InterfaceFuncInvoker0< RuntimeObject* >::Invoke(0, IEnumerable_t6331596D5DD37C462B1B8D49CF6B319B00AB7131_il2cpp_TypeInfo_var, L_44);
 		V_7 = L_45;
@@ -19351,8 +19351,8 @@ IL_00c8_1:
 				L_54 = Constraint_get_ExtendedProperties_mCC2213ACF5F8572949C34BAC2BBCC730C7938F22(__this, NULL);
 				RuntimeObject* L_55 = V_8;
 				RuntimeObject* L_56;
-				L_56 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_54, L_55);
-				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_52, L_53, L_56);
+				L_56 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_54, L_55);
+				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_52, L_53, L_56);
 			}
 
 IL_00ec_1:
@@ -19475,7 +19475,7 @@ IL_004d:
 		PropertyCollection_t531D3CA9714C3D7818C1B1C139A9C4F04B73EE7C* L_25;
 		L_25 = Constraint_get_ExtendedProperties_mCC2213ACF5F8572949C34BAC2BBCC730C7938F22(__this, NULL);
 		RuntimeObject* L_26;
-		L_26 = VirtualFuncInvoker0< RuntimeObject* >::Invoke(35, L_25);
+		L_26 = VirtualFuncInvoker0< RuntimeObject* >::Invoke(34, L_25);
 		RuntimeObject* L_27;
 		L_27 = InterfaceFuncInvoker0< RuntimeObject* >::Invoke(0, IEnumerable_t6331596D5DD37C462B1B8D49CF6B319B00AB7131_il2cpp_TypeInfo_var, L_26);
 		V_6 = L_27;
@@ -19526,8 +19526,8 @@ IL_0072_1:
 				L_36 = Constraint_get_ExtendedProperties_mCC2213ACF5F8572949C34BAC2BBCC730C7938F22(__this, NULL);
 				RuntimeObject* L_37 = V_7;
 				RuntimeObject* L_38;
-				L_38 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_36, L_37);
-				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_34, L_35, L_38);
+				L_38 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_36, L_37);
+				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_34, L_35, L_38);
 			}
 
 IL_0095_1:
@@ -22986,7 +22986,7 @@ IL_0073:
 		L_19 = DataTable_get_RowDiffId_m9F48B8D721979F8A3258D7243705C3675D753B55(L_18, NULL);
 		String_t* L_20 = V_5;
 		RuntimeObject* L_21;
-		L_21 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_19, L_20);
+		L_21 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_19, L_20);
 		V_1 = ((DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388*)CastclassClass((RuntimeObject*)L_21, DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388_il2cpp_TypeInfo_var));
 		DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388* L_22 = V_1;
 		if (!L_22)
@@ -23043,7 +23043,7 @@ IL_009f:
 		L_46 = DataTable_get_RowDiffId_m9F48B8D721979F8A3258D7243705C3675D753B55(L_45, NULL);
 		String_t* L_47 = V_5;
 		DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388* L_48 = V_1;
-		VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_46, L_47, L_48);
+		VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_46, L_47, L_48);
 	}
 
 IL_00e6:
@@ -23141,7 +23141,7 @@ IL_0071:
 		L_18 = DataTable_get_RowDiffId_m9F48B8D721979F8A3258D7243705C3675D753B55(L_17, NULL);
 		String_t* L_19 = V_5;
 		RuntimeObject* L_20;
-		L_20 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_18, L_19);
+		L_20 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_18, L_19);
 		V_1 = ((DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388*)CastclassClass((RuntimeObject*)L_20, DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388_il2cpp_TypeInfo_var));
 		DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388* L_21 = V_1;
 		if (!L_21)
@@ -23198,7 +23198,7 @@ IL_009d:
 		L_45 = DataTable_get_RowDiffId_m9F48B8D721979F8A3258D7243705C3675D753B55(L_44, NULL);
 		String_t* L_46 = V_5;
 		DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388* L_47 = V_1;
-		VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_45, L_46, L_47);
+		VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_45, L_46, L_47);
 	}
 
 IL_00e4:
@@ -23287,7 +23287,7 @@ IL_0039:
 		L_17 = DataTable_get_RowDiffId_m9F48B8D721979F8A3258D7243705C3675D753B55(L_16, NULL);
 		String_t* L_18 = V_2;
 		RuntimeObject* L_19;
-		L_19 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_17, L_18);
+		L_19 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_17, L_18);
 		V_3 = ((DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388*)CastclassClass((RuntimeObject*)L_19, DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388_il2cpp_TypeInfo_var));
 		XmlReader_t4C709DEF5F01606ECB60B638F1BD6F6E0A9116FD* L_20 = ___1_ssync;
 		String_t* L_21;
@@ -23488,7 +23488,7 @@ IL_0034:
 		L_15 = DataTable_get_RowDiffId_m9F48B8D721979F8A3258D7243705C3675D753B55(L_14, NULL);
 		String_t* L_16 = V_2;
 		RuntimeObject* L_17;
-		L_17 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_15, L_16);
+		L_17 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_15, L_16);
 		V_3 = ((DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388*)CastclassClass((RuntimeObject*)L_17, DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388_il2cpp_TypeInfo_var));
 		DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388* L_18 = V_3;
 		if (L_18)
@@ -23511,7 +23511,7 @@ IL_005f:
 		L_22 = DataTable_get_RowDiffId_m9F48B8D721979F8A3258D7243705C3675D753B55(((DataTable_t9240A0D6726299C55832BF4EE085C864A1CCBB07*)CastclassClass((RuntimeObject*)L_21, DataTable_t9240A0D6726299C55832BF4EE085C864A1CCBB07_il2cpp_TypeInfo_var)), NULL);
 		String_t* L_23 = V_2;
 		RuntimeObject* L_24;
-		L_24 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_22, L_23);
+		L_24 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_22, L_23);
 		V_3 = ((DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388*)CastclassClass((RuntimeObject*)L_24, DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388_il2cpp_TypeInfo_var));
 		DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388* L_25 = V_3;
 		if (!L_25)
@@ -25312,7 +25312,7 @@ IL_0044_1:
 				XmlQualifiedName_t2794880B373257E4108CC3F36D7373A343ACC5B9* L_25;
 				L_25 = XmlSchemaElement_get_QualifiedName_mA0B8CE3553D41B130F5ADFBD0813EA309148A2D5_inline(L_24, NULL);
 				XmlSchemaElement_t24D5940E4EB4E5FFDAD1772AFBD7A83CD992C970* L_26 = V_2;
-				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_23, L_25, L_26);
+				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_23, L_25, L_26);
 			}
 
 IL_0072_1:
@@ -25331,7 +25331,7 @@ IL_0072_1:
 				XmlQualifiedName_t2794880B373257E4108CC3F36D7373A343ACC5B9* L_31;
 				L_31 = XmlSchemaAttribute_get_QualifiedName_m1648C90EFB070F8C22421D7D9CE227847DDDFB86_inline(L_30, NULL);
 				XmlSchemaAttribute_t04AF3100B886867E3F0495E22F44305EDEC5550F* L_32 = V_3;
-				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_29, L_31, L_32);
+				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_29, L_31, L_32);
 			}
 
 IL_0093_1:
@@ -25350,7 +25350,7 @@ IL_0093_1:
 				XmlQualifiedName_t2794880B373257E4108CC3F36D7373A343ACC5B9* L_37;
 				L_37 = XmlSchemaAttributeGroup_get_QualifiedName_m4008432A607D33D2439498137F49361C2522F7C8_inline(L_36, NULL);
 				XmlSchemaAttributeGroup_t471125891B9EDFD58104133A426AC82A1E8D8B66* L_38 = V_4;
-				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_35, L_37, L_38);
+				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_35, L_37, L_38);
 			}
 
 IL_00b7_1:
@@ -25384,7 +25384,7 @@ IL_00db_1:
 				XmlQualifiedName_t2794880B373257E4108CC3F36D7373A343ACC5B9* L_46;
 				L_46 = XmlSchemaType_get_QualifiedName_m4DFF2E93FF1C517E0B80685D7F50C26D1F1DB184(L_45, NULL);
 				XmlSchemaType_t36630F421D730DDFA33CBA5BA6548094ABF40DDF* L_47 = V_5;
-				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_44, L_46, L_47);
+				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_44, L_46, L_47);
 				RuntimeObject* L_48 = V_1;
 				V_6 = ((XmlSchemaSimpleType_tA52BBE2D61DAD61BD3FCDF40E1CD9F41388F7FA8*)IsInstClass((RuntimeObject*)L_48, XmlSchemaSimpleType_tA52BBE2D61DAD61BD3FCDF40E1CD9F41388F7FA8_il2cpp_TypeInfo_var));
 				XmlSchemaSimpleType_tA52BBE2D61DAD61BD3FCDF40E1CD9F41388F7FA8* L_49 = V_6;
@@ -25416,7 +25416,7 @@ IL_0119_1:
 				String_t* L_55;
 				L_55 = VirtualFuncInvoker0< String_t* >::Invoke(3, L_54);
 				XmlSchemaSimpleType_tA52BBE2D61DAD61BD3FCDF40E1CD9F41388F7FA8* L_56 = V_6;
-				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_52, L_55, L_56);
+				VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_52, L_55, L_56);
 				Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_57 = __this->____existingSimpleTypeMap;
 				XmlSchemaType_t36630F421D730DDFA33CBA5BA6548094ABF40DDF* L_58 = V_5;
 				XmlQualifiedName_t2794880B373257E4108CC3F36D7373A343ACC5B9* L_59;
@@ -25424,7 +25424,7 @@ IL_0119_1:
 				String_t* L_60;
 				L_60 = VirtualFuncInvoker0< String_t* >::Invoke(3, L_59);
 				RuntimeObject* L_61;
-				L_61 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_57, L_60);
+				L_61 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_57, L_60);
 				V_7 = ((DataColumn_t07796C0DD83AD590E7C821E08FE04A38FE8B1A66*)CastclassClass((RuntimeObject*)L_61, DataColumn_t07796C0DD83AD590E7C821E08FE04A38FE8B1A66_il2cpp_TypeInfo_var));
 				DataColumn_t07796C0DD83AD590E7C821E08FE04A38FE8B1A66* L_62 = V_7;
 				if (L_62)
@@ -26189,7 +26189,7 @@ IL_004d:
 		XmlAttribute_t4B6CC461196FBF5CC9F777E74CC82C98E0CA9D18* L_22 = (L_19)->GetAtUnchecked(static_cast<il2cpp_array_size_t>(L_21));
 		String_t* L_23;
 		L_23 = VirtualFuncInvoker0< String_t* >::Invoke(7, L_22);
-		VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_17, L_18, L_23);
+		VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_17, L_18, L_23);
 		ArrayList_t7A8E5AF0C4378015B5731ABE2BED8F2782FEEF8A* L_24 = __this->____columnExpressions;
 		DataColumn_t07796C0DD83AD590E7C821E08FE04A38FE8B1A66* L_25 = V_0;
 		int32_t L_26;
@@ -28157,7 +28157,7 @@ IL_018b_2:
 						String_t* L_75;
 						L_75 = SimpleType_get_SimpleTypeQualifiedName_mD8F12962B6B1F2F5A87FBA708C489060570CE13C(L_74, NULL);
 						DataColumn_t07796C0DD83AD590E7C821E08FE04A38FE8B1A66* L_76 = V_9;
-						VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_72, L_75, L_76);
+						VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_72, L_75, L_76);
 					}
 
 IL_01dc_2:
@@ -28747,7 +28747,7 @@ IL_04b0:
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_191 = __this->____expressions;
 		DataColumn_t07796C0DD83AD590E7C821E08FE04A38FE8B1A66* L_192 = V_21;
 		RuntimeObject* L_193;
-		L_193 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_191, L_192);
+		L_193 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_191, L_192);
 		DataColumn_set_Expression_mBB8609092C104AB46DACC3C33E0DE69D15DEFCDE(L_190, ((String_t*)CastclassSealed((RuntimeObject*)L_193, String_t_il2cpp_TypeInfo_var)), NULL);
 		int32_t L_194 = V_20;
 		V_20 = ((int32_t)il2cpp_codegen_add(L_194, 1));
@@ -29991,7 +29991,7 @@ IL_0028_1:
 				XmlQualifiedName_t2794880B373257E4108CC3F36D7373A343ACC5B9* L_14;
 				L_14 = XmlSchemaAttributeGroupRef_get_RefName_m4555CB5267ECECB8C77F025FD6BBB9E34BCA6DA9_inline(L_13, NULL);
 				RuntimeObject* L_15;
-				L_15 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_12, L_14);
+				L_15 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_12, L_14);
 				V_3 = ((XmlSchemaAttributeGroup_t471125891B9EDFD58104133A426AC82A1E8D8B66*)IsInstClass((RuntimeObject*)L_15, XmlSchemaAttributeGroup_t471125891B9EDFD58104133A426AC82A1E8D8B66_il2cpp_TypeInfo_var));
 				XmlSchemaAttributeGroup_t471125891B9EDFD58104133A426AC82A1E8D8B66* L_16 = V_3;
 				if (!L_16)
@@ -30157,7 +30157,7 @@ IL_0068_1:
 				XmlQualifiedName_t2794880B373257E4108CC3F36D7373A343ACC5B9* L_28;
 				L_28 = XmlSchemaAttributeGroupRef_get_RefName_m4555CB5267ECECB8C77F025FD6BBB9E34BCA6DA9_inline(L_27, NULL);
 				RuntimeObject* L_29;
-				L_29 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_26, L_28);
+				L_29 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_26, L_28);
 				V_3 = ((XmlSchemaAttributeGroup_t471125891B9EDFD58104133A426AC82A1E8D8B66*)CastclassClass((RuntimeObject*)L_29, XmlSchemaAttributeGroup_t471125891B9EDFD58104133A426AC82A1E8D8B66_il2cpp_TypeInfo_var));
 			}
 
@@ -31297,7 +31297,7 @@ IL_006a:
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_25 = __this->____constraintNodes;
 		String_t* L_26 = V_0;
 		RuntimeObject* L_27;
-		L_27 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_25, L_26);
+		L_27 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_25, L_26);
 		V_5 = ((ConstraintTable_t83EB48047A8B05AC17EC9E08C2F39667CA1275F6*)CastclassSealed((RuntimeObject*)L_27, ConstraintTable_t83EB48047A8B05AC17EC9E08C2F39667CA1275F6_il2cpp_TypeInfo_var));
 		ConstraintTable_t83EB48047A8B05AC17EC9E08C2F39667CA1275F6* L_28 = V_5;
 		if (L_28)
@@ -33687,7 +33687,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Type_t* XSDSchema_ParseDataType_mF963D0178A98
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_3 = __this->____udSimpleTypes;
 		String_t* L_4 = ___0_dt;
 		RuntimeObject* L_5;
-		L_5 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_3, L_4);
+		L_5 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_3, L_4);
 		XmlSchemaSimpleType_tA52BBE2D61DAD61BD3FCDF40E1CD9F41388F7FA8* L_6 = ((XmlSchemaSimpleType_tA52BBE2D61DAD61BD3FCDF40E1CD9F41388F7FA8*)CastclassClass((RuntimeObject*)L_5, XmlSchemaSimpleType_tA52BBE2D61DAD61BD3FCDF40E1CD9F41388F7FA8_il2cpp_TypeInfo_var));
 		if (L_6)
 		{
@@ -33996,7 +33996,7 @@ IL_00a1:
 		XmlQualifiedName_t2794880B373257E4108CC3F36D7373A343ACC5B9* L_39;
 		L_39 = XmlSchemaElement_get_RefName_mFAC5C12FDBC39BBC78F15D4EB04D570EC5808AA9_inline(L_38, NULL);
 		RuntimeObject* L_40;
-		L_40 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_37, L_39);
+		L_40 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_37, L_39);
 		XmlSchemaAnnotated_t41DBE9DF8776C6C639B33A712F25497C672B4E04* L_41;
 		L_41 = XSDSchema_FindTypeNode_m521897938A7DFAFB0DAE5505195E3C6537081519(__this, ((XmlSchemaAnnotated_t41DBE9DF8776C6C639B33A712F25497C672B4E04*)CastclassClass((RuntimeObject*)L_40, XmlSchemaAnnotated_t41DBE9DF8776C6C639B33A712F25497C672B4E04_il2cpp_TypeInfo_var)), NULL);
 		G_B24_0 = L_41;
@@ -34010,7 +34010,7 @@ IL_00c2:
 		XmlQualifiedName_t2794880B373257E4108CC3F36D7373A343ACC5B9* L_44;
 		L_44 = XmlSchemaAttribute_get_RefName_m91886894B683BD121EF5C662C4DE72AE13D4A62A_inline(L_43, NULL);
 		RuntimeObject* L_45;
-		L_45 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_42, L_44);
+		L_45 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_42, L_44);
 		XmlSchemaAnnotated_t41DBE9DF8776C6C639B33A712F25497C672B4E04* L_46;
 		L_46 = XSDSchema_FindTypeNode_m521897938A7DFAFB0DAE5505195E3C6537081519(__this, ((XmlSchemaAnnotated_t41DBE9DF8776C6C639B33A712F25497C672B4E04*)CastclassClass((RuntimeObject*)L_45, XmlSchemaAnnotated_t41DBE9DF8776C6C639B33A712F25497C672B4E04_il2cpp_TypeInfo_var)), NULL);
 		G_B24_0 = L_46;
@@ -34054,7 +34054,7 @@ IL_00f8:
 IL_0103:
 	{
 		RuntimeObject* L_53;
-		L_53 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, G_B28_1, G_B28_0);
+		L_53 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, G_B28_1, G_B28_0);
 		V_4 = ((XmlSchemaAnnotated_t41DBE9DF8776C6C639B33A712F25497C672B4E04*)CastclassClass((RuntimeObject*)L_53, XmlSchemaAnnotated_t41DBE9DF8776C6C639B33A712F25497C672B4E04_il2cpp_TypeInfo_var));
 	}
 
@@ -35317,7 +35317,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void XSDSchema_HandleAttributeColumn_mD32FAFA
 		XmlQualifiedName_t2794880B373257E4108CC3F36D7373A343ACC5B9* L_4;
 		L_4 = XmlSchemaAttribute_get_RefName_m91886894B683BD121EF5C662C4DE72AE13D4A62A_inline(L_3, NULL);
 		RuntimeObject* L_5;
-		L_5 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_2, L_4);
+		L_5 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_2, L_4);
 		G_B3_0 = ((XmlSchemaAttribute_t04AF3100B886867E3F0495E22F44305EDEC5550F*)CastclassClass((RuntimeObject*)L_5, XmlSchemaAttribute_t04AF3100B886867E3F0495E22F44305EDEC5550F_il2cpp_TypeInfo_var));
 		goto IL_0023;
 	}
@@ -36089,7 +36089,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void XSDSchema_HandleElementColumn_m6177B2ABB
 		XmlQualifiedName_t2794880B373257E4108CC3F36D7373A343ACC5B9* L_4;
 		L_4 = XmlSchemaElement_get_RefName_mFAC5C12FDBC39BBC78F15D4EB04D570EC5808AA9_inline(L_3, NULL);
 		RuntimeObject* L_5;
-		L_5 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_2, L_4);
+		L_5 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_2, L_4);
 		G_B3_0 = ((XmlSchemaElement_t24D5940E4EB4E5FFDAD1772AFBD7A83CD992C970*)CastclassClass((RuntimeObject*)L_5, XmlSchemaElement_t24D5940E4EB4E5FFDAD1772AFBD7A83CD992C970_il2cpp_TypeInfo_var));
 		goto IL_0023;
 	}
@@ -36271,7 +36271,7 @@ IL_0124:
 		XmlQualifiedName_t2794880B373257E4108CC3F36D7373A343ACC5B9* L_52;
 		L_52 = SimpleType_get_XmlBaseType_m38458F72A3EB67EDA4C8DC3A8292D19201BEE9E7_inline(L_51, NULL);
 		RuntimeObject* L_53;
-		L_53 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_50, L_52);
+		L_53 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_50, L_52);
 		G_B18_0 = ((XmlSchemaSimpleType_tA52BBE2D61DAD61BD3FCDF40E1CD9F41388F7FA8*)IsInstClass((RuntimeObject*)L_53, XmlSchemaSimpleType_tA52BBE2D61DAD61BD3FCDF40E1CD9F41388F7FA8_il2cpp_TypeInfo_var));
 	}
 
@@ -36324,7 +36324,7 @@ IL_0172:
 		XmlQualifiedName_t2794880B373257E4108CC3F36D7373A343ACC5B9* L_65;
 		L_65 = SimpleType_get_XmlBaseType_m38458F72A3EB67EDA4C8DC3A8292D19201BEE9E7_inline(L_64, NULL);
 		RuntimeObject* L_66;
-		L_66 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_63, L_65);
+		L_66 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_63, L_65);
 		G_B23_0 = ((XmlSchemaSimpleType_tA52BBE2D61DAD61BD3FCDF40E1CD9F41388F7FA8*)IsInstClass((RuntimeObject*)L_66, XmlSchemaSimpleType_tA52BBE2D61DAD61BD3FCDF40E1CD9F41388F7FA8_il2cpp_TypeInfo_var));
 	}
 

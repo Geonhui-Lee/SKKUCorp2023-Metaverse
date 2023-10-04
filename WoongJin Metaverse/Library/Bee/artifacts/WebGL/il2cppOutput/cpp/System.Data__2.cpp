@@ -14924,7 +14924,7 @@ IL_01c5_1:
 			{
 				PropertyCollection_t531D3CA9714C3D7818C1B1C139A9C4F04B73EE7C* L_94 = __this->____extendedProperties;
 				RuntimeObject* L_95;
-				L_95 = VirtualFuncInvoker0< RuntimeObject* >::Invoke(35, L_94);
+				L_95 = VirtualFuncInvoker0< RuntimeObject* >::Invoke(34, L_94);
 				RuntimeObject* L_96;
 				L_96 = InterfaceFuncInvoker0< RuntimeObject* >::Invoke(0, IEnumerable_t6331596D5DD37C462B1B8D49CF6B319B00AB7131_il2cpp_TypeInfo_var, L_95);
 				V_12 = L_96;
@@ -14974,8 +14974,8 @@ IL_01eb_2:
 						PropertyCollection_t531D3CA9714C3D7818C1B1C139A9C4F04B73EE7C* L_105 = __this->____extendedProperties;
 						RuntimeObject* L_106 = V_13;
 						RuntimeObject* L_107;
-						L_107 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_105, L_106);
-						VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_103, L_104, L_107);
+						L_107 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_105, L_106);
+						VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_103, L_104, L_107);
 					}
 
 IL_020e_2:

@@ -2825,7 +2825,7 @@ IL_000e:
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_2 = __this->____list;
 		DataTable_t9240A0D6726299C55832BF4EE085C864A1CCBB07* L_3 = ___0_table;
 		RuntimeObject* L_4;
-		L_4 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_2, L_3);
+		L_4 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_2, L_3);
 		V_0 = ((DataViewSetting_tB99FD9B965F9FD3E9BDB703E1A0B851FC8357601*)CastclassClass((RuntimeObject*)L_4, DataViewSetting_tB99FD9B965F9FD3E9BDB703E1A0B851FC8357601_il2cpp_TypeInfo_var));
 		DataViewSetting_tB99FD9B965F9FD3E9BDB703E1A0B851FC8357601* L_5 = V_0;
 		if (L_5)
@@ -2874,7 +2874,7 @@ IL_000e:
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_6 = __this->____list;
 		DataTable_t9240A0D6726299C55832BF4EE085C864A1CCBB07* L_7 = ___0_table;
 		DataViewSetting_tB99FD9B965F9FD3E9BDB703E1A0B851FC8357601* L_8 = ___1_value;
-		VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(29, L_6, L_7, L_8);
+		VirtualActionInvoker2< RuntimeObject*, RuntimeObject* >::Invoke(28, L_6, L_7, L_8);
 		return;
 	}
 }
@@ -2883,7 +2883,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DataViewSettingCollection_Remove_m0544BA
 	{
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_0 = __this->____list;
 		DataTable_t9240A0D6726299C55832BF4EE085C864A1CCBB07* L_1 = ___0_table;
-		VirtualActionInvoker1< RuntimeObject* >::Invoke(37, L_0, L_1);
+		VirtualActionInvoker1< RuntimeObject* >::Invoke(36, L_0, L_1);
 		return;
 	}
 }

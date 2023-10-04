@@ -4334,7 +4334,7 @@ IL_0024:
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_24 = __this->____rowsOrder;
 		DataRow_t4C2743279B40E332809F4E6EE3443B75E4C38388* L_25 = ___0_row;
 		RuntimeObject* L_26;
-		L_26 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_24, L_25);
+		L_26 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_24, L_25);
 		String_t* L_27;
 		L_27 = VirtualFuncInvoker0< String_t* >::Invoke(3, L_26);
 		XmlWriter_WriteAttributeString_m9BECE5A394F9A9601AB66932AF0D7EF25E16AE0B(L_23, _stringLiteralFD8C95D80EEF2E7B83B5F4CB39DF78DF93EB65EF, _stringLiteral446E1C5FF456E0764AE9094F8CE8D39CBBA256AA, _stringLiteral44796A9EA3476CDED88CE39A688C638A52C1D20E, L_27, NULL);

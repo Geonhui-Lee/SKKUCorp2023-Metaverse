@@ -407,10 +407,14 @@ UnityEngine.Networking.DownloadHandler::GetContentType
 UnityEngine.Networking.DownloadHandler::Release
 UnityEngine.Networking.DownloadHandlerBuffer::Create
 UnityEngine.Networking.UnityWebRequest::get_isModifiable
+UnityEngine.Networking.UnityWebRequest::get_responseCode
 UnityEngine.Networking.UnityWebRequest::Create
+UnityEngine.Networking.UnityWebRequest::GetHTTPStatusString
 UnityEngine.Networking.UnityWebRequest::GetWebErrorString
 UnityEngine.Networking.UnityWebRequest::Abort
 UnityEngine.Networking.UnityWebRequest::Release
+UnityEngine.Networking.UnityWebRequest::get_result
+UnityEngine.Networking.UnityWebRequest::GetError
 UnityEngine.Networking.UnityWebRequest::InternalSetRequestHeader
 UnityEngine.Networking.UnityWebRequest::SetCustomMethod
 UnityEngine.Networking.UnityWebRequest::SetDownloadHandler
@@ -469,8 +473,6 @@ UnityEngine.PlayerConnectionInternal::PollInternal
 UnityEngine.PlayerConnectionInternal::RegisterInternal
 UnityEngine.PlayerConnectionInternal::SendMessage
 UnityEngine.PlayerConnectionInternal::UnregisterInternal
-UnityEngine.Profiling.Profiler::BeginSampleImpl
-UnityEngine.Profiling.Profiler::EndSample
 UnityEngine.PropertyNameUtils::PropertyNameFromString_Injected
 UnityEngine.QualitySettings::get_activeColorSpace
 UnityEngine.Quaternion::AngleAxis_Injected

@@ -16415,7 +16415,7 @@ IL_005e:
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_17 = __this->___schemaLocations;
 		Uri_t1500A52B5F71A04F5D05C0852D0F2A0941842A0E* L_18 = V_2;
 		RuntimeObject* L_19;
-		L_19 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_17, L_18);
+		L_19 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_17, L_18);
 		if (L_19)
 		{
 			goto IL_0089;
@@ -16524,7 +16524,7 @@ IL_00cb:
 		Uri_t1500A52B5F71A04F5D05C0852D0F2A0941842A0E* L_51;
 		L_51 = XmlSchema_get_BaseUri_mB4EF7EF2955DCB14C4573E42E47D2332C0F903D8_inline(L_50, NULL);
 		RuntimeObject* L_52;
-		L_52 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_48, L_51);
+		L_52 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_48, L_51);
 		if (L_52)
 		{
 			goto IL_0143;
@@ -16648,7 +16648,7 @@ IL_01c0:
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_83 = __this->___schemaLocations;
 		Uri_t1500A52B5F71A04F5D05C0852D0F2A0941842A0E* L_84 = V_7;
 		RuntimeObject* L_85;
-		L_85 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_83, L_84);
+		L_85 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_83, L_84);
 		if (!L_85)
 		{
 			goto IL_01e5;
@@ -16759,7 +16759,7 @@ IL_0257:
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_111 = __this->___schemaLocations;
 		Uri_t1500A52B5F71A04F5D05C0852D0F2A0941842A0E* L_112 = V_4;
 		RuntimeObject* L_113;
-		L_113 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_111, L_112);
+		L_113 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_111, L_112);
 		if (L_113)
 		{
 			goto IL_0385;
@@ -16999,7 +16999,7 @@ IL_0039:
 		Hashtable_tEFC3B6496E6747787D8BB761B51F2AE3A8CFFE2D* L_13 = __this->___referenceNamespaces;
 		String_t* L_14 = V_1;
 		RuntimeObject* L_15;
-		L_15 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_13, L_14);
+		L_15 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_13, L_14);
 		if (L_15)
 		{
 			goto IL_0073;
@@ -17046,7 +17046,7 @@ IL_0077:
 		String_t* L_28;
 		L_28 = XmlSchema_get_TargetNamespace_mAFA4B36F2637087A82F54ADE6E5A627744705064_inline(L_27, NULL);
 		RuntimeObject* L_29;
-		L_29 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_26, L_28);
+		L_29 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_26, L_28);
 		if (L_29)
 		{
 			goto IL_00b7;
@@ -23547,7 +23547,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void SchemaCollectionPreprocessor_ValidateIdA
 			String_t* L_11;
 			L_11 = VirtualFuncInvoker0< String_t* >::Invoke(7, L_10);
 			RuntimeObject* L_12;
-			L_12 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_9, L_11);
+			L_12 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_9, L_11);
 			if (!L_12)
 			{
 				goto IL_004a_1;
@@ -23740,7 +23740,7 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void SchemaCollectionPreprocessor_ValidateQNa
 			String_t* L_5;
 			L_5 = XmlQualifiedName_get_Namespace_m0CAE4A651EF1CA6F0EB657C83608A796038A2615_inline(L_4, NULL);
 			RuntimeObject* L_6;
-			L_6 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(28, L_3, L_5);
+			L_6 = VirtualFuncInvoker1< RuntimeObject*, RuntimeObject* >::Invoke(27, L_3, L_5);
 			if (L_6)
 			{
 				goto IL_0038_1;
