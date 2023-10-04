@@ -20,5 +20,5 @@ def api_path():
     return [
         api_render('test', hello_world),
         api_render('gpt', gpt),
-        api_render('reflect', reflect)
+        # api_render('reflect', reflect)
     ]

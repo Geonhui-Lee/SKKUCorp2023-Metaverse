@@ -1,19 +1,20 @@
 ﻿<Properties StartupConfiguration="{7E0547D6-1F92-16B8-F244-32D7B1FF4D2B}|">
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="b87caed4-dafb-4206-9f65-63400082335b" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="8c5abad0-786e-4614-acdc-a6325e5adfbb" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/OnInputText.cs">
     <Files>
-      <File FileName="Assets/Scripts/TMPCharacterController.cs" Line="63" Column="45" />
-      <File FileName="Assets/Scripts/OnInputText.cs" Line="26" Column="1" />
-      <File FileName="Library/PackageCache/com.srcnalt.openai-unity@ed8ae03949/Runtime/Configuration.cs" Line="1" Column="1" />
-      <File FileName="Library/PackageCache/com.srcnalt.openai-unity@ed8ae03949/Runtime/OpenAIApi.cs" Line="271" Column="35" />
-      <File FileName="Assets/Samples/OpenAI Unity/0.1.15/Stream Response/StreamResponse.cs" Line="22" Column="9" />
-      <File FileName="Assets/Samples/OpenAI Unity/0.1.15/ChatGPT/ChatGPT.cs" Line="1" Column="1" />
-      <File FileName="Assets/Samples/OpenAI Unity/0.1.15/Text Completion Chat/TextCompletionChat.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/TMPCharacterController.cs" />
+      <File FileName="Assets/Scripts/OnInputText.cs" Line="44" Column="1" />
+      <File FileName="Library/PackageCache/com.srcnalt.openai-unity@ed8ae03949/Runtime/Configuration.cs" />
+      <File FileName="Library/PackageCache/com.srcnalt.openai-unity@ed8ae03949/Runtime/OpenAIApi.cs" />
+      <File FileName="Assets/Samples/OpenAI Unity/0.1.15/Stream Response/StreamResponse.cs" />
+      <File FileName="Assets/Samples/OpenAI Unity/0.1.15/ChatGPT/ChatGPT.cs" />
+      <File FileName="Assets/Samples/OpenAI Unity/0.1.15/Text Completion Chat/TextCompletionChat.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -29,14 +30,11 @@
                   </Node>
                 </Node>
               </Node>
-              <Node name="Scripts" expanded="True">
-                <Node name="OnInputText.cs" selected="True" />
-              </Node>
+              <Node name="Scripts" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
