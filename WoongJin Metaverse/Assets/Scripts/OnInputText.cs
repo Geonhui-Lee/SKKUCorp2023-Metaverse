@@ -85,7 +85,8 @@ public class OnInputText : MonoBehaviour
         {
             UserCanvas.SetActive(true);
             UserText.text = inputField.text;
-            StartCoroutine(SendMessage(UserText.text));
+            SendMessage(UserText.text);
+            //StartCoroutine(SendMessage(UserText.text));
             inputField.text = "";
             yield return new WaitForSeconds(2f);
             UserCanvas.SetActive(false);
@@ -93,12 +94,9 @@ public class OnInputText : MonoBehaviour
         
     }
 
-    private new IEnumerator SendMessage(string UserText)
+    private new void SendMessage(string UserText)
     {
-        ServicePointManager.ServerCertificateValidationCallback = delegate
-        {
-            return true;
-        };
+        ServicePointManager.ServerCertificateValidationCallback += (objSender, certificate, chain, sslPolicyError) => true;
 
         MessageData systemMessage = new MessageData();
         systemMessage.role = "system";
@@ -121,47 +119,56 @@ public class OnInputText : MonoBehaviour
         var bytes = System.Text.Encoding.UTF8.GetBytes(str);
 
 
-        //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(baseURL);
-        //Debug.Log(request);
-        //request.Method = "POST";
-        //request.ContentType = "application/json";
-        //request.ContentLength = bytes.Length;
-        //using (var stream = request.GetRequestStream())
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(baseURL);
+        Debug.Log(request);
+        request.Method = "POST";
+        request.ContentType = "application/json";
+        request.ContentLength = bytes.Length;
+        using (var stream = request.GetRequestStream())
+        {
+            Debug.Log(stream);
+            stream.Write(bytes, 0, bytes.Length);
+            stream.Flush();
+            stream.Close();
+        }
+
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        Debug.Log(response);
+        StreamReader reader = new StreamReader(response.GetResponseStream());
+        string json = reader.ReadToEnd();
+        Debug.Log(json);
+        MessagesData info = JsonUtility.FromJson<MessagesData>(json);
+        Debug.Log(info);
+        NPCText.text = info.messages[info.messages.Count - 1].content;
+
+        //WWWForm form = new WWWForm();
+
+
+        //UnityWebRequest unityWebRequest = UnityWebRequest.Get(baseURL);
+        //Debug.Log("Complete Request");
+
+        //yield return unityWebRequest.SendWebRequest();
+
+        //if(unityWebRequest.error == null)
         //{
-        //    Debug.Log(stream);
-        //    stream.Write(bytes, 0, bytes.Length);
-        //    stream.Flush();
-        //    stream.Close();
+        //    Debug.Log(unityWebRequest.downloadHandler.text);
+        //    //Debug.Log(response);
+        //    //StreamReader reader = new StreamReader(response.GetResponseStream());
+        //    //string json = reader.ReadToEnd();
+        //    //Debug.Log(json);
+        //    //MessagesData info = JsonUtility.FromJson<MessagesData>(json);
+        //    //Debug.Log(info);
+        //    //NPCText.text = info.messages[info.messages.Count - 1].content;
+        //    Debug.Log("Complete Response");
         //}
 
-        WWWForm form = new WWWForm();
+        //else
+        //{
+        //    Debug.Log("error");
+        //    Debug.Log(unityWebRequest.error);
+        //}
 
 
-        UnityWebRequest unityWebRequest = UnityWebRequest.Get(baseURL);
-        Debug.Log("Complete Request");
-
-        yield return unityWebRequest.SendWebRequest();
-
-        if(unityWebRequest.error == null)
-        {
-            Debug.Log(unityWebRequest.downloadHandler.text);
-            //Debug.Log(response);
-            //StreamReader reader = new StreamReader(response.GetResponseStream());
-            //string json = reader.ReadToEnd();
-            //Debug.Log(json);
-            //MessagesData info = JsonUtility.FromJson<MessagesData>(json);
-            //Debug.Log(info);
-            //NPCText.text = info.messages[info.messages.Count - 1].content;
-            Debug.Log("Complete Response");
-        }
-
-        else
-        {
-            Debug.Log("error");
-            Debug.Log(unityWebRequest.error);
-        }
-            
-        
     }
 
     //private new void SendMessage(string UserText)
