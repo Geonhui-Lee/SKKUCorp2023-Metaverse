@@ -7,6 +7,8 @@ using UnityEngine.UI;
 using TMPro;
 using OpenAI;
 using System.Threading;
+using UnityEngine.Networking;
+using System;
 
 [System.Serializable]
 public class MessageData {
@@ -115,27 +117,35 @@ public class OnInputText : MonoBehaviour
         Debug.Log(str);
         var bytes = System.Text.Encoding.UTF8.GetBytes(str);
 
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(baseURL);
-        request.Method = "POST";
-        request.ContentType = "application/json";
-        request.ContentLength = bytes.Length;
-
-        using(var stream = request.GetRequestStream())
+        try
         {
-            stream.Write(bytes, 0, bytes.Length);
-            stream.Flush();
-            stream.Close();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(baseURL);
+            Debug.Log(request);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.ContentLength = bytes.Length;
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(bytes, 0, bytes.Length);
+                stream.Flush();
+                stream.Close();
+            }
+            Debug.Log("Complete Requsest");
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Debug.Log(response);
+            StreamReader reader = new StreamReader(response.GetResponseStream());
+            string json = reader.ReadToEnd();
+            Debug.Log(json);
+            MessagesData info = JsonUtility.FromJson<MessagesData>(json);
+            Debug.Log(info);
+            NPCText.text = info.messages[info.messages.Count - 1].content;
+            Debug.Log("Complete Response");
         }
-        Debug.Log("Complete Requsest");
-        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-        Debug.Log(response);
-        StreamReader reader = new StreamReader(response.GetResponseStream());
-        string json = reader.ReadToEnd();
-        Debug.Log(json);
-        MessagesData info = JsonUtility.FromJson<MessagesData>(json);
-        Debug.Log(info);
-        NPCText.text = info.messages[info.messages.Count-1].content;
-        Debug.Log("Complete Response");
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            throw;
+        }
     }
 
     //private new void SendMessage(string UserText)
