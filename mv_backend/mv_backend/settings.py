@@ -31,6 +31,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = 'django-insecure-39fw-#d1oujr_+g+l_a7khjn60l-9na4hccu-*3!@po=g)0n90'
 
 OPENAI_API_KEY = env('OPENAI_API_KEY')
+MONGODB_CONNECTION_STRING = env('MONGODB_CONNECTION_STRING')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
