@@ -23,8 +23,9 @@ chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 
 
 plan_template = """
-{customer} came in. Here is {name}'s retrieved data {retrieve}. Here is also {name}'s previous reflection that {name}'s made {reflect}. Based on these data make a plan on how to treat the customer {customer} (e.g., retrieve: Tim did not like ketchup, reflect: I will not serve ketchup next time, plan: Don't serve ketchup to tim because he doesn't like ketchup)
-Today is {time}. Here is {name}'s plan today in broad-strokes (with the time of the day. e.g., have a lunch at 12:00 pm, watch TV from 7 to 8 pm): 1) wake up and complete the morning routine at {wake_up}, 2)
+{customer} came in. Here is {name}'s retrieved data {retrieve}. Here is also {name}'s previous reflection that {name}'s made {reflect}.
+ Based on these data make a plan on how to treat the customer {customer} (e.g., retrieve: Tim did not like ketchup, 
+ reflect: I will not serve ketchup next time, plan: Don't serve ketchup to tim because he doesn't like ketchup)
 """
 plan_prompt = PromptTemplate(
     input_variables=["customer", "name", "retrieve", "reflect"], template= plan_template
@@ -66,6 +67,9 @@ Hourly schedule format:
 {hourly_format}
 ===
 {prior_schedule}
+
+make sure to base your plans on how to make the {name} learn from their prior mistakes which are retrieved and reflected {retrieve}, this
+is the retrieved data {reflect} this is the reflected data. based on the prior data make a plan for the {npc} in the following format.
 """
 hourly_plan_prompt = PromptTemplate(
     input_variables=["hourly_format", "prior_schedule"], template=hourly_plan_template
@@ -150,7 +154,7 @@ def call(request):
                     wake_up_hour -= 1
                 else: 
                     n_m1_activity += [hourly_plan.run(
-                                    hourly_plan = "1) woke up and completed the morning routine at 7:00 am, [. . . ] 6) got ready to sleep around 10 pm.", prior_schedule = plan)[0]]
+                                    hourly_plan = "1) woke up and completed the morning routine at 7:00 am, [. . . ] 6) got ready to sleep around 10 pm.", prior_schedule = plan, npc= "Bob", name = "Kim")[0]]
     
     
     # Step 1. Compressing the hourly schedule to the following format: 
