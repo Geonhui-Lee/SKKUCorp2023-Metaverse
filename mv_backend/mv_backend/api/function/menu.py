@@ -67,6 +67,7 @@ def call(request):
     menu_string = "".join(menu)
     menu_dict = eval(menu_string)
 
+    print(menu_dict)
     messages_response = body["messages"] + [
         {
             "role": "assistant",
