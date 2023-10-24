@@ -11,6 +11,8 @@ from mv_backend.api.function.reflect import call as reflect
 
 from mv_backend.api.function.menu import call as menu
 
+from mv_backend.api.function.database.data_load import gh_call as data_load
+
 def api_render(name, output):
     return path(
         'api/' + name + '/',
@@ -23,5 +25,7 @@ def api_path():
         api_render('test', hello_world),
         api_render('gpt', gpt),
         api_render('reflect', reflect),
-        api_render('menu', menu)
+        api_render('menu', menu),
+
+        api_render('data/load', data_load)
     ]
