@@ -17,8 +17,8 @@ os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 
 query_template = """
-You are a customer at a pizza restaurant. Have a conversation appropriate to the situation, such as ordering pizza.
-User is a waiter.
+You are a customer at a pizza restaurant. Have a conversation appropriate to the situation, such as when you order a pizza.
+
 previuos conversation:
 {conversation}
 """
@@ -42,8 +42,14 @@ def call(request):
     # )
     # openai_response_message = openai_response["choices"][0]["message"]
     all_chat_data_string = ""
-    for chat_data in reversed(body["messages"]):
-        all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
+    for chat_data in body["messages"]:
+        data_num += 1
+        if data_num > 10:
+            break
+        if chat_data["role"] == "user":
+            all_chat_data_string += "waiter" + ": " + chat_data["content"] + "\n"
+        else:
+            all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
     messages_response = body["messages"] + [
         {
             "role": "customer",
