@@ -45,27 +45,6 @@ generate_query = LLMChain(
     llm=chat,
     prompt=generate_query_prompt
 )
-# find the importance score
-# !<INPUT 1>!: agent name
-# !<INPUT 1>!: iss
-# !<INPUT 2>!: name 
-# !<INPUT 3>!: event description
-important_template = """
-On the scale of 1 to 10, where 1 is purely mundane (e.g., routine morning greetings) and 10 is extremely poignant (e.g., a conversation about breaking up, a fight), rate the likely poignancy of the following conversation for {name}.
-
-Conversation: 
-{event}
-
-Rate (return a number between 1 to 10):
-"""
-important_prompt = PromptTemplate(
-    input_variables=["name", "event"], template=important_template
-)
-
-important_score = LLMChain(
-    llm=chat,
-    prompt=important_prompt
-)
 
 # find the insight
 # !<INPUT 0>! -- Numbered list of event/thought statements
@@ -103,30 +82,50 @@ def call(request):
     data_num = 0
 
     all_chat_data = []
+    before_chat_data = []
     all_chat_data_node = []
     important = []
     for chat_data in conversation:
         data_num += 1
-        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["name"] + ": " + chat_data["memory"])
-        all_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
-        important = chat_data["important"]
+        before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
+        important += chat_data["important"]
     
+    if data_num == 0:
+        messages_response = body["messages"] + [
+            {
+                "role": "assistant",
+                "content": "insights: " + "None"
+            }
+        ]
 
-
-    all_chat_data = []
-    all_chat_data_node = []
-    all_chat_data_string = ""
-    # now reflect with 100 message data (we wil generate only one query)
+        return JsonResponse({
+            "messages": messages_response
+        })
+    
     data_num = 0
-    for chat_data in reversed(body["messages"]):
+    all_chat_data_string = ""
+    for chat_data in reversed(before_chat_data):
         data_num += 1
         if data_num > 100:
             break
-        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["role"] + ": " + chat_data["content"])
-        all_chat_data.append(chat_data["role"] + ": " + chat_data["content"])
-        all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
+        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data)
+        all_chat_data.append(chat_data)
+        all_chat_data_string += chat_data + "\n"
     
-
+    # all_chat_data = []
+    # all_chat_data_node = []
+    # all_chat_data_string = ""
+    # # now reflect with 100 message data (we wil generate only one query)
+    # data_num = 0
+    # for chat_data in reversed(body["messages"]):
+    #     data_num += 1
+    #     if data_num > 100:
+    #         break
+    #     all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["role"] + ": " + chat_data["content"])
+    #     all_chat_data.append(chat_data["role"] + ": " + chat_data["content"])
+    #     all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
+    
+    
     focal_points = generate_query.run(event = all_chat_data_string, num = "1")
     embedded_query = embeddings_model.embed_query(focal_points)
     embedings = embeddings_model.embed_documents(all_chat_data)
@@ -138,15 +137,12 @@ def call(request):
     # retrieve to find 30 chat data with the generated query, embedding vetors, recency
     data_num = 0
     recency = 1
-    for chat_data in all_chat_data:
+    for score, chat_data in zip(reversed(important), all_chat_data):
         data_num += 1
         if data_num > 100:
             break
         recency *= 0.995
-        # score = int(important_score.run(event = chat_data, name = "assisstant"))
-        important_str = important_score.run(event = chat_data, name = "User")
-        important_str = "0" + important_str
-        score = int(''.join(filter(str.isdigit, important_str)))
+        
         chat_data_score["[" + str(data_num) + "]" + chat_data] += 0.1*score + recency
     
     sorted_dict = sorted(chat_data_score.items(), key = lambda item: item[1], reverse = True)
@@ -181,6 +177,23 @@ def call(request):
             "content": "insights: " + insights
         }
     ]
+
+    previous = Database.get_all_documents(db, "Reflects", "user")
+    print(previous)
+    data_num = 0
+    node = 0
+
+    for i in previous:
+        data_num += 1
+    
+    if data_num != 0:
+        print(i)
+        node = i["node"]
+    node += 1
+    
+    datetimeStr = datetime.now().strftime("%Y-%m-%d")
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"retrieve":insights,"name":"user"}
+    print(Database.set_document(db, "Reflects", "user", document_user))
 
     return JsonResponse({
         "messages": messages_response

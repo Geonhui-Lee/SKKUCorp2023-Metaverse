@@ -60,13 +60,13 @@ def call(request):
     data_num = 0
 
     all_chat_data = []
+    before_chat_data = []
     all_chat_data_node = []
     important = []
     for chat_data in conversation:
         data_num += 1
-        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["name"] + ": " + chat_data["memory"])
-        all_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
-        important = chat_data["important"]
+        before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
+        important += chat_data["important"]
     
     if data_num == 0:
         messages_response = body["messages"] + [
@@ -81,11 +81,13 @@ def call(request):
         })
     
     data_num = 0
-    for chat_data in reversed(all_chat_data):
+    for chat_data in reversed(before_chat_data):
+        data_num += 1
         if data_num > 100:
             break
-        all_chat_data_string += chat_data + "\n"
-    
+        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data)
+        all_chat_data.append(chat_data)
+        important = chat_data["important"]
     # all_chat_data_string = ""
     # # now reflect with 100 message data (we wil generate only one query)
     # data_num = 0
@@ -110,7 +112,7 @@ def call(request):
     # retrieve to find 30 chat data with the generated query, embedding vetors, recency
     data_num = 0
     recency = 1
-    for score, chat_data in zip(reversed(important), reversed(all_chat_data)):
+    for score, chat_data in zip(reversed(important), all_chat_data):
         data_num += 1
         if data_num > 100:
             break
