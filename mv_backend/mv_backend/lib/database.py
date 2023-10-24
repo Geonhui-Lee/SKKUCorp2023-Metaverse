@@ -1,6 +1,6 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-from mv_backend.mv_backend.settings import MONGODB_CONNECTION_STRING
+from mv_backend.settings import MONGODB_CONNECTION_STRING
 
 class Database:
     def __init__(self):
