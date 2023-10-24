@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse
+# from mv_backend.mv_backend.lib.database import Database
 from mv_backend.settings import OPENAI_API_KEY
 import json, openai
 from langchain.chains import LLMChain
@@ -147,7 +148,10 @@ def call(request):
         if data_num > 100:
             break
         recency *= 0.995
-        score = int(important_score.run(event = chat_data, name = "assisstant"))
+        # score = int(important_score.run(event = chat_data, name = "assisstant"))
+        important_str = important_score.run(event = chat_data, name = "User")
+        important_str = "0" + important_str
+        score = int(''.join(filter(str.isdigit, important_str)))
         chat_data_score["[" + str(data_num) + "]" + chat_data] += 0.1*score + recency
     
     sorted_dict = sorted(chat_data_score.items(), key = lambda item: item[1], reverse = True)
