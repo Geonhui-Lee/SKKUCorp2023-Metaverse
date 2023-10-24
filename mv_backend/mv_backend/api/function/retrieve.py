@@ -72,7 +72,7 @@ def call(request):
         messages_response = body["messages"] + [
             {
                 "role": "assistant",
-                "content": "insights: " + "None"
+                "content": "retrieve: " + "None"
             }
         ]
 
