@@ -46,6 +46,25 @@ query = LLMChain(
     prompt=query_prompt
 )
 
+#########
+
+important_template = """
+On the scale of 1 to 10, where 1 is purely mundane (e.g., routine morning greetings) and 10 is extremely poignant (e.g., a conversation about breaking up, a fight), rate the likely poignancy of the following conversation for {name}.
+
+Conversation: 
+{event}
+
+Rate (return a number between 1 to 10):
+"""
+important_prompt = PromptTemplate(
+    input_variables=["name", "event"], template=important_template
+)
+
+important_score = LLMChain(
+    llm=chat,
+    prompt=important_prompt
+)
+
 def call(request):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
@@ -77,7 +96,12 @@ def call(request):
 
     id = uuid.uuid1()
     datetimeStr = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%L")
-    document = {"_id":{ObjectId(id.hex)},"node":node,"timestamp":datetimeStr,"reflect":answer,"name":"User"}
+
+    important_str = important_score.run(event = answer, name = "User")
+    important_str = "0" + important_str
+    score = int(''.join(filter(str.isdigit, important_str)))
+    
+    document = {"_id":{ObjectId(id.hex)},"node":node,"timestamp":datetimeStr,"reflect":answer,"name":"User","important":score}
 
     print(Database.set_document(db, "conversations", "user", document))
 
