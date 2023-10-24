@@ -52,7 +52,7 @@ def call(request):
 
     data_num = 0
     for reflect_data, retrieve_data in zip(reflect, retrieve):
-        data_num += 0
+        data_num += 1
     if data_num == 0:
         messages_response = body["messages"] + [
             {
