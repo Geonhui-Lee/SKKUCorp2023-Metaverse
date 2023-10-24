@@ -68,7 +68,10 @@ def call(request):
     menu_dict = eval(menu_string)
 
     messages_response = body["messages"] + [
-        menu_dict
+        {
+            "role": "assistant",
+            "content": menu_string
+        }
     ]
 
     return JsonResponse({
