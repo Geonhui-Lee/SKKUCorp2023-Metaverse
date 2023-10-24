@@ -18,7 +18,8 @@ chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 
 query_template = """
 You are a customer at a pizza restaurant. Have a conversation appropriate to the situation, such as ordering pizza.
-previuos conversation: {conversation}
+previuos conversation:
+{conversation}
 """
 query_prompt = PromptTemplate(
     input_variables=["conversation"], template=query_template
@@ -39,12 +40,13 @@ def call(request):
     #     messages=body["messages"]
     # )
     # openai_response_message = openai_response["choices"][0]["message"]
-    messages=body["messages"]
-    
+    all_chat_data_string = ""
+    for chat_data in reversed(body["messages"]):
+        all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
     messages_response = body["messages"] + [
         {
             "role": "assistant",
-            "content": query.run(conversation = messages)
+            "content": query.run(conversation = all_chat_data_string)
         }
     ]
     
