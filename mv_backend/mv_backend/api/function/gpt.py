@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse
+from mv_backend.mv_backend.lib.database import Database
 from mv_backend.settings import OPENAI_API_KEY
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
@@ -9,6 +10,11 @@ from langchain.schema import (
     SystemMessage
 )
 import json, openai
+import uuid
+from datetime import datetime
+from bson.objectid import ObjectId
+
+db = Database()
 
 openai.api_key = OPENAI_API_KEY
 import os
@@ -60,10 +66,25 @@ def call(request):
             all_chat_data_string += "waiter" + ": " + chat_data["content"] + "\n"
         else:
             all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
+    
+    answer = query.run(conversation = all_chat_data_string)
+
+    conversation = Database.get_all_documents(db, "conversations", "collection")
+    print(conversation)
+    for i in conversation:
+        continue
+    node = i["node"] + 1
+
+    id = uuid.uuid1()
+    datetimeStr = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%L")
+    document = {"_id":{ObjectId(id.hex)},"node":node,"timestamp":datetimeStr,"reflect":answer,"name":"User"}
+
+    print(Database.set_document(db, "conversations", "user", document))
+
     messages_response = body["messages"] + [
         {
             "role": "customer",
-            "content": query.run(conversation = all_chat_data_string)
+            "content": answer
         }
     ]
     
