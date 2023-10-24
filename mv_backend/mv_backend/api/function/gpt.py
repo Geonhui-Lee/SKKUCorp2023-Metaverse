@@ -85,12 +85,17 @@ def call(request):
     
     answer = query.run(conversation = all_chat_data_string)
 
-    conversation = Database.get_all_documents(db, "conversations", "collection")
+    conversation = Database.get_all_documents(db, "conversations", "user")
     print(conversation)
-    for i in conversation:
-        continue
-    node = i["node"] + 1
+    node = 0
+    data_num = 0
 
+    for i in conversation:
+        data_num += 1
+    
+    if data_num != 0:
+        node = i["node"] + 1
+    
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
 
     important_str = important_score.run(event = user_message, name = "User")
