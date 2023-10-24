@@ -18,9 +18,15 @@ chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 
 query_template = """
 You are a customer at a pizza restaurant. 
-when you order a pizza.
+You are in an ordering situation.
 
-conversation:
+menu list:
+Bulgogi pizza
+Cheeze pizza
+Pepperoni pizza
+Potato pizza
+
+ordering conversation:
 {conversation}
 customer: 
 """

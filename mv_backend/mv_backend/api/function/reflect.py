@@ -1,5 +1,5 @@
 from django.http import HttpResponse, JsonResponse
-from mv_backend.mv_backend.lib.database import Database
+# from mv_backend.mv_backend.lib.database import Database
 from mv_backend.settings import OPENAI_API_KEY
 import json, openai
 from langchain.chains import LLMChain
