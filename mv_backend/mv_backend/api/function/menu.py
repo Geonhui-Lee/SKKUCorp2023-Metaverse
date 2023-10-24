@@ -16,9 +16,8 @@ os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 
-query_template = """
-You are a customer at a pizza restaurant. 
-You are in an ordering situation.
+find_query_template = """
+Search the pizza menu that the customer ordered.
 
 menu list:
 Bulgogi pizza
@@ -28,15 +27,17 @@ Potato pizza
 
 ordering conversation:
 {conversation}
-customer: 
+
+format Pizza ordered and number:["Bulgogi pizza": 0, "Cheeze pizza": 0, "Pepperoni pizza": 0, "Potato pizza": 0]
+Pizza ordered and number:
 """
-query_prompt = PromptTemplate(
-    input_variables=["conversation"], template=query_template
+find_query_prompt = PromptTemplate(
+    input_variables=["conversation"], template=find_query_template
 )
 
-query = LLMChain(
+find_query = LLMChain(
     llm=chat,
-    prompt=query_prompt
+    prompt=find_query_prompt
 )
 
 def call(request):
@@ -59,13 +60,12 @@ def call(request):
             all_chat_data_string += "waiter" + ": " + chat_data["content"] + "\n"
         else:
             all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
-    messages_response = body["messages"] + [
-        {
-            "role": "customer",
-            "content": query.run(conversation = all_chat_data_string)
-        }
-    ]
     
-    return JsonResponse({
-        "messages": messages_response
-    })
+    menu = list(find_query.run(conversation = all_chat_data_string))
+    menu[0] = '{'
+    menu[-1] = '}'
+    menu_string = "".join(menu)
+    menu_dict = eval(menu_string)
+    return JsonResponse(
+        menu_dict
+    )
