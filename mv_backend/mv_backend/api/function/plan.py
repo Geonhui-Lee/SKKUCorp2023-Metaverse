@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse
+from mv_backend.lib.database import Database
 from mv_backend.settings import OPENAI_API_KEY
 import json, openai
 from langchain.chains import LLMChain
@@ -12,8 +13,10 @@ from langchain.schema import (
 import numpy as np
 from numpy.linalg import norm
 from langchain.embeddings import OpenAIEmbeddings
-import datetime
-import time
+from datetime import datetime
+from bson.objectid import ObjectId
+
+db = Database()
 
 openai.api_key = OPENAI_API_KEY
 import os
@@ -44,13 +47,49 @@ def call(request):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
 
+    reflect = Database.get_all_documents(db, "Reflects", "user")
+    retrieve = Database.get_all_documents(db, "Retrieves", "user")
+
+    data_num = 0
+    for reflect_data, retrieve_data in zip(reflect, retrieve):
+        data_num += 0
+    if data_num == 0:
+        messages_response = body["messages"] + [
+            {
+                "role": "assistant",
+                "content": "plan: " + "None"
+            }
+        ]
+
+        return JsonResponse({
+            "messages": messages_response
+        })
     
+    plan = wrong_plan.run(retrieve = reflect_data["reflect"], reflect = retrieve_data["retrieve"])
+
     messages_response = body["messages"] + [
         {
             "role": "assistant",
-            "content": "plan: " + wrong_plan.run(retrieve = "", reflect = "")
+            "content": "plan: " + plan
         }
     ]
+
+    previous = Database.get_all_documents(db, "Plans", "user")
+    print(previous)
+    data_num = 0
+    node = 0
+
+    for i in previous:
+        data_num += 1
+    
+    if data_num != 0:
+        print(i)
+        node = i["node"]
+    node += 1
+    
+    datetimeStr = datetime.now().strftime("%Y-%m-%d")
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"retrieve":plan,"name":"user"}
+    print(Database.set_document(db, "Plans", "user", document_user))
 
     return JsonResponse({
         "messages": messages_response
