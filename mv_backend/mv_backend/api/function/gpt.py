@@ -95,12 +95,16 @@ def call(request):
     id = uuid.uuid1()
     datetimeStr = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%L")
 
+    important_str = important_score.run(event = user_message, name = "User")
+    important_str = "0" + important_str
+    score_user = int(''.join(filter(str.isdigit, important_str)))
+
     important_str = important_score.run(event = answer, name = "User")
     important_str = "0" + important_str
-    score = int(''.join(filter(str.isdigit, important_str)))
-
-    document_user = {"_id":{ObjectId(id.hex)},"node":node,"timestamp":datetimeStr,"reflect":user_message,"name":"user","important":score}
-    document_customer = {"_id":{ObjectId(id.hex)},"node":node,"timestamp":datetimeStr,"reflect":answer,"name":"customer","important":score}
+    score_customer = int(''.join(filter(str.isdigit, important_str)))
+    
+    document_user = {"_id":{ObjectId(id.hex)},"node":node,"timestamp":datetimeStr,"reflect":user_message,"name":"user","important":score_user}
+    document_customer = {"_id":{ObjectId(id.hex)},"node":node,"timestamp":datetimeStr,"reflect":answer,"name":"customer","important":score_customer}
 
     print(Database.set_document(db, "conversations", "user", document_user))
     print(Database.set_document(db, "conversations", "user", document_customer))
