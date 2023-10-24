@@ -53,7 +53,7 @@ generate_insights_template = """
 Input:
 {event}
 
-What {name} high-level insights can you infer from the above statements? (example format: insight (because of 1, 5, 3))
+What are the {name} high-level insights about customers when ordering pizza that can be inferred from the above statement? (example format: insight (because of 1, 5, 3))
 1.
 """
 generate_insights_prompt = PromptTemplate(
