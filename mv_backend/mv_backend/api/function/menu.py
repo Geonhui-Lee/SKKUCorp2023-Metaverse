@@ -66,6 +66,13 @@ def call(request):
     menu[-1] = '}'
     menu_string = "".join(menu)
     menu_dict = eval(menu_string)
-    return JsonResponse(
-        menu_dict
-    )
+
+    messages_response = body["messages"] + [
+        {
+            menu_dict
+        }
+    ]
+
+    return JsonResponse({
+        "messages": messages_response
+    })

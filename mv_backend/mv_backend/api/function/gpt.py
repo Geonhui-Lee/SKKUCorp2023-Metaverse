@@ -26,8 +26,9 @@ Cheeze pizza
 Pepperoni pizza
 Potato pizza
 
-ordering conversation:
+previous conversation:
 {conversation}
+now conversation
 customer: 
 """
 query_prompt = PromptTemplate(
