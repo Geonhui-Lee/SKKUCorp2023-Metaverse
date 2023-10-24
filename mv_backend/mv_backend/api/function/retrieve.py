@@ -1,5 +1,5 @@
 from django.http import HttpResponse, JsonResponse
-from mv_backend.mv_backend.lib.database import Database
+from mv_backend.lib.database import Database
 from mv_backend.settings import OPENAI_API_KEY
 import json, openai
 from langchain.chains import LLMChain
@@ -58,7 +58,6 @@ def call(request):
     ### mongoDB user's memory ###
     conversation = Database.get_all_documents(db, "conversations", "user")
     data_num = 0
-    node = 0
 
     all_chat_data = []
     all_chat_data_node = []

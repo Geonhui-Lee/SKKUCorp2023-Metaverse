@@ -1,5 +1,5 @@
 from django.http import HttpResponse, JsonResponse
-from mv_backend.mv_backend.lib.database import Database
+from mv_backend.lib.database import Database
 from mv_backend.settings import OPENAI_API_KEY
 import json, openai
 from langchain.chains import LLMChain
@@ -13,12 +13,19 @@ from langchain.schema import (
 import numpy as np
 from numpy.linalg import norm
 from langchain.embeddings import OpenAIEmbeddings
+import json, openai
+from datetime import datetime
+from bson.objectid import ObjectId
+
+db = Database()
 
 openai.api_key = OPENAI_API_KEY
 import os
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
+
+embeddings_model = OpenAIEmbeddings()
 # every prompts for this code
 
 # generate the query score
@@ -79,10 +86,6 @@ generate_insights = LLMChain(
     prompt=generate_insights_prompt
 )
 
-
-important = 0
-all_chat_data = ""
-
 def call(request):
 
     # declare for start
@@ -94,30 +97,22 @@ def call(request):
     #     model="gpt-3.5-turbo",
     #     messages=body["messages"]
     # )
-    embeddings_model = OpenAIEmbeddings()
-
-    global important, all_chat_data
     
-    # openai_response_message = openai_response["choices"][0]["message"]
+    ### mongoDB user's memory ###
+    conversation = Database.get_all_documents(db, "conversations", "user")
+    data_num = 0
+
+    all_chat_data = []
+    all_chat_data_node = []
+    important = []
+    for chat_data in conversation:
+        data_num += 1
+        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["name"] + ": " + chat_data["memory"])
+        all_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
+        important = chat_data["important"]
+    
 
 
-    # ___reflect code start___
-    
-    # reflect condition check
-    # if important < 100:
-    if important < -1:
-        score = 0
-        event_script = body["messsages"][-1]["content"]
-
-        score = int(important_score.run(event = event_script, name = "assisstant"))
-        important += score
-        return JsonResponse({
-            "messages": body["messsages"]
-        })
-    
-    else:
-        important = 0
-    
     all_chat_data = []
     all_chat_data_node = []
     all_chat_data_string = ""
