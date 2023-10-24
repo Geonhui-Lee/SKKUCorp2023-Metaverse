@@ -75,14 +75,12 @@ def call(request):
     #     messages=body["messages"]
     # )
     # openai_response_message = openai_response["choices"][0]["message"]
-    data_num = 0
+
     all_chat_data_string = ""
     for chat_data in body["messages"]:
-        data_num += 1
-        if data_num > 10:
-            break
         if chat_data["role"] == "user":
             all_chat_data_string += "waiter" + ": " + chat_data["content"] + "\n"
+            user_message = chat_data["content"]
         else:
             all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
     
@@ -100,11 +98,12 @@ def call(request):
     important_str = important_score.run(event = answer, name = "User")
     important_str = "0" + important_str
     score = int(''.join(filter(str.isdigit, important_str)))
-    
-    document = {"_id":{ObjectId(id.hex)},"node":node,"timestamp":datetimeStr,"reflect":answer,"name":"User","important":score}
 
-    print(Database.set_document(db, "conversations", "user", document))
+    document_user = {"_id":{ObjectId(id.hex)},"node":node,"timestamp":datetimeStr,"reflect":user_message,"name":"user","important":score}
+    document_customer = {"_id":{ObjectId(id.hex)},"node":node,"timestamp":datetimeStr,"reflect":answer,"name":"customer","important":score}
 
+    print(Database.set_document(db, "conversations", "user", document_user))
+    print(Database.set_document(db, "conversations", "user", document_customer))
     messages_response = body["messages"] + [
         {
             "role": "customer",
