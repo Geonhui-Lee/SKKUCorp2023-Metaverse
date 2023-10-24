@@ -36,6 +36,19 @@ plan = LLMChain(
     prompt=plan_prompt
 )
 
+wrong_plan_template = """
+Your objective is to make 5 breif but detailed plans based on the given information to allow the user to improve their english or their part time service this could also include recommending a specific menu the next time the customer comes. Make sure to give a reasoning of why you made this plan and which retireve and reflect data the plan was based on.
+If the user made a mistake in their english language or grammar, make one of the plans as take note of what gramatic mistakes were made.
+previously the user made the mistake of {retrieve}. The reflection data will mainly store the types of food a specific customer likes or dislikes. Here is the reflect data {reflect}.
+"""
+wrong_plan_prompt = PromptTemplate(
+    input_variables=["retrieve", "reflect"], template= wrong_plan_template
+)
+
+wrong_plan = LLMChain(
+    llm=chat,
+    prompt=wrong_plan_prompt
+)
 # every prompts for this code
 
 # generate the query score
@@ -91,12 +104,13 @@ hourly_plan = LLMChain(
 
 decomp_task_template = """
 Describe subtasks in 5 min increments. 
----
+In 5 min increments, list the subtasks {name} does when {name} is {action} from {current_time} (total duration in minutes {duration_time}): 
+1) {name} is
+eg)
 Name: Kelly Bronson
 Age: 35
 Backstory: Kelly always wanted to be a teacher, and now she teaches kindergarten. During the week, she dedicates herself to her students, but on the weekends, she likes to try out new restaurants and hang out with friends. She is very warm and friendly, and loves caring for others.
 Personality: sweet, gentle, meticulous
-Location: Kelly is in an older condo that has the following areas: {kitchen, bedroom, dining, porch, office, bathroom, living room, hallway}.
 Currently: Kelly is a teacher during the school year. She teaches at the school but works on lesson plans at home. She is currently living alone in a single bedroom condo.
 Daily plan requirement: Kelly is planning to teach during the morning and work from home in the afternoon.s
 
@@ -111,9 +125,7 @@ In 5 min increments, list the subtasks Kelly does when Kelly is working on the n
 7) Kelly is making final changes to the lesson plan. (duration in minutes: 15, minutes left: 15)
 8) Kelly is printing the lesson plan. (duration in minutes: 10, minutes left: 5)
 9) Kelly is putting the lesson plan in her bag. (duration in minutes: 5, minutes left: 0)
----
-In 5 min increments, list the subtasks {name} does when {name} is {action} from {current_time} (total duration in minutes {duration_time}): 
-1) {name} is
+
 """
 
 decomp_task_prompt = PromptTemplate(
@@ -136,6 +148,7 @@ def call(request):
 
     now = time.localtime()
     plan = plan.run(customer = "Bob", name = "Kim", retrieve = "Bob did not like Chicken.", reflect = "I will recommend beef instead of chicken next time.")
+    wrong_plan.run(retrieve = "", reflect = "")
 
     hour_str = ["00:00 AM", "01:00 AM", "02:00 AM", "03:00 AM", "04:00 AM", 
                 "05:00 AM", "06:00 AM", "07:00 AM", "08:00 AM", "09:00 AM", 
