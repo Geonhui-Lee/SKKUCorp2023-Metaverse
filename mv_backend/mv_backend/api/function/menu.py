@@ -28,7 +28,7 @@ Potato pizza
 ordering conversation:
 {conversation}
 
-format Pizza ordered and number:["Bulgogi pizza": 0, "Cheese pizza": 0, "Pepperoni pizza": 0, "Potato pizza": 0]
+format Pizza ordered and number:["Cheese pizza": 0, "Pepperoni pizza": 0, "Bulgogi pizza": 0, "Potato pizza": 0]
 Pizza ordered and number:
 """
 find_query_prompt = PromptTemplate(
@@ -71,7 +71,7 @@ def call(request):
     messages_response = body["messages"] + [
         {
             "role": "assistant",
-            "content": menu_string
+            "content": menu_dict
         }
     ]
 
