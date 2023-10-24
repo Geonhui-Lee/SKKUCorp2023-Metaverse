@@ -192,7 +192,7 @@ def call(request):
     node += 1
     
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
-    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"retrieve":insights,"name":"user"}
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":insights,"name":"user"}
     print(Database.set_document(db, "Reflects", "user", document_user))
 
     return JsonResponse({

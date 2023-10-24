@@ -88,7 +88,7 @@ def call(request):
     node += 1
     
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
-    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"retrieve":plan,"name":"user"}
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"plan":plan,"name":"user"}
     print(Database.set_document(db, "Plans", "user", document_user))
 
     return JsonResponse({
