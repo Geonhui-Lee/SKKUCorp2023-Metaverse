@@ -110,10 +110,10 @@ def call(request):
     if score_customer == 110:
         score_customer = 0
     
-    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":user_message,"name":"user","important":score_user}
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":user_message,"name":"user","important":score_user}
 
     node += 1
-    document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":answer,"name":"customer","important":score_customer}
+    document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":answer,"name":"customer","important":score_customer}
 
     print(Database.set_document(db, "conversations", "user", document_user))
     print(Database.set_document(db, "conversations", "user", document_customer))
