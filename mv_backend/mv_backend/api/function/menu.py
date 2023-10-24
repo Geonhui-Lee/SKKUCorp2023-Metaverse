@@ -21,14 +21,14 @@ Search the pizza menu that the customer ordered.
 
 menu list:
 Bulgogi pizza
-Cheeze pizza
+Cheese pizza
 Pepperoni pizza
 Potato pizza
 
 ordering conversation:
 {conversation}
 
-format Pizza ordered and number:["Bulgogi pizza": 0, "Cheeze pizza": 0, "Pepperoni pizza": 0, "Potato pizza": 0]
+format Pizza ordered and number:["Bulgogi pizza": 0, "Cheese pizza": 0, "Pepperoni pizza": 0, "Potato pizza": 0]
 Pizza ordered and number:
 """
 find_query_prompt = PromptTemplate(
@@ -68,9 +68,7 @@ def call(request):
     menu_dict = eval(menu_string)
 
     messages_response = body["messages"] + [
-        {
-            menu_dict
-        }
+        menu_dict
     ]
 
     return JsonResponse({

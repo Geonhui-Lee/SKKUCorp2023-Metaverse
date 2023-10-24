@@ -22,7 +22,7 @@ You are in an ordering situation.
 
 menu list:
 Bulgogi pizza
-Cheeze pizza
+Cheese pizza
 Pepperoni pizza
 Potato pizza
 
