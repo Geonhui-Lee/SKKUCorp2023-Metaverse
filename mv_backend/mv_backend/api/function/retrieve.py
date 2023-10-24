@@ -87,7 +87,6 @@ def call(request):
             break
         all_chat_data_node.append("[" + str(data_num) + "]" + chat_data)
         all_chat_data.append(chat_data)
-        important = chat_data["important"]
     # all_chat_data_string = ""
     # # now reflect with 100 message data (we wil generate only one query)
     # data_num = 0
