@@ -10,7 +10,6 @@ from langchain.schema import (
     SystemMessage
 )
 import json, openai
-import uuid
 from datetime import datetime
 from bson.objectid import ObjectId
 
@@ -92,19 +91,24 @@ def call(request):
         continue
     node = i["node"] + 1
 
-    id = uuid.uuid1()
-    datetimeStr = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%L")
+    datetimeStr = datetime.now().strftime("%Y-%m-%d")
 
     important_str = important_score.run(event = user_message, name = "User")
     important_str = "0" + important_str
     score_user = int(''.join(filter(str.isdigit, important_str)))
-
+    if score_user == 110:
+        score_user = 0
+    
     important_str = important_score.run(event = answer, name = "User")
     important_str = "0" + important_str
     score_customer = int(''.join(filter(str.isdigit, important_str)))
+    if score_customer == 110:
+        score_customer = 0
     
-    document_user = {"_id":{ObjectId(id.hex)},"node":node,"timestamp":datetimeStr,"reflect":user_message,"name":"user","important":score_user}
-    document_customer = {"_id":{ObjectId(id.hex)},"node":node,"timestamp":datetimeStr,"reflect":answer,"name":"customer","important":score_customer}
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":user_message,"name":"user","important":score_user}
+
+    node += 1
+    document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":answer,"name":"customer","important":score_customer}
 
     print(Database.set_document(db, "conversations", "user", document_user))
     print(Database.set_document(db, "conversations", "user", document_customer))

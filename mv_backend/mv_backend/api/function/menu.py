@@ -71,7 +71,7 @@ def call(request):
     messages_response = body["messages"] + [
         {
             "role": "assistant",
-            "content": menu_dict
+            "content": menu_string
         }
     ]
 
