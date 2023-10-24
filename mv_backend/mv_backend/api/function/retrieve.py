@@ -66,7 +66,7 @@ def call(request):
     for chat_data in conversation:
         data_num += 1
         before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
-        important += chat_data["important"]
+        important.append(chat_data["important"])
     
     if data_num == 0:
         messages_response = body["messages"] + [
