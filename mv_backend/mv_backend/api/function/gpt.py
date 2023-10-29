@@ -35,7 +35,7 @@ query_template = """
 You are a {npc} who communicates with user. Don't answer too long.
 {npc}: {persona}
 
-CEFR is the English's level criteria established by the Common European Framework of Reference for Languages, which ranges from A1 to C2 (pre A1,A1,A2,B1,B2,C1,C2).
+CEFR is the English's level criteria established by the Common European Framework of Reference for Languages, which ranges from A1 to C2 (pre-A1,A1,A2,B1,B2,C1,C2).
 Please talk according to the user's English level. The user's English level is provided as a CEFR indicator and the customer's CEFR is 'pre A1'.
 
 user's CEFR: {cefr}
@@ -119,7 +119,7 @@ def call(request):
     cefr_data = Database.get_all_documents(db, "CEFR", "user")
     persona_data = Database.get_all_documents(db, "Persona", opponent)
 
-    cefr = ""
+    cefr = "pre-A1"
     interest = ""
     persona = ""
     for data in cefr_data:
