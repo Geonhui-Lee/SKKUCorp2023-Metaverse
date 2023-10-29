@@ -118,7 +118,7 @@ def call(request):
             data_num += 1
             if data_num >= before_data_num - 100:
                 all_chat_data_string += chat_data["name"] + ": " + chat_data["memory"] + "\n"
-
+    
     if data_num == 0:
         all_chat_data_string = "None"
     
