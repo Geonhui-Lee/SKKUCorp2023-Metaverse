@@ -95,6 +95,7 @@ def call(request):
             opponent = chat_data["content"]
             break
     
+    user_message = ""
     user_message = body["messages"][-1]["content"]
     all_chat_data_string = ""
     # for chat_data in body["messages"]:
@@ -107,7 +108,6 @@ def call(request):
     conversation = Database.get_all_documents(db, "conversations", "user")
     
     data_num = 0
-    user_message = ""
     for chat_data in conversation:
         data_num += 1
         if (chat_data["name"] == "user" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == "user"):
