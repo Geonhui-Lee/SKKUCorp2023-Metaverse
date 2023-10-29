@@ -200,7 +200,7 @@ def call(request):
 
     print(Database.set_document(db, "CEFR", "user", document_user))
 
-    messages_response = body["messages"] + [
+    messages_response = [
         {
             "role": "User",
             "content": "CEFR: " + cur_cefr + ", Interest: " + cur_interest
