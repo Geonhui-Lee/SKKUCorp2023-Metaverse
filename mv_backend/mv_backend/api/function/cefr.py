@@ -155,6 +155,7 @@ def call(request):
     conversation = Database.get_all_documents(db, "conversations", "user")
 
     before_chat_data = []
+    data_num = 0
     for chat_data in conversation:
         data_num += 1
         before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])

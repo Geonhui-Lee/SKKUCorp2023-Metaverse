@@ -106,12 +106,18 @@ def call(request):
     #         all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
 
     conversation = Database.get_all_documents(db, "conversations", "user")
+
+    before_data_num = 0
+    for chat_data in conversation:
+        if (chat_data["name"] == "user" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == "user"):
+            before_data_num += 1
     
     data_num = 0
     for chat_data in conversation:
-        data_num += 1
         if (chat_data["name"] == "user" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == "user"):
-            all_chat_data_string += chat_data["name"] + ": " + chat_data["memory"] + "\n"
+            data_num += 1
+            if data_num >= before_data_num - 100:
+                all_chat_data_string += chat_data["name"] + ": " + chat_data["memory"] + "\n"
 
     if data_num == 0:
         all_chat_data_string = "None"
