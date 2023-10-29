@@ -89,8 +89,13 @@ def call(request):
     #     messages=body["messages"]
     # )
     # openai_response_message = openai_response["choices"][0]["message"]
-    opponent = body["messages"][-1]["role"]
-
+    
+    for chat_data in body["messages"]:
+        if chat_data["role"] == "system":
+            opponent = chat_data["content"]
+            break
+    
+    user_message = body["messages"][-1]["content"]
     all_chat_data_string = ""
     # for chat_data in body["messages"]:
     #     if chat_data["role"] == "user":
@@ -105,10 +110,7 @@ def call(request):
     user_message = ""
     for chat_data in conversation:
         data_num += 1
-        if chat_data["name"] == "user":
-            all_chat_data_string += user_message
-            user_message = chat_data["name"] + ": " + chat_data["memory"] + "\n"
-        elif chat_data["name"] == opponent:
+        if (chat_data["name"] == "user") or (chat_data["name"] == opponent):
             all_chat_data_string += chat_data["name"] + ": " + chat_data["memory"] + "\n"
 
     if data_num == 0:
