@@ -15,6 +15,8 @@ from mv_backend.api.function.plan import call as plan
 
 from mv_backend.api.function.menu import call as menu
 
+from mv_backend.api.function.cefr import call as cefr
+
 from mv_backend.api.function.database.data_load import gh_call as data_load
 
 def api_render(name, output):
@@ -32,5 +34,6 @@ def api_path():
         api_render('reflect', reflect),
         api_render('plan', plan),
         api_render('menu', menu),
+        api_render('cefr', cefr),
         api_render('data/load', data_load)
     ]
