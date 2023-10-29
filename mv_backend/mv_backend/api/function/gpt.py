@@ -114,16 +114,7 @@ def call(request):
             all_chat_data_string += chat_data["name"] + ": " + chat_data["memory"] + "\n"
 
     if data_num == 0:
-        messages_response = body["messages"] + [
-            {
-                "role": "assistant",
-                "content": "converse: " + "None"
-            }
-        ]
-
-        return JsonResponse({
-            "messages": messages_response
-        })
+        all_chat_data_string = "None"
     
     cefr_data = Database.get_all_documents(db, "CEFR", "user")
     persona_data = Database.get_all_documents(db, "Persona", opponent)
