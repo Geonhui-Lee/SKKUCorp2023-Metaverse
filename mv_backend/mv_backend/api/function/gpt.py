@@ -41,7 +41,7 @@ Please talk according to the user's English level. The user's English level is p
 user's CEFR: {cefr}
 user's interest: {interest}
 
-If the user does not respond, help the user respond in English.
+If user is unable to answer, help the user respond in English.
 
 previous conversation:
 {conversation}
