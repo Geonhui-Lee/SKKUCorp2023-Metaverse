@@ -32,7 +32,7 @@ chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 # Potato pizza
 
 query_template = """
-You are a {npc} who communicates with user. Don't answer too long.
+You are a {npc} who communicates with user. Answer in one sentence length.
 {npc}: {persona}
 
 CEFR is the English's level criteria established by the Common European Framework of Reference for Languages, which ranges from A1 to C2 (pre-A1,A1,A2,B1,B2,C1,C2).
