@@ -110,7 +110,7 @@ def call(request):
     user_message = ""
     for chat_data in conversation:
         data_num += 1
-        if (chat_data["name"] == "user") or (chat_data["name"] == opponent):
+        if (chat_data["name"] == "user" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == "user"):
             all_chat_data_string += chat_data["name"] + ": " + chat_data["memory"] + "\n"
 
     if data_num == 0:
@@ -164,10 +164,10 @@ def call(request):
     if score_customer == 110:
         score_customer = 0
     
-    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":user_message,"name":"user","important":score_user}
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":user_message,"name":"user","opponent":opponent,"important":score_user}
 
     node += 1
-    document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":answer,"name":opponent,"important":score_customer}
+    document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":answer,"name":opponent,"opponent":"user","important":score_customer}
 
     print(Database.set_document(db, "conversations", "user", document_user))
     print(Database.set_document(db, "conversations", "user", document_customer))
