@@ -3,11 +3,6 @@ from mv_backend.settings import OPENAI_API_KEY
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
-from langchain.schema import (
-    AIMessage,
-    HumanMessage,
-    SystemMessage
-)
 from langchain.memory import ConversationBufferMemory
 from datetime import datetime
 from bson.objectid import ObjectId
@@ -20,10 +15,22 @@ openai.api_key = OPENAI_API_KEY
 import os
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
-user_template = """""";
-npc_template = """""";
+user_template = """
+You are a 6 year old student that has a lot of curiosity you like to question about everything. *Always* make the response in a way that a 6 year old child would answer.
+If the user input seems to be too hard for a 6 year old child to answer, respond like you don't know the answer.
+
+CEFR is the English's level criteria established by the Common European Framework of Reference for Languages, which ranges from A1 to C2 (pre-A1,A1,A2,B1,B2,C1,C2).
+Please talk according to the user's English level. The user's English level is provided as a CEFR indicator and the customer's CEFR is {user_cefr}.
+
+Opponent:{npc_input}
+User:"""
+npc_template = """"""
+user_name = "user0"
+npc_name = "pizza chef"
+user_cefr = "pre-A1"
 
 user_prompt = PromptTemplate(
+    input_variables= ["user_cefr", "user_input"],
     template=user_template
 )
 
@@ -60,18 +67,18 @@ important_score = LLMChain(
     prompt=important_prompt
 )
 
-user_response = user_llm.run(input = "Hi")
+user_response = user_llm.run(user_cefr = user_cefr, npc_input = f"Hi I'm {npc_name}.")
 all_chat = list()
 all_importance = list()
 
 for i in range(50):
-  npc_response = npc_llm(input = user_response)
+  npc_response = npc_llm()
   print(npc_response)
   all_chat.append(f"{npc_response}")
   score = important_score.run(name = f"{user_name}", event = f"{npc_name}" + ": " + npc_response)
   all_importance.append(score)
   
-  user_response = user_llm(input = npc_response)
+  user_response = user_llm(user_cefr = user_cefr, npc_input = npc_response)
   all_chat.append(f"{user_response}")
   print(user_response)
   score = important_score.run(name = f"{user_name}", event = f"{user_name}" + ": " + user_response)
