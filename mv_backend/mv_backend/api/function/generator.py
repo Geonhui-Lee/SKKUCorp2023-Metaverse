@@ -62,21 +62,27 @@ important_score = LLMChain(
 
 user_response = user_llm.run(input = "Hi")
 all_chat = list()
+all_importance = list()
 
 for i in range(50):
   npc_response = npc_llm(input = user_response)
   print(npc_response)
   all_chat.append(f"{npc_response}")
+  score = important_score.run(name = f"{user_name}", event = f"{npc_name}" + ": " + npc_response)
+  all_importance.append(score)
+  
   user_response = user_llm(input = npc_response)
   all_chat.append(f"{user_response}")
   print(user_response)
-  
+  score = important_score.run(name = f"{user_name}", event = f"{user_name}" + ": " + user_response)
+  all_importance.append(score)
+
 datetimeStr = datetime.now().strftime("%Y-%m-%d")
 
 for i in range(len(all_chat)):
-  document_user = {"_id":ObjectId(),"node":i,"timestamp":datetimeStr,"memory":all_chat[i],"name":f"{npc_name}","opponent":f"{user_name}","important":score_user}
+  document_user = {"_id":ObjectId(),"node":i,"timestamp":datetimeStr,"memory":all_chat[i],"name":f"{npc_name}","opponent":f"{user_name}","important":all_importance[i]}
 
-  document_customer = {"_id":ObjectId(),"node":i+1,"timestamp":datetimeStr,"memory":all_chat[i+1],"name":f"{user_name}","opponent":f"{npc_name}","important":score_customer}
+  document_customer = {"_id":ObjectId(),"node":i+1,"timestamp":datetimeStr,"memory":all_chat[i+1],"name":f"{user_name}","opponent":f"{npc_name}","important":all_importance[i]}
   
   i+=2
   print(Database.set_document(db, "conversations", "f{user_name}", document_user))
