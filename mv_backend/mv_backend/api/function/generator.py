@@ -67,20 +67,22 @@ important_score = LLMChain(
     prompt=important_prompt
 )
 
+print(f"{npc_name}: Hi I'm {npc_name}.")
 user_response = user_llm.run(user_cefr = user_cefr, npc_input = f"Hi I'm {npc_name}.")
+print(f"{user_name}: {user_response}")
 all_chat = list()
 all_importance = list()
 
 for i in range(50):
   npc_response = npc_llm()
-  print(npc_response)
+  print(f"{npc_name}: {npc_response}")
   all_chat.append(f"{npc_response}")
   score = important_score.run(name = f"{user_name}", event = f"{npc_name}" + ": " + npc_response)
   all_importance.append(score)
   
   user_response = user_llm(user_cefr = user_cefr, npc_input = npc_response)
   all_chat.append(f"{user_response}")
-  print(user_response)
+  print(f"{user_name}: {user_response}")
   score = important_score.run(name = f"{user_name}", event = f"{user_name}" + ": " + user_response)
   all_importance.append(score)
 
