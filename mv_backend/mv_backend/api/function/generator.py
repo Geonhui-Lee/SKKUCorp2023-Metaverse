@@ -153,8 +153,8 @@ for i in range(len(all_chat)):
   print(Database.set_document(db, "conversations", "f{user_name}", document_customer))
 
 
-retrieve(f"{npc_name}", f"{user_name}", db)
-reflect(f"{npc_name}", f"{user_name}", db)
+retrieve(f"{npc_name}", f"{user_name}")
+reflect(f"{npc_name}", f"{user_name}")
   
   
 

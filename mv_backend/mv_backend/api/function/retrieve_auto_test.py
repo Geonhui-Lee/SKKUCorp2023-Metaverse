@@ -19,6 +19,34 @@ openai.api_key = OPENAI_API_KEY
 import os
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
+MONGODB_CONNECTION_STRING = "mongodb+srv://geonhui:dotgeon@metaverse.px60xor.mongodb.net/?"
+class Database:
+    def __init__(self):
+        self.client = MongoClient(MONGODB_CONNECTION_STRING, server_api=ServerApi('1'))
+    
+    def get_client(self):
+        return self.client
+
+    def get_database(self, database_name):
+        return self.client[database_name]
+
+    def get_collection(self, database_name, collection_name):
+        return self.get_database(database_name)[collection_name]
+    
+    def get_all_collections(self, database_name):
+        return self.get_database(database_name).list_collection_names()
+    
+    def get_all_documents(self, database_name, collection_name):
+        return self.get_collection(database_name, collection_name).find()
+    
+    def set_document(self, database_name, collection_name, document):
+        return self.get_collection(database_name, collection_name).insert_one(document)
+    
+    def set_documents(self, database_name, collection_name, documents):
+        return self.get_collection(database_name, collection_name).insert_many(documents)
+
+db = Database()
+
 chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 # every agents for this code
 embeddings_model = OpenAIEmbeddings()
@@ -44,7 +72,7 @@ generate_retrieve = LLMChain(
     prompt=generate_prompt
 )
 
-def retrieve(npc, user, db):
+def retrieve(npc, user):
 
     ### mongoDB user's memory ###
     conversation = Database.get_all_documents(db, "conversations", user)
