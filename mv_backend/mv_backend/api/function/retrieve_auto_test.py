@@ -3,98 +3,75 @@ import json, openai
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
+from langchain.schema import (
+    AIMessage,
+    HumanMessage,
+    SystemMessage
+)
 import numpy as np
 from numpy.linalg import norm
 from langchain.embeddings import OpenAIEmbeddings
 import json, openai
 from datetime import datetime
-from bson.objectid import ObjectId
 
 OPENAI_API_KEY = "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"
-
 openai.api_key = OPENAI_API_KEY
 import os
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
-
+# every agents for this code
 embeddings_model = OpenAIEmbeddings()
-# every prompts for this code
-
-# generate the query score
-# !<INPUT 0>! -- Event/thought statements 
-# !<INPUT 1>! -- Count 
-generate_query_template = """
-{event}
-
-Given only the information above, what are {num} most salient high-level questions we can answer about the subjects grounded in the statements?
-1)
-"""
-generate_query_prompt = PromptTemplate(
-    input_variables=["event", "num"], template=generate_query_template
-)
-
-generate_query = LLMChain(
-    llm=chat,
-    prompt=generate_query_prompt
-)
 
 # find the insight
 # !<INPUT 0>! -- Numbered list of event/thought statements
 # !<INPUT 1>! -- target persona name or "the conversation"
-generate_insights_template = """
+generate_template = """
+Query:
+{query}
 Input:
 {event}
 
-What are the {name} high-level insights about {opponent} can be inferred from the above statement? (example format: insight (because of 1, 5, 3))
+What {name} answer can you infer from the above statements? (example format: insight (because of 1, 5, 3))
 1.
 """
-generate_insights_prompt = PromptTemplate(
-    input_variables=["name", "opponent", "event"], template=generate_insights_template
+generate_prompt = PromptTemplate(
+    input_variables=["query", "name", "event"], template=generate_template
 )
 
-generate_insights = LLMChain(
+generate_retrieve = LLMChain(
     llm=chat,
-    prompt=generate_insights_prompt
+    prompt=generate_prompt
 )
-def reflect(npc, user, db):
-    # openai_response = openai.ChatCompletion.create(
-    #     model="gpt-3.5-turbo",
-    #     messages=body["messages"]
-    # )
+
+def retrieve(npc, user, db):
 
     ### mongoDB user's memory ###
     conversation = Database.get_all_documents(db, "conversations", user)
     data_num = 0
-    important_sum = 0
+
     all_chat_data = []
     before_chat_data = []
     all_chat_data_node = []
     important = []
+    important_sum = 0
     for chat_data in conversation:
-        if (chat_data["name"] == npc) or (chat_data["opponent"] == npc):
-            data_num += 1
-            before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
-            important.append(chat_data["important"])
-            important_sum += chat_data["important"]
+        data_num += 1
+        before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
+        important.append(chat_data["important"])
+        important_sum += chat_data["important"]
     
     if data_num == 0 or important_sum < 100:
         return
     
     important_sum = 0
-
     data_num = 0
-    all_chat_data_string = ""
     for chat_data in reversed(before_chat_data):
         data_num += 1
         if data_num > 100:
             break
         all_chat_data_node.append("[" + str(data_num) + "]" + chat_data)
         all_chat_data.append(chat_data)
-        all_chat_data_string += chat_data + "\n"
-
-    # all_chat_data = []
-    # all_chat_data_node = []
     # all_chat_data_string = ""
     # # now reflect with 100 message data (we wil generate only one query)
     # data_num = 0
@@ -105,9 +82,9 @@ def reflect(npc, user, db):
     #     all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["role"] + ": " + chat_data["content"])
     #     all_chat_data.append(chat_data["role"] + ": " + chat_data["content"])
     #     all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
+    
 
-
-    focal_points = generate_query.run(event = all_chat_data_string, num = "1")
+    focal_points = "Find out what the user is bad at (grammar, understanding of context, etc.)"
     embedded_query = embeddings_model.embed_query(focal_points)
     embedings = embeddings_model.embed_documents(all_chat_data)
 
@@ -115,6 +92,7 @@ def reflect(npc, user, db):
     print(cosine)
 
     chat_data_score = dict(zip(all_chat_data_node, cosine))
+
     # retrieve to find 30 chat data with the generated query, embedding vetors, recency
     data_num = 0
     recency = 1
@@ -125,7 +103,7 @@ def reflect(npc, user, db):
         recency *= 0.995
         
         chat_data_score["[" + str(data_num) + "]" + chat_data] += 0.1*score + recency
-
+    
     sorted_dict = sorted(chat_data_score.items(), key = lambda item: item[1], reverse = True)
     print(sorted_dict)
 
@@ -137,21 +115,21 @@ def reflect(npc, user, db):
         if data_num > 30:
             break
         important_data_string += chat_data[0] + "\n"
-    insights = generate_insights.run(name = npc + "'s 5", opponent = user, event = important_data_string)
+    retrieve = generate_retrieve.run(query = focal_points, name = user + "'s", event = important_data_string)
 
-    previous = Database.get_all_documents(db, "Reflects", user)
+    previous = Database.get_all_documents(db, "Retrieves", user)
     print(previous)
     data_num = 0
     node = 0
 
     for i in previous:
         data_num += 1
-
+    
     if data_num != 0:
         print(i)
         node = i["node"]
         node += 1
-
+    
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
-    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":insights,"name":npc}
-    print(Database.set_document(db, "Reflects", user, document_user))
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"retrieve":retrieve,"name":user}
+    print(Database.set_document(db, "Retrieves", user, document_user))

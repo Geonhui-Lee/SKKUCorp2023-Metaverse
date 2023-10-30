@@ -8,6 +8,9 @@ import openai
 
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+from retrieve_auto_test import *
+from reflect_auto_test import *
+
 MONGODB_CONNECTION_STRING = "mongodb+srv://geonhui:dotgeon@metaverse.px60xor.mongodb.net/?"
 class Database:
     def __init__(self):
@@ -148,6 +151,10 @@ for i in range(len(all_chat)):
   i+=2
   print(Database.set_document(db, "conversations", "f{user_name}", document_user))
   print(Database.set_document(db, "conversations", "f{user_name}", document_customer))
+
+
+retrieve(f"{npc_name}", f"{user_name}", db)
+reflect(f"{npc_name}", f"{user_name}", db)
   
   
 
