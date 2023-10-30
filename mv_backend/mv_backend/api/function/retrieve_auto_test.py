@@ -3,16 +3,14 @@ import json, openai
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
-from langchain.schema import (
-    AIMessage,
-    HumanMessage,
-    SystemMessage
-)
 import numpy as np
 from numpy.linalg import norm
 from langchain.embeddings import OpenAIEmbeddings
 import json, openai
 from datetime import datetime
+from bson.objectid import ObjectId
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
 OPENAI_API_KEY = "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"
 openai.api_key = OPENAI_API_KEY
@@ -60,7 +58,7 @@ Query:
 Input:
 {event}
 
-What {name} answer can you infer from the above statements? (example format: insight (because of 1, 5, 3))
+What answer to the query can {name} infer from the above statements? (example format: insight (because of 1, 5, 3))
 1.
 """
 generate_prompt = PromptTemplate(
@@ -86,8 +84,14 @@ def retrieve(npc, user):
     for chat_data in conversation:
         data_num += 1
         before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
-        important.append(chat_data["important"])
-        important_sum += chat_data["important"]
+        important.append(int(chat_data["important"]))
+    
+    data_num = 0
+    for chat_data in reversed(important):
+        data_num += 1
+        important_sum += chat_data
+        if data_num > 50:
+            break
     
     if data_num == 0 or important_sum < 100:
         return
@@ -143,7 +147,7 @@ def retrieve(npc, user):
         if data_num > 30:
             break
         important_data_string += chat_data[0] + "\n"
-    retrieve = generate_retrieve.run(query = focal_points, name = user + "'s", event = important_data_string)
+    retrieve = generate_retrieve.run(query = focal_points, name = npc + "'s", event = important_data_string)
 
     previous = Database.get_all_documents(db, "Retrieves", user)
     print(previous)

@@ -9,6 +9,8 @@ from langchain.embeddings import OpenAIEmbeddings
 import json, openai
 from datetime import datetime
 from bson.objectid import ObjectId
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
 OPENAI_API_KEY = "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"
 
@@ -103,14 +105,19 @@ def reflect(npc, user):
         if (chat_data["name"] == npc) or (chat_data["opponent"] == npc):
             data_num += 1
             before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
-            important.append(chat_data["important"])
-            important_sum += chat_data["important"]
+            important.append(int(chat_data["important"]))
     
+    data_num = 0
+    for chat_data in reversed(important):
+        data_num += 1
+        important_sum += chat_data
+        if data_num > 50:
+            break
+
     if data_num == 0 or important_sum < 100:
         return
     
     important_sum = 0
-
     data_num = 0
     all_chat_data_string = ""
     for chat_data in reversed(before_chat_data):
