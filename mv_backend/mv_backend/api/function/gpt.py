@@ -94,6 +94,12 @@ def call(request):
         if chat_data["role"] == "npc_name":
             opponent = chat_data["content"]
             break
+        
+    user_name = ""
+    for chat_data in body["messages"]:
+        if chat_data["role"] == "user_name":
+            user_name = chat_data["content"]
+            break
     
     user_message = ""
     user_message = body["messages"][-1]["content"]
@@ -105,16 +111,16 @@ def call(request):
     #     else:
     #         all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
 
-    conversation = Database.get_all_documents(db, "conversations", "user")
+    conversation = Database.get_all_documents(db, "conversations", f"{user_name}")
 
     before_data_num = 0
     for chat_data in conversation:
-        if (chat_data["name"] == "user" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == "user"):
+        if (chat_data["name"] == f"{user_name}" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == f"{user_name}"):
             before_data_num += 1
     
     data_num = 0
     for chat_data in conversation:
-        if (chat_data["name"] == "user" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == "user"):
+        if (chat_data["name"] == f"{user_name}" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == f"{user_name}"):
             data_num += 1
             if data_num >= before_data_num - 100:
                 all_chat_data_string += chat_data["name"] + ": " + chat_data["memory"] + "\n"
@@ -122,7 +128,7 @@ def call(request):
     if data_num == 0:
         all_chat_data_string = "None"
     
-    cefr_data = Database.get_all_documents(db, "CEFR", "user")
+    cefr_data = Database.get_all_documents(db, "CEFR", f"{user_name}")
     persona_data = Database.get_all_documents(db, "Persona", opponent)
 
     cefr = "pre-A1"
@@ -136,7 +142,7 @@ def call(request):
 
     answer = query.run(npc = opponent, persona = persona, cefr = cefr, interest = interest, conversation = all_chat_data_string, current = user_message)
 
-    conversation = Database.get_all_documents(db, "conversations", "user")
+    conversation = Database.get_all_documents(db, "conversations", f"{user_name}")
     print(conversation)
     node = 0
     data_num = 0
@@ -149,25 +155,25 @@ def call(request):
     
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
 
-    important_str = important_score.run(event = user_message, name = "User")
+    important_str = important_score.run(event = user_message, name = f"{user_name}")
     important_str = "0" + important_str
     score_user = int(''.join(filter(str.isdigit, important_str)))
     if score_user == 110:
         score_user = 0
     
-    important_str = important_score.run(event = opponent + ": " + answer, name = "User")
+    important_str = important_score.run(event = opponent + ": " + answer, name = f"{user_name}")
     important_str = "0" + important_str
     score_customer = int(''.join(filter(str.isdigit, important_str)))
     if score_customer == 110:
         score_customer = 0
     
-    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":user_message,"name":"user","opponent":opponent,"important":score_user}
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":user_message,"name":f"{user_name}","opponent":opponent,"important":score_user}
 
     node += 1
-    document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":answer,"name":opponent,"opponent":"user","important":score_customer}
+    document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":answer,"name":opponent,"opponent":f"{user_name}","important":score_customer}
 
-    print(Database.set_document(db, "conversations", "user", document_user))
-    print(Database.set_document(db, "conversations", "user", document_customer))
+    print(Database.set_document(db, "conversations", f"{user_name}", document_user))
+    print(Database.set_document(db, "conversations", f"{user_name}", document_customer))
 
     messages_response = body["messages"] + [
         {

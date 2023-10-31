@@ -152,7 +152,13 @@ def call(request):
     body = json.loads(body_unicode)
 
     # check the conversation
-    conversation = Database.get_all_documents(db, "conversations", "user")
+    user_name = ""
+    for chat_data in body["messages"]:
+        if chat_data["role"] == "user_name":
+            user_name = chat_data["content"]
+            break
+        
+    conversation = Database.get_all_documents(db, "conversations", f"{user_name}")
 
     before_chat_data = []
     data_num = 0
@@ -183,7 +189,7 @@ def call(request):
     cur_cefr = generate_cefr.run(CEFR = CEFR, query = all_chat_data_string)
     cur_interest = generate_interest.run(query = all_chat_data_string)
 
-    cefr_data = Database.get_all_documents(db, "CEFR", "user")
+    cefr_data = Database.get_all_documents(db, "CEFR", f"{user_name}")
     print(cefr_data)
     node = 0
     data_num = 0
@@ -196,13 +202,13 @@ def call(request):
     
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
     
-    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"cefr":cur_cefr,"interest":cur_interest,"name":"user"}
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"cefr":cur_cefr,"interest":cur_interest,"name":f"{user_name}"}
 
-    print(Database.set_document(db, "CEFR", "user", document_user))
+    print(Database.set_document(db, "CEFR", f"{user_name}", document_user))
 
     messages_response = [
         {
-            "role": "User",
+            "role": f"{user_name}",
             "content": "CEFR: " + cur_cefr + ", Interest: " + cur_interest
         }
     ]
