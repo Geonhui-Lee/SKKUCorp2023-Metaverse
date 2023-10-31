@@ -143,14 +143,16 @@ for i in range(30):
 
 datetimeStr = datetime.now().strftime("%Y-%m-%d")
 
-for i in range(int(len(all_chat)/2)):
-  document_user = {"_id":ObjectId(),"node":i,"timestamp":datetimeStr,"memory":all_chat[i],"name":f"{npc_name}","opponent":f"{user_name}","important":all_importance[i]}
+i = 0
+chat_length = len(all_chat)
+while(i < chat_length):
+  document_user = {"_id":ObjectId(),"node":i,"timestamp":datetimeStr,"memory":all_chat[i],"name":f"{user_name}","opponent":f"{npc_name}","important":all_importance[i]}
 
-  document_customer = {"_id":ObjectId(),"node":i+1,"timestamp":datetimeStr,"memory":all_chat[i+1],"name":f"{user_name}","opponent":f"{npc_name}","important":all_importance[i+1]}
+  document_npc = {"_id":ObjectId(),"node":i+1,"timestamp":datetimeStr,"memory":all_chat[i+1],"name":f"{npc_name}","opponent":f"{user_name}","important":all_importance[i+1]}
   
   i+=2
   print(Database.set_document(db, "conversations", f"{user_name}", document_user))
-  print(Database.set_document(db, "conversations", f"{user_name}", document_customer))
+  print(Database.set_document(db, "conversations", f"{user_name}", document_npc))
 
 
 retrieve(f"{npc_name}", f"{user_name}")
