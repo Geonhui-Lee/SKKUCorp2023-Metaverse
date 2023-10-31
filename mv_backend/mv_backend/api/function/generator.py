@@ -41,7 +41,7 @@ db = Database()
 OPENAI_API_KEY = "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"
 import os
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
-chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0.1)
+chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=1)
 
 
 user_template = """
@@ -157,7 +157,7 @@ while(i < chat_length):
   if(i >= chat_length):
       break
   
-  document_npc = {"_id":ObjectId(),"node":i+1,"timestamp":datetimeStr,"memory":all_chat[i+1],"name":f"{npc_name}","opponent":f"{user_name}","important":all_importance[i+1]}
+  document_npc = {"_id":ObjectId(),"node":i,"timestamp":datetimeStr,"memory":all_chat[i],"name":f"{npc_name}","opponent":f"{user_name}","important":all_importance[i]}
   i += 1
   
   print(Database.set_document(db, "conversations", f"{user_name}", document_npc))
