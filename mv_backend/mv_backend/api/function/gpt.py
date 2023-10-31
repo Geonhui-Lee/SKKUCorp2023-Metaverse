@@ -40,6 +40,8 @@ Please talk according to the user's English level. The user's English level is p
 
 user's CEFR: {cefr}
 user's interest: {interest}
+user is bad at:
+{retrieve}
 
 If user is unable to answer, help the user respond in English.
 
@@ -52,7 +54,7 @@ now answer
 """
 
 query_prompt = PromptTemplate(
-    input_variables=["npc", "persona", "cefr", "interest", "conversation", "current"], template=query_template
+    input_variables=["npc", "persona", "cefr", "interest", "retrieve", "conversation", "current"], template=query_template
 )
 
 query = LLMChain(
@@ -130,17 +132,31 @@ def call(request):
     
     cefr_data = Database.get_all_documents(db, "CEFR", f"{user_name}")
     persona_data = Database.get_all_documents(db, "Persona", opponent)
+    retrieve_data = Database.get_all_documents(db, "Retrieves", f"{user_name}")
 
     cefr = "pre-A1"
     interest = ""
     persona = ""
+    retrieve = ""
+    retrieve_list = list()
+
     for data in cefr_data:
         cefr = data["cefr"]
         interest = data["interest"]
     for data in persona_data:
         persona = data["persona"]
+    
+    for data in retrieve_data:
+        retrieve_list.append(data["retrieve"])
+    
+    data_num = 0
+    for data in reversed(retrieve_list):
+        data_num += 1
+        if data_num > 4:
+            break
+        retrieve += str(data_num) + ". " + data + "\n"
 
-    answer = query.run(npc = opponent, persona = persona, cefr = cefr, interest = interest, conversation = all_chat_data_string, current = user_message)
+    answer = query.run(npc = opponent, persona = persona, cefr = cefr, interest = interest, retrieve = retrieve, conversation = all_chat_data_string, current = user_message)
 
     conversation = Database.get_all_documents(db, "conversations", f"{user_name}")
     print(conversation)
@@ -158,13 +174,13 @@ def call(request):
     important_str = important_score.run(event = user_message, name = f"{user_name}")
     important_str = "0" + important_str
     score_user = int(''.join(filter(str.isdigit, important_str)))
-    if score_user == 110:
+    if score_user > 10:
         score_user = 0
     
     important_str = important_score.run(event = opponent + ": " + answer, name = f"{user_name}")
     important_str = "0" + important_str
     score_customer = int(''.join(filter(str.isdigit, important_str)))
-    if score_customer == 110:
+    if score_customer > 10:
         score_customer = 0
     
     document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":user_message,"name":f"{user_name}","opponent":opponent,"important":score_user}
