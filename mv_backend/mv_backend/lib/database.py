@@ -3,9 +3,16 @@ from pymongo.server_api import ServerApi
 from mv_backend.settings import MONGODB_CONNECTION_STRING
 
 class Database:
-    def __init__(self):
+    def __init__(self, unique_id=None):
         self.client = MongoClient(MONGODB_CONNECTION_STRING, server_api=ServerApi('1'))
+        self.uid = unique_id
     
+    def get_uid(self):
+        return self.uid
+    
+    def set_uid(self, unique_id=None):
+        self.uid = unique_id
+
     def get_client(self):
         return self.client
 
@@ -21,8 +28,26 @@ class Database:
     def get_all_documents(self, database_name, collection_name):
         return self.get_collection(database_name, collection_name).find()
     
+    def get_all_documents_of_user(self, database_name, collection_name):
+        return self.get_all_documents_by_query(database_name, collection_name, {'@uid': self.uid})
+
+    def get_all_documents_by_query(self, database_name, collection_name, query):
+        if (self.uid == None):
+            return self.get_collection(database_name, collection_name).find(query)
+        else:
+            return self.get_collection(database_name, collection_name).find({'$and': [{'@uid': self.uid}, query]})
+
     def set_document(self, database_name, collection_name, document):
         return self.get_collection(database_name, collection_name).insert_one(document)
     
+    def set_document_of_user(self, database_name, collection_name, document):
+        document['@uid'] = self.uid
+        return self.set_document(database_name, collection_name, document)
+    
     def set_documents(self, database_name, collection_name, documents):
         return self.get_collection(database_name, collection_name).insert_many(documents)
+    
+    def set_documents_of_user(self, database_name, collection_name, documents):
+        for document in documents:
+            document['@uid'] = self.uid
+        return self.set_documents(database_name, collection_name, documents)
