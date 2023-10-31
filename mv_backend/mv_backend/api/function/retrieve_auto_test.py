@@ -93,7 +93,7 @@ def retrieve(npc, user):
         if data_num > 50:
             break
     
-    if data_num == 0 or important_sum < 100:
+    if data_num == 0 or important_sum < 50:
         return
     
     important_sum = 0
