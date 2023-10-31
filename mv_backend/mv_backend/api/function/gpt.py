@@ -32,7 +32,7 @@ chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 # Potato pizza
 
 query_template = """
-You are a {npc} who communicates with user. Answer in one sentence length.
+You are a {npc} who communicates with user. *Always* Answer briefly and concisely.
 {npc}: {persona}
 
 CEFR is the English's level criteria established by the Common European Framework of Reference for Languages, which ranges from A1 to C2 (pre-A1,A1,A2,B1,B2,C1,C2).
@@ -41,7 +41,7 @@ Please talk according to the user's English level. The user's English level is p
 user's CEFR: {cefr}
 user's interest: {interest}
 
-If the user does not respond, help the user respond in English.
+If user is unable to answer, help the user respond in English.
 
 previous conversation:
 {conversation}
@@ -106,13 +106,19 @@ def call(request):
     #         all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
 
     conversation = Database.get_all_documents(db, "conversations", "user")
+
+    before_data_num = 0
+    for chat_data in conversation:
+        if (chat_data["name"] == "user" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == "user"):
+            before_data_num += 1
     
     data_num = 0
     for chat_data in conversation:
-        data_num += 1
         if (chat_data["name"] == "user" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == "user"):
-            all_chat_data_string += chat_data["name"] + ": " + chat_data["memory"] + "\n"
-
+            data_num += 1
+            if data_num >= before_data_num - 100:
+                all_chat_data_string += chat_data["name"] + ": " + chat_data["memory"] + "\n"
+    
     if data_num == 0:
         all_chat_data_string = "None"
     

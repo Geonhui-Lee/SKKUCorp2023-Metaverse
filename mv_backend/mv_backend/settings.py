@@ -30,8 +30,8 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-39fw-#d1oujr_+g+l_a7khjn60l-9na4hccu-*3!@po=g)0n90'
 
-OPENAI_API_KEY = env('OPENAI_API_KEY')
-MONGODB_CONNECTION_STRING = env('MONGODB_CONNECTION_STRING')
+OPENAI_API_KEY = "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"
+MONGODB_CONNECTION_STRING = "mongodb+srv://geonhui:dotgeon@metaverse.px60xor.mongodb.net/?retryWrites=true&w=majority"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'mv_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(os.path.join(BASE_DIR, "db.sqlite3")),
     }
 }
 
