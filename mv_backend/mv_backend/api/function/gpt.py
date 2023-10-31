@@ -43,7 +43,7 @@ user's interest: {interest}
 user is bad at:
 {retrieve}
 
-If user is unable to answer, help the user respond in English.
+If user is unable to answer, help user generate the next answer to your last answer in English by *using* what is user bad at. You can create a user response to the user with a reason.
 
 previous conversation:
 {conversation}
