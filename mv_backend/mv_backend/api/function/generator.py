@@ -65,7 +65,7 @@ Opponent:{npc_input}
 User:"""
 
 npc_template = """
-You're job is a pizza chef(do not forget).  *Always* Answer to the user briefly and concisely in a way that a pizza chef would answer.
+You're job is a Police Officer(do not forget).  *Always* Answer to the user briefly and concisely in a way that a Police Officer would answer.
 situation : you are explaining to the user all about your job. *You are not in a ordering situation*.
 
 CEFR is the English's level criteria established by the Common European Framework of Reference for Languages, which ranges from A1 to C2 (pre-A1,A1,A2,B1,B2,C1,C2).
@@ -76,7 +76,7 @@ Opponent:{user_input}
 You:"""
 
 user_name = "user0"
-npc_name = "pizza chef"
+npc_name = "Police Officer"
 user_cefr = "pre-A1"
 
 user_prompt = PromptTemplate(

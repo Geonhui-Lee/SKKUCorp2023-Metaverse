@@ -91,7 +91,7 @@ def call(request):
     # openai_response_message = openai_response["choices"][0]["message"]
     
     for chat_data in body["messages"]:
-        if chat_data["role"] == "system":
+        if chat_data["role"] == "npc_name":
             opponent = chat_data["content"]
             break
     
