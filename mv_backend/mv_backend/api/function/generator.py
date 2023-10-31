@@ -125,6 +125,9 @@ all_chat.append(f"{user_response}")
 all_chat_string += f"{user_name}: {user_response}\n"
 all_importance = list()
 
+score = important_score.run(name = f"{user_name}", event = f"{npc_name}" + ": " + user_response)
+all_importance.append(score)
+
 for i in range(15):
   npc_response = npc_llm.run(user_cefr = user_cefr, user_input = user_response, history = all_chat_string)
   print(f"{npc_name}: {npc_response}")
