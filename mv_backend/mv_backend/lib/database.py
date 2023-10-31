@@ -29,7 +29,10 @@ class Database:
         return self.get_collection(database_name, collection_name).find()
     
     def get_all_documents_of_user(self, database_name, collection_name):
-        return self.get_all_documents_by_query(database_name, collection_name, {'@uid': self.uid})
+        if (self.uid != None):
+            return self.get_all_documents_by_query(database_name, collection_name, {'@uid': self.uid})
+        else:
+            return None
 
     def get_all_documents_by_query(self, database_name, collection_name, query):
         if (self.uid == None):
@@ -41,13 +44,19 @@ class Database:
         return self.get_collection(database_name, collection_name).insert_one(document)
     
     def set_document_of_user(self, database_name, collection_name, document):
-        document['@uid'] = self.uid
-        return self.set_document(database_name, collection_name, document)
+        if (self.uid != None):
+            document['@uid'] = self.uid
+            return self.set_document(database_name, collection_name, document)
+        else:
+            return None
     
     def set_documents(self, database_name, collection_name, documents):
         return self.get_collection(database_name, collection_name).insert_many(documents)
     
     def set_documents_of_user(self, database_name, collection_name, documents):
-        for document in documents:
-            document['@uid'] = self.uid
-        return self.set_documents(database_name, collection_name, documents)
+        if (self.uid != None):
+            for document in documents:
+                document['@uid'] = self.uid
+            return self.set_documents(database_name, collection_name, documents)
+        else:
+            return None
