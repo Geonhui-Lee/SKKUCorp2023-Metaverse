@@ -125,7 +125,7 @@ all_chat.append(f"{user_response}")
 all_chat_string += f"{user_name}: {user_response}\n"
 all_importance = list()
 
-for i in range(30):
+for i in range(15):
   npc_response = npc_llm.run(user_cefr = user_cefr, user_input = user_response, history = all_chat_string)
   print(f"{npc_name}: {npc_response}")
   all_chat.append(f"{npc_response}")
@@ -148,11 +148,15 @@ i = 0
 chat_length = len(all_chat)
 while(i < chat_length):
   document_user = {"_id":ObjectId(),"node":i,"timestamp":datetimeStr,"memory":all_chat[i],"name":f"{user_name}","opponent":f"{npc_name}","important":all_importance[i]}
-
-  document_npc = {"_id":ObjectId(),"node":i+1,"timestamp":datetimeStr,"memory":all_chat[i+1],"name":f"{npc_name}","opponent":f"{user_name}","important":all_importance[i+1]}
-  
-  i+=2
+  i += 1
   print(Database.set_document(db, "conversations", f"{user_name}", document_user))
+  
+  if(i >= chat_length):
+      break
+  
+  document_npc = {"_id":ObjectId(),"node":i+1,"timestamp":datetimeStr,"memory":all_chat[i+1],"name":f"{npc_name}","opponent":f"{user_name}","important":all_importance[i+1]}
+  i += 1
+  
   print(Database.set_document(db, "conversations", f"{user_name}", document_npc))
 
 
