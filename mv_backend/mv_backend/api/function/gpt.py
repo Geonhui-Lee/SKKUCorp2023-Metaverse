@@ -43,7 +43,9 @@ user's interest: {interest}
 user is bad at:
 {retrieve}
 
-If user is unable to answer, help user generate the next answer to your last answer in English by *using* what is user bad at. You can create a user response to the user with a reason.
+If user is unable to answer:
+    You have to *help* user generate the next answer to your last answer in English by *using* what is user bad at.
+    You should *suggest* a user response along with advice to the user.
 
 previous conversation:
 {conversation}
