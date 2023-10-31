@@ -133,11 +133,12 @@ for i in range(30):
   
   score = important_score.run(name = f"{user_name}", event = f"{npc_name}" + ": " + npc_response)
   all_importance.append(score)
-  all_chat_string += f"{user_name}: {user_response}\n"
   
   user_response = user_llm.run(user_cefr = user_cefr, npc_input = npc_response, history = all_chat_string, npc_name = npc_name)
   all_chat.append(f"{user_response}")
+  all_chat_string += f"{user_name}: {user_response}\n"
   print(f"{user_name}: {user_response}")
+  
   score = important_score.run(name = f"{user_name}", event = f"{user_name}" + ": " + user_response)
   all_importance.append(score)
 
