@@ -19,7 +19,7 @@ db = Database()
 openai.api_key = OPENAI_API_KEY
 import os
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
-
+memory = ConversationBufferMemory(memory_key="chat_history", input_key= "user_input")
 chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 
 #"""
@@ -50,21 +50,23 @@ If user is unable to answer:
     You have to *help* user generate the next answer to your last answer in English by *using* what is user bad at.
     You should *suggest* a user response along with advice to the user.
 
-previous conversation:
+previouse conversation:
 {chat_history}
 Current user conversation:
-{input}
+{user_input}
 now answer
 {npc}: 
 """
 
 query_prompt = PromptTemplate(
-    input_variables=["npc", "persona", "user_cefr", "interest", "chat_history","retrieve", "input"], template=query_template
+    input_variables=["chat_history", "npc", "persona", "user_cefr", "interest", "retrieve", "user_input"], template=query_template
 )
 
 query = LLMChain(
     llm=chat,
-    prompt=query_prompt
+    prompt=query_prompt,
+    memory = memory,
+    verbose=True
 )
 
 #########
@@ -158,7 +160,7 @@ def call(request):
         retrieve += str(data_num) + ". " + data + "\n"
     
     
-    answer = query.run(npc = opponent, persona = persona_dict[opponent], user_cefr = cefr, interest = interest, chat_history = all_chat_data_string, retrieve = retrieve, input = user_message)
+    answer = query.predict(npc = opponent, persona = persona_dict[opponent], user_cefr = cefr, interest = interest, retrieve = retrieve, user_input = user_message)
 
     conversation = Database.get_all_documents(db, f"{user_name}", "Conversations")
     print(conversation)
