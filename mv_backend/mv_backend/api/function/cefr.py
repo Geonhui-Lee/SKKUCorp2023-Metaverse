@@ -182,7 +182,7 @@ def call(request):
     all_chat_data_string = ""
     for chat_data in reversed(before_chat_data):
         data_num += 1
-        if data_num > 100:
+        if data_num > 30:
             break
         all_chat_data_string += chat_data + "\n"
     

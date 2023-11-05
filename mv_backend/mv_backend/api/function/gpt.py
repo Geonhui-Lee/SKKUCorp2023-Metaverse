@@ -2,6 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from mv_backend.lib.database import Database
 from mv_backend.settings import OPENAI_API_KEY
 from langchain.chains import LLMChain
+from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import (
@@ -12,7 +13,7 @@ from langchain.schema import (
 import json, openai
 from datetime import datetime
 from bson.objectid import ObjectId
-
+    
 db = Database()
 
 openai.api_key = OPENAI_API_KEY
@@ -31,14 +32,16 @@ chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 # Pepperoni pizza
 # Potato pizza
 
+persona_dict = {"Pizza Chef" : "Your name is Jake. You're job a pizza chef(Don't forget)" , "Police Officer" : "Your name is Mike. You're job a police officer(Don't forget)", "Artist" : "Your name is Bob. You're job an artist(Don't forget)", "Astronaut" : "Your name is Armstrong. You're job an astronaut(Don't forget)"}
+
 query_template = """
 You are a {npc} who communicates with user. *Always* Answer briefly and concisely.
 {npc}: {persona}
 
 CEFR is the English's level criteria established by the Common European Framework of Reference for Languages, which ranges from A1 to C2 (pre-A1,A1,A2,B1,B2,C1,C2).
-Please talk according to the user's English level. The user's English level is provided as a CEFR indicator and the customer's CEFR is 'pre A1'.
+Please talk to the user according to the user's English level. The user's English level is provided as a CEFR indicator.
 
-user's CEFR: {cefr}
+user's CEFR: {user_cefr}
 user's interest: {interest}
 user is bad at:
 {retrieve}
@@ -48,15 +51,15 @@ If user is unable to answer:
     You should *suggest* a user response along with advice to the user.
 
 previous conversation:
-{conversation}
+{chat_history}
 Current user conversation:
-{current}
+{input}
 now answer
 {npc}: 
 """
 
 query_prompt = PromptTemplate(
-    input_variables=["npc", "persona", "cefr", "interest", "retrieve", "conversation", "current"], template=query_template
+    input_variables=["npc", "persona", "user_cefr", "interest", "chat_history","retrieve", "input"], template=query_template
 )
 
 query = LLMChain(
@@ -115,7 +118,7 @@ def call(request):
     #     else:
     #         all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
 
-    conversation = Database.get_all_documents(db, "conversations", f"{user_name}")
+    conversation = Database.get_all_documents(db, f"{user_name}" , "Conversations")
 
     before_data_num = 0
     for chat_data in conversation:
@@ -132,21 +135,17 @@ def call(request):
     if data_num == 0:
         all_chat_data_string = "None"
     
-    cefr_data = Database.get_all_documents(db, "CEFR", f"{user_name}")
-    persona_data = Database.get_all_documents(db, "Persona", opponent)
-    retrieve_data = Database.get_all_documents(db, "Retrieves", f"{user_name}")
+    cefr_data = Database.get_all_documents(db, f"{user_name}", "CEFR")
+    retrieve_data = Database.get_all_documents(db, f"{user_name}", "Retrieves")
 
     cefr = "pre-A1"
     interest = ""
-    persona = ""
     retrieve = ""
     retrieve_list = list()
 
     for data in cefr_data:
         cefr = data["cefr"]
         interest = data["interest"]
-    for data in persona_data:
-        persona = data["persona"]
     
     for data in retrieve_data:
         retrieve_list.append(data["retrieve"])
@@ -157,10 +156,11 @@ def call(request):
         if data_num > 4:
             break
         retrieve += str(data_num) + ". " + data + "\n"
+    
+    
+    answer = query.run(npc = opponent, persona = persona_dict[opponent], user_cefr = cefr, interest = interest, chat_history = all_chat_data_string, retrieve = retrieve, input = user_message)
 
-    answer = query.run(npc = opponent, persona = persona, cefr = cefr, interest = interest, retrieve = retrieve, conversation = all_chat_data_string, current = user_message)
-
-    conversation = Database.get_all_documents(db, "conversations", f"{user_name}")
+    conversation = Database.get_all_documents(db, f"{user_name}", "Conversations")
     print(conversation)
     node = 0
     data_num = 0
@@ -190,8 +190,8 @@ def call(request):
     node += 1
     document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":answer,"name":opponent,"opponent":f"{user_name}","important":score_customer}
 
-    print(Database.set_document(db, "conversations", f"{user_name}", document_user))
-    print(Database.set_document(db, "conversations", f"{user_name}", document_customer))
+    # print(Database.set_document(db, f"{user_name}" , "Conversations", document_user))
+    # print(Database.set_document(db, f"{user_name}", "Conversations",  document_customer))
 
     messages_response = body["messages"] + [
         {
