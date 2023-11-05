@@ -21,7 +21,7 @@ import os
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 memory = ConversationBufferMemory(memory_key="chat_history", input_key= "user_input")
 chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
-
+before_opponent = ""
 #"""
 # You are a customer at a pizza restaurant. 
 # You are in an ordering situation.
@@ -89,9 +89,9 @@ important_score = LLMChain(
 )
 
 def call(request):
+    global before_opponent
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
-
     # openai.api_key = OPENAI_API_KEY
     # openai_response = openai.ChatCompletion.create(
     #     model="gpt-3.5-turbo",
@@ -109,6 +109,10 @@ def call(request):
         if chat_data["role"] == "user_name":
             user_name = chat_data["content"]
             break
+        
+    
+    if(before_opponent != opponent):
+        memory.clear()
     
     user_message = ""
     user_message = body["messages"][-1]["content"]
@@ -201,6 +205,7 @@ def call(request):
             "content": answer
         }
     ]
+    before_opponent = opponent
     
     return JsonResponse({
         "messages": messages_response
