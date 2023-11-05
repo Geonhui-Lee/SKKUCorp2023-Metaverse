@@ -116,7 +116,6 @@ def call(request):
         if data_num > 100:
             break
         recency *= 0.995
-        
         chat_data_score["[" + str(data_num) + "]" + chat_data] += 0.1*score + recency
     
     sorted_dict = sorted(chat_data_score.items(), key = lambda item: item[1], reverse = True)

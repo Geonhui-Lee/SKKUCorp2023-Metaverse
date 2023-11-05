@@ -17,6 +17,8 @@ from mv_backend.api.function.menu import call as menu
 
 from mv_backend.api.function.cefr import call as cefr
 
+from mv_backend.api.function.session_end import call as session_end
+
 from mv_backend.api.function.database.data_load import gh_call as data_load
 
 from mv_backend.api.function.database.job_prompt import gh_call as job_prompt
@@ -37,6 +39,7 @@ def api_path():
         api_render('plan', plan),
         api_render('menu', menu),
         api_render('cefr', cefr),
+        api_render('session_end', session_end),
         api_render('data/load', data_load),
         api_render('data/job_prompt', job_prompt),
     ]

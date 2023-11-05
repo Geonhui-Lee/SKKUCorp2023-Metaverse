@@ -5,8 +5,8 @@ from langchain.chains import LLMChain
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
-from retrieve_auto_test import *
-from reflect_auto_test import *
+from mv_backend.api.function.retrieve_auto_test import *
+from mv_backend.api.function.reflect_auto_test import *
 from langchain.schema import (
     AIMessage,
     HumanMessage,

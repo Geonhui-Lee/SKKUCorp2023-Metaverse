@@ -11,6 +11,7 @@ from datetime import datetime
 from bson.objectid import ObjectId
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+from mv_backend.lib.database import Database
 
 OPENAI_API_KEY = "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"
 openai.api_key = OPENAI_API_KEY
@@ -18,30 +19,6 @@ import os
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 MONGODB_CONNECTION_STRING = "mongodb+srv://geonhui:dotgeon@metaverse.px60xor.mongodb.net/?"
-class Database:
-    def __init__(self):
-        self.client = MongoClient(MONGODB_CONNECTION_STRING, server_api=ServerApi('1'))
-    
-    def get_client(self):
-        return self.client
-
-    def get_database(self, database_name):
-        return self.client[database_name]
-
-    def get_collection(self, database_name, collection_name):
-        return self.get_database(database_name)[collection_name]
-    
-    def get_all_collections(self, database_name):
-        return self.get_database(database_name).list_collection_names()
-    
-    def get_all_documents(self, database_name, collection_name):
-        return self.get_collection(database_name, collection_name).find()
-    
-    def set_document(self, database_name, collection_name, document):
-        return self.get_collection(database_name, collection_name).insert_one(document)
-    
-    def set_documents(self, database_name, collection_name, documents):
-        return self.get_collection(database_name, collection_name).insert_many(documents)
 
 db = Database()
 
@@ -91,7 +68,7 @@ generate_retrieve = LLMChain(
 def retrieve(npc, user):
 
     ### mongoDB user's memory ###
-    conversation = Database.get_recent_documents(db, user, "conversations")
+    conversation = db.get_recent_documents(user, "conversations")
     data_num = 0
 
     all_chat_data = []
@@ -99,10 +76,10 @@ def retrieve(npc, user):
     all_chat_data_string = ""
     for chat_data in conversation:
         data_num += 1
-        all_chat_data.append(chat_data["name"] + ": " + chat_data)
-        all_chat_data_node.append("[" + str(data_num) + "] " + chat_data["name"] + ": " + chat_data)
+        all_chat_data.append(chat_data["name"] + ": " + chat_data['memory'])
+        all_chat_data_node.append("[" + str(data_num) + "] " + chat_data["name"] + ": " + chat_data['memory'])
         all_chat_data.append(chat_data)
-        all_chat_data_string += chat_data["name"] + ": " + chat_data + "\n"
+        all_chat_data_string += chat_data["name"] + ": " + chat_data['memory'] + "\n"
     
     if data_num == 0:
         return
@@ -155,7 +132,7 @@ def retrieve(npc, user):
 
     focal_points = "Find out what the user is bad at (grammar, understanding of context, etc.)"
     embedded_query = embeddings_model.embed_query(focal_points)
-    embedings = embeddings_model.embed_documents(all_chat_data)
+    embedings = embeddings_model.embed_documents(all_chat_data_string)
 
     cosine = np.dot(embedings, embedded_query)/(norm(embedings, axis=1)*norm(embedded_query))
     print(cosine)
@@ -173,7 +150,7 @@ def retrieve(npc, user):
         recency *= 0.995
         
         # chat_data_score["[" + str(data_num) + "]" + chat_data] += 0.1*score + recency
-        chat_data_score["[" + str(data_num) + "] " + chat_data] += recency
+        chat_data_score["[" + str(data_num) + "] " + chat_data['memory']] += recency
     
     sorted_dict = sorted(chat_data_score.items(), key = lambda item: item[1], reverse = True)
     print(sorted_dict)
