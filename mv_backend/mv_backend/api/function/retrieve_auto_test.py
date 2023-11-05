@@ -73,50 +73,66 @@ generate_retrieve = LLMChain(
 def retrieve(npc, user):
 
     ### mongoDB user's memory ###
-    conversation = Database.get_all_documents(db, user, "conversations")
+    conversation = Database.get_recent_documents(db, user, "conversations")
     data_num = 0
 
     all_chat_data = []
-    before_chat_data = []
     all_chat_data_node = []
-    important = []
-    important_sum = 0
+    all_chat_data_string = ""
     for chat_data in conversation:
         data_num += 1
-        before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
-        # important.append(int(chat_data["important"]))
-    
-    # data_num = 0
-    # for chat_data in reversed(important):
-    #     data_num += 1
-    #     important_sum += chat_data
-    #     if data_num > 50:
-    #         break
-    
-    # if data_num == 0 or important_sum < 50:
-    #     return
+        all_chat_data.append(chat_data["name"] + ": " + chat_data)
+        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["name"] + ": " + chat_data)
+        all_chat_data.append(chat_data)
+        all_chat_data_string += chat_data["name"] + ": " + chat_data + "\n"
     
     if data_num == 0:
         return
 
-    important_sum = 0
-    data_num = 0
-    for chat_data in reversed(before_chat_data):
-        data_num += 1
-        if data_num > 100:
-            break
-        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data)
-        all_chat_data.append(chat_data)
-    # all_chat_data_string = ""
-    # # now reflect with 100 message data (we wil generate only one query)
+    # conversation = Database.get_all_documents(db, user, "conversations")
     # data_num = 0
-    # for chat_data in reversed(body["messages"]):
+
+    # all_chat_data = []
+    # before_chat_data = []
+    # all_chat_data_node = []
+    # important = []
+    # important_sum = 0
+    # for chat_data in conversation:
+    #     data_num += 1
+    #     before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
+    #     # important.append(int(chat_data["important"]))
+    
+    # # data_num = 0
+    # # for chat_data in reversed(important):
+    # #     data_num += 1
+    # #     important_sum += chat_data
+    # #     if data_num > 50:
+    # #         break
+    
+    # # if data_num == 0 or important_sum < 50:
+    # #     return
+    
+    # if data_num == 0:
+    #     return
+
+    # important_sum = 0
+    # data_num = 0
+    # for chat_data in reversed(before_chat_data):
     #     data_num += 1
     #     if data_num > 100:
     #         break
-    #     all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["role"] + ": " + chat_data["content"])
-    #     all_chat_data.append(chat_data["role"] + ": " + chat_data["content"])
-    #     all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
+    #     all_chat_data_node.append("[" + str(data_num) + "]" + chat_data)
+    #     all_chat_data.append(chat_data)
+    # # all_chat_data_string = ""
+    # # # now reflect with 100 message data (we wil generate only one query)
+    # # data_num = 0
+    # # for chat_data in reversed(body["messages"]):
+    # #     data_num += 1
+    # #     if data_num > 100:
+    # #         break
+    # #     all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["role"] + ": " + chat_data["content"])
+    # #     all_chat_data.append(chat_data["role"] + ": " + chat_data["content"])
+    # #     all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
     
 
     focal_points = "Find out what the user is bad at (grammar, understanding of context, etc.)"

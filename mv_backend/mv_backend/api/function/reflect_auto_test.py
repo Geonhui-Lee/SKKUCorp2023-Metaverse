@@ -94,42 +94,58 @@ def reflect(npc, user):
     # )
 
     ### mongoDB user's memory ###
-    conversation = Database.get_all_documents(db, user, "conversations")
+    conversation = Database.get_recent_documents(db, user, "conversations")
     data_num = 0
-    important_sum = 0
-    all_chat_data = []
-    before_chat_data = []
-    all_chat_data_node = []
-    important = []
-    for chat_data in conversation:
-        if (chat_data["name"] == npc) or (chat_data["opponent"] == npc):
-            data_num += 1
-            before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
-            # important.append(int(chat_data["important"]))
-    
-    # data_num = 0
-    # for chat_data in reversed(important):
-    #     data_num += 1
-    #     important_sum += chat_data
-    #     if data_num > 50:
-    #         break
 
-    # if data_num == 0 or important_sum < 50:
-    #     return
+    all_chat_data = []
+    all_chat_data_node = []
+    all_chat_data_string = ""
+    for chat_data in conversation:
+        data_num += 1
+        all_chat_data.append(chat_data["name"] + ": " + chat_data)
+        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["name"] + ": " + chat_data)
+        all_chat_data.append(chat_data)
+        all_chat_data_string += chat_data["name"] + ": " + chat_data + "\n"
     
     if data_num == 0:
         return
+
+    # conversation = Database.get_all_documents(db, user, "conversations")
+    # data_num = 0
+    # important_sum = 0
+    # all_chat_data = []
+    # before_chat_data = []
+    # all_chat_data_node = []
+    # important = []
+    # for chat_data in conversation:
+    #     if (chat_data["name"] == npc) or (chat_data["opponent"] == npc):
+    #         data_num += 1
+    #         before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
+    #         # important.append(int(chat_data["important"]))
     
-    important_sum = 0
-    data_num = 0
-    all_chat_data_string = ""
-    for chat_data in reversed(before_chat_data):
-        data_num += 1
-        if data_num > 100:
-            break
-        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data)
-        all_chat_data.append(chat_data)
-        all_chat_data_string += chat_data + "\n"
+    # # data_num = 0
+    # # for chat_data in reversed(important):
+    # #     data_num += 1
+    # #     important_sum += chat_data
+    # #     if data_num > 50:
+    # #         break
+
+    # # if data_num == 0 or important_sum < 50:
+    # #     return
+
+    # if data_num == 0:
+    #     return
+    
+    # important_sum = 0
+    # data_num = 0
+    # all_chat_data_string = ""
+    # for chat_data in reversed(before_chat_data):
+    #     data_num += 1
+    #     if data_num > 100:
+    #         break
+    #     all_chat_data_node.append("[" + str(data_num) + "]" + chat_data)
+    #     all_chat_data.append(chat_data)
+    #     all_chat_data_string += chat_data + "\n"
 
     # all_chat_data = []
     # all_chat_data_node = []
