@@ -145,7 +145,7 @@ for i in range(15):
     #     score_user = 0
     # all_importance.append(score_user)
     
-    user_response = user_llm.run(user_cefr = user_cefr, npc_input = npc_response, history = all_chat_string, npc_name = npc_name)
+    user_response = input("")
     all_chat.append(f"{user_response}")
     all_chat_string += f"{user_name}: {user_response}\n"
     print(f"{user_name}: {user_response}")
