@@ -84,14 +84,14 @@ def retrieve(npc, user):
     for chat_data in conversation:
         data_num += 1
         before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
-        important.append(int(chat_data["important"]))
+        # important.append(int(chat_data["important"]))
     
-    data_num = 0
-    for chat_data in reversed(important):
-        data_num += 1
-        important_sum += chat_data
-        if data_num > 50:
-            break
+    # data_num = 0
+    # for chat_data in reversed(important):
+    #     data_num += 1
+    #     important_sum += chat_data
+    #     if data_num > 50:
+    #         break
     
     if data_num == 0 or important_sum < 50:
         return
@@ -128,13 +128,15 @@ def retrieve(npc, user):
     # retrieve to find 30 chat data with the generated query, embedding vetors, recency
     data_num = 0
     recency = 1
-    for score, chat_data in zip(reversed(important), all_chat_data):
+    # for score, chat_data in zip(reversed(important), all_chat_data):
+    for chat_data in all_chat_data:
         data_num += 1
         if data_num > 100:
             break
         recency *= 0.995
         
-        chat_data_score["[" + str(data_num) + "]" + chat_data] += 0.1*score + recency
+        # chat_data_score["[" + str(data_num) + "]" + chat_data] += 0.1*score + recency
+        chat_data_score["[" + str(data_num) + "]" + chat_data] += recency
     
     sorted_dict = sorted(chat_data_score.items(), key = lambda item: item[1], reverse = True)
     print(sorted_dict)
