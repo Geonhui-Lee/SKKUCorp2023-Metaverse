@@ -194,4 +194,4 @@ def reflect(npc, user):
 
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
     document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":insights,"name":npc}
-    print(Database.set_document(db, "Reflects", user, document_user))
+    print(Database.set_document(db, user, "Reflects", document_user))

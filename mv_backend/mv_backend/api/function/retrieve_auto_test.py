@@ -169,4 +169,4 @@ def retrieve(npc, user):
     
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
     document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"retrieve":retrieve,"name":npc}
-    print(Database.set_document(db, "Retrieves", user, document_user))
+    print(Database.set_document(db, user, "Retrieves", document_user))

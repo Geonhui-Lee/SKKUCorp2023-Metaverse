@@ -44,55 +44,49 @@ os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=1)
 
 
-user_template = """
-You are a 6 year old student that has a lot of curiosity. You like to question everything. *Always* make the response in a way that a 6-year-old child would answer.
-English level of 6-year-old child:
- 1. Basic Vocabulary: Has a basic vocabulary consisting of common words and simple phrases. This might include everyday objects, colors, numbers, greetings, and some basic verbs and nouns.
- 2. Grammar and Sentence Structure: Forms simple sentences. May use present tense verbs and basic sentence structures, but more complex grammar rules (e.g., past tense, conditional sentences) are less likely to be mastered.
- 3. Communication Skills: Can communicate basic needs and wants. May be able to ask and answer simple questions, but more complex communication is difficult.
-If the opponent's answer seems to be too hard for a 6 year old child to answer, respond like you don't know the answer.
-
-
-CEFR is the English's level criteria established by the Common European Framework of Reference for Languages, which ranges from A1 to C2 (pre-A1,A1,A2,B1,B2,C1,C2).
-Please talk according to the given English level. Your English level is provided as a CEFR indicator and your CEFR is {user_cefr}.
-
-
-Your Opponent Job: {npc_name}
-*Focus on questions about {npc_name}*
-
-Memory: {history}
-Opponent:{npc_input}
-User:"""
 
 npc_template = """
 You're job is a Police Officer(do not forget).  *Always* Answer to the user briefly and concisely in a way that a Police Officer would answer.
 situation : you are explaining to the user all about your job. *You are not in a ordering situation*.
 
+user is bad at:
+{retrieve}
+
 CEFR is the English's level criteria established by the Common European Framework of Reference for Languages, which ranges from A1 to C2 (pre-A1,A1,A2,B1,B2,C1,C2).
 Please talk to the user according to the user's English level. The user's English level is provided as a CEFR indicator and the user's CEFR is {user_cefr}.
+
+If user is unable to answer:
+    You have to *help* user generate the next answer to your last answer in English by *using* what is user bad at.
+    You should *suggest* a user response along with advice to the user.
 
 Memory: {history}
 Opponent:{user_input}
 You:"""
 
-user_name = "user0"
+user_name = "user2"
 npc_name = "Police Officer"
 user_cefr = "pre-A1"
+retrieve_collection = db.get_collection(user_name, 'Retrieves')
+last_retrieve = retrieve_collection.find_one(sort=[('_id', -1)])
+retrieve_str = last_retrieve['retrieve'] if last_retrieve else "nothing"
+print(retrieve_str)
 
-user_prompt = PromptTemplate(
-    input_variables= ["user_cefr","npc_name","npc_input", "history"],
-    template=user_template
-)
+
+
+# user_prompt = PromptTemplate(
+#     input_variables= ["user_cefr","npc_name","npc_input", "history"],
+#     template=user_template
+# )
 
 npc_prompt = PromptTemplate(
-    input_variables= ["user_cefr","user_input", "history"],
+    input_variables= ["user_cefr","user_input", "history", "retrieve"],
     template=npc_template
 )
 
-user_llm = LLMChain(
-    llm=chat,
-    prompt=user_prompt
-)
+# user_llm = LLMChain(
+#     llm=chat,
+#     prompt=user_prompt
+# )
 
 npc_llm = LLMChain(
     llm=chat,
@@ -132,8 +126,8 @@ all_importance = list()
 #     score_user = 0
 # all_importance.append(score_user)
 
-for i in range(15):
-    npc_response = npc_llm.run(user_cefr = user_cefr, user_input = user_response, history = all_chat_string)
+for i in range(2):
+    npc_response = npc_llm.run(user_cefr = user_cefr, user_input = user_response, history = all_chat_string, retrieve = retrieve)
     print(f"{npc_name}: {npc_response}")
     all_chat.append(f"{npc_response}")
     all_chat_string += f"{npc_name}: {npc_response}\n"
