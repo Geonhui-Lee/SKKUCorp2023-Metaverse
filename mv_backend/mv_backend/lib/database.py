@@ -28,8 +28,8 @@ class Database:
     def get_all_documents(self, database_name, collection_name):
         return self.get_collection(database_name, collection_name).find()
     
-    def get_all_documents_recent(self, database_name, collection_name):
-        return self.get_collection(database_name, collection_name).find().sort("_id", -1).limit(50)
+    def get_recent_documents(self, database_name, collection_name):
+        return self.get_all_documents(database_name, collection_name).sort("_id", -1).limit(50)
     
     def get_all_documents_of_user(self, database_name, collection_name):
         if (self.uid != None):
