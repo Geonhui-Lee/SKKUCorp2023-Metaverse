@@ -94,7 +94,7 @@ def reflect(npc, user):
     # )
 
     ### mongoDB user's memory ###
-    conversation = Database.get_all_documents(db, "conversations", user)
+    conversation = Database.get_all_documents(db, user, "conversations")
     data_num = 0
     important_sum = 0
     all_chat_data = []
@@ -174,7 +174,7 @@ def reflect(npc, user):
         important_data_string += chat_data[0] + "\n"
     insights = generate_insights.run(name = npc + "'s 5", opponent = user, event = important_data_string)
 
-    previous = Database.get_all_documents(db, "Reflects", user)
+    previous = Database.get_all_documents(db, user, "Reflects")
     print(previous)
     data_num = 0
     node = 0

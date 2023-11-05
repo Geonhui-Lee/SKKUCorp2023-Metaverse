@@ -73,7 +73,7 @@ generate_retrieve = LLMChain(
 def retrieve(npc, user):
 
     ### mongoDB user's memory ###
-    conversation = Database.get_all_documents(db, "conversations", user)
+    conversation = Database.get_all_documents(db, user, "conversations")
     data_num = 0
 
     all_chat_data = []
@@ -149,7 +149,7 @@ def retrieve(npc, user):
         important_data_string += chat_data[0] + "\n"
     retrieve = generate_retrieve.run(query = focal_points, name = npc + "'s", event = important_data_string)
 
-    previous = Database.get_all_documents(db, "Retrieves", user)
+    previous = Database.get_all_documents(db, user, "Retrieves")
     print(previous)
     data_num = 0
     node = 0
