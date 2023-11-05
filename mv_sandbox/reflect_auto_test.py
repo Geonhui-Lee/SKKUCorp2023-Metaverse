@@ -68,6 +68,23 @@ generate_query = LLMChain(
     llm=chat,
     prompt=generate_query_prompt
 )
+###
+generate_important_template = """
+Find five important dialogues in the following conversation for {name}.
+
+Conversation: 
+{event}
+
+Ranking:
+[1]"""
+generate_important_prompt = PromptTemplate(
+    input_variables=["event", "name"], template=generate_important_template
+)
+
+generate_important = LLMChain(
+    llm=chat,
+    prompt=generate_important_prompt
+)
 
 # find the insight
 # !<INPUT 0>! -- Numbered list of event/thought statements
@@ -103,7 +120,7 @@ def reflect(npc, user):
     for chat_data in conversation:
         data_num += 1
         all_chat_data.append(chat_data["name"] + ": " + chat_data)
-        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["name"] + ": " + chat_data)
+        all_chat_data_node.append("[" + str(data_num) + "] " + chat_data["name"] + ": " + chat_data)
         all_chat_data.append(chat_data)
         all_chat_data_string += chat_data["name"] + ": " + chat_data + "\n"
     
@@ -180,14 +197,15 @@ def reflect(npc, user):
         recency *= 0.995
         
         # chat_data_score["[" + str(data_num) + "]" + chat_data] += 0.1*score + recency
-        chat_data_score["[" + str(data_num) + "]" + chat_data] += recency
+        chat_data_score["[" + str(data_num) + "] " + chat_data] += recency
 
     sorted_dict = sorted(chat_data_score.items(), key = lambda item: item[1], reverse = True)
     print(sorted_dict)
 
     # find the insights with 30 important data
-    important_data_string = ""
-    data_num = 0
+    important_data_string = "[1] "
+    important_data_string += generate_important.run(event = all_chat_data_string, user = user)
+    data_num = 5
     for chat_data in sorted_dict:
         data_num += 1
         if data_num > 30:

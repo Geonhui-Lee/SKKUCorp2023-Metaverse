@@ -43,12 +43,10 @@ Please talk to the user according to the user's English level. The user's Englis
 
 user's CEFR: {user_cefr}
 user's interest: {interest}
-user is bad at:
-{retrieve}
+user is bad at: {retrieve}
 
 If user is unable to answer:
-    You have to *help* user generate the next answer to your last answer in English by *using* what is user bad at.
-    You should *suggest* a user response along with advice to the user.
+    You have to *suggest* a user answer along with advice to the user by *using* user's bad.
 
 previouse conversation:
 {chat_history}
@@ -71,22 +69,22 @@ query = LLMChain(
 
 #########
 
-important_template = """
-On the scale of 1 to 10, where 1 is purely mundane (e.g., routine morning greetings) and 10 is extremely poignant (e.g., a conversation about breaking up, a fight), rate the likely poignancy of the following conversation for {name}.
+# important_template = """
+# On the scale of 1 to 10, where 1 is purely mundane (e.g., routine morning greetings) and 10 is extremely poignant (e.g., a conversation about breaking up, a fight), rate the likely poignancy of the following conversation for {name}.
 
-Conversation: 
-{event}
+# Conversation: 
+# {event}
 
-Rate (return a number between 1 to 10):
-"""
-important_prompt = PromptTemplate(
-    input_variables=["name", "event"], template=important_template
-)
+# Rate (return a number between 1 to 10):
+# """
+# important_prompt = PromptTemplate(
+#     input_variables=["name", "event"], template=important_template
+# )
 
-important_score = LLMChain(
-    llm=chat,
-    prompt=important_prompt
-)
+# important_score = LLMChain(
+#     llm=chat,
+#     prompt=important_prompt
+# )
 
 def call(request):
     global before_opponent
@@ -179,23 +177,23 @@ def call(request):
     
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
 
-    important_str = important_score.run(event = user_message, name = f"{user_name}")
-    important_str = "0" + important_str
-    score_user = int(''.join(filter(str.isdigit, important_str)))
-    if score_user > 10:
-        score_user = 0
+    # important_str = important_score.run(event = user_message, name = f"{user_name}")
+    # important_str = "0" + important_str
+    # score_user = int(''.join(filter(str.isdigit, important_str)))
+    # if score_user > 10:
+    #     score_user = 0
     
-    important_str = important_score.run(event = opponent + ": " + answer, name = f"{user_name}")
-    important_str = "0" + important_str
-    score_customer = int(''.join(filter(str.isdigit, important_str)))
-    if score_customer > 10:
-        score_customer = 0
+    # important_str = important_score.run(event = opponent + ": " + answer, name = f"{user_name}")
+    # important_str = "0" + important_str
+    # score_customer = int(''.join(filter(str.isdigit, important_str)))
+    # if score_customer > 10:
+    #     score_customer = 0
     
-    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":user_message,"name":f"{user_name}","opponent":opponent,"important":score_user}
-
+    # document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":user_message,"name":f"{user_name}","opponent":opponent,"important":score_user}
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":user_message,"name":f"{user_name}","opponent":opponent}
     node += 1
-    document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":answer,"name":opponent,"opponent":f"{user_name}","important":score_customer}
-
+    # document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":answer,"name":opponent,"opponent":f"{user_name}","important":score_customer}
+    document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":answer,"name":opponent,"opponent":f"{user_name}"}
     # print(Database.set_document(db, f"{user_name}" , "Conversations", document_user))
     # print(Database.set_document(db, f"{user_name}", "Conversations",  document_customer))
 
