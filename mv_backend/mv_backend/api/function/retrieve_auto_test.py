@@ -93,9 +93,12 @@ def retrieve(npc, user):
     #     if data_num > 50:
     #         break
     
-    if data_num == 0 or important_sum < 50:
-        return
+    # if data_num == 0 or important_sum < 50:
+    #     return
     
+    if data_num == 0:
+        return
+
     important_sum = 0
     data_num = 0
     for chat_data in reversed(before_chat_data):
