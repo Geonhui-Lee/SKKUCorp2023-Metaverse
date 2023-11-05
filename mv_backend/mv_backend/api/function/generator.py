@@ -164,7 +164,7 @@ chat_length = len(all_chat)
 while(i < chat_length):
   document_user = {"_id":ObjectId(),"node":i,"timestamp":datetimeStr,"memory":all_chat[i],"name":f"{user_name}","opponent":f"{npc_name}"}
   i += 1
-  print(Database.set_document(db, "conversations", f"{user_name}", document_user))
+  print(Database.set_document(db, f"{user_name}", "conversations",  document_user))
   
   if(i >= chat_length):
       break
@@ -172,7 +172,7 @@ while(i < chat_length):
   document_npc = {"_id":ObjectId(),"node":i,"timestamp":datetimeStr,"memory":all_chat[i],"name":f"{npc_name}","opponent":f"{user_name}"}
   i += 1
   
-  print(Database.set_document(db, "conversations", f"{user_name}", document_npc))
+  print(Database.set_document(db, f"{user_name}", "conversations",  document_npc))
 
 
 retrieve(f"{npc_name}", f"{user_name}")
