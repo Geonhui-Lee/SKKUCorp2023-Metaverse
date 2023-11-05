@@ -48,9 +48,13 @@ chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=1)
 npc_template = """
 You're job is a Police Officer(do not forget).  *Always* Answer to the user briefly and concisely in a way that a Police Officer would answer.
 situation : you are explaining to the user all about your job. *You are not in a ordering situation*.
-
+            try to carry on the converstation by talking about the interests and the bad at of the user.
+            
 user is bad at:
 {retrieve}
+
+user is interested in:
+{reflect}
 
 CEFR is the English's level criteria established by the Common European Framework of Reference for Languages, which ranges from A1 to C2 (pre-A1,A1,A2,B1,B2,C1,C2).
 Please talk to the user according to the user's English level. The user's English level is provided as a CEFR indicator and the user's CEFR is {user_cefr}.
@@ -71,6 +75,11 @@ last_retrieve = retrieve_collection.find_one(sort=[('_id', -1)])
 retrieve_str = last_retrieve['retrieve'] if last_retrieve else "nothing"
 print(retrieve_str)
 
+reflect_collection = db.get_collection(user_name, 'Reflects')
+last_reflect = reflect_collection.find_one(sort=[('_id', -1)])
+reflect_str = last_reflect['reflect'] if last_reflect else "nothing"
+print(reflect_str)
+
 
 
 # user_prompt = PromptTemplate(
@@ -79,7 +88,7 @@ print(retrieve_str)
 # )
 
 npc_prompt = PromptTemplate(
-    input_variables= ["user_cefr","user_input", "history", "retrieve"],
+    input_variables= ["user_cefr","user_input", "history", "retrieve", "reflect"],
     template=npc_template
 )
 
@@ -126,8 +135,8 @@ all_importance = list()
 #     score_user = 0
 # all_importance.append(score_user)
 
-for i in range(2):
-    npc_response = npc_llm.run(user_cefr = user_cefr, user_input = user_response, history = all_chat_string, retrieve = retrieve)
+for i in range(10):
+    npc_response = npc_llm.run(user_cefr = user_cefr, user_input = user_response, history = all_chat_string, retrieve = retrieve_str, reflect = reflect_str)
     print(f"{npc_name}: {npc_response}")
     all_chat.append(f"{npc_response}")
     all_chat_string += f"{npc_name}: {npc_response}\n"
