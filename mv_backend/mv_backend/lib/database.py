@@ -28,6 +28,9 @@ class Database:
     def get_all_documents(self, database_name, collection_name):
         return self.get_collection(database_name, collection_name).find()
     
+    def get_all_documents_reverse(self, database_name, collection_name):
+        return self.get_collection(database_name, collection_name).find().sort("_id", -1)
+    
     def get_all_documents_of_user(self, database_name, collection_name):
         if (self.uid != None):
             return self.get_all_documents_by_query(database_name, collection_name, {'@uid': self.uid})
