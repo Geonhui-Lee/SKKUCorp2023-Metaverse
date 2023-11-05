@@ -99,25 +99,25 @@ npc_llm = LLMChain(
     prompt=npc_prompt
 )
 
-important_template = """
-On the scale of 1 to 10, where 1 is purely mundane (e.g., routine morning greetings) and 10 is extremely poignant (e.g., a conversation about breaking up, a fight), rate the likely poignancy of the following conversation for {name}.
+# important_template = """
+# On the scale of 1 to 10, where 1 is purely mundane (e.g., routine morning greetings) and 10 is extremely poignant (e.g., a conversation about breaking up, a fight), rate the likely poignancy of the following conversation for {name}.
 
-Conversation: 
-{event}
+# Conversation: 
+# {event}
 
-Rate (return a number between 1 to 10):
-"""
-important_prompt = PromptTemplate(
-    input_variables=["name", "event"], template=important_template
-)
+# Rate (return a number between 1 to 10):
+# """
+# important_prompt = PromptTemplate(
+#     input_variables=["name", "event"], template=important_template
+# )
 
-important_score = LLMChain(
-    llm=chat,
-    prompt=important_prompt
-)
+# important_score = LLMChain(
+#     llm=chat,
+#     prompt=important_prompt
+# )
 
 print(f"{npc_name}: Hi I'm {npc_name}.")
-user_response = user_llm.run(user_cefr = user_cefr, npc_input = f"Hi I'm {npc_name}.", history = f"{npc_name}: Hi I'm {npc_name}.", npc_name = npc_name)
+user_response = input("")
 print(f"{user_name}: {user_response}")
 all_chat = list()
 all_chat_string = ""
@@ -125,12 +125,12 @@ all_chat.append(f"{user_response}")
 all_chat_string += f"{user_name}: {user_response}\n"
 all_importance = list()
 
-score = important_score.run(name = f"{user_name}", event = f"{npc_name}" + ": " + user_response)
-score = "0" + score
-score_user = int(''.join(filter(str.isdigit, score)))
-if score_user == 110:
-    score_user = 0
-all_importance.append(score_user)
+# score = important_score.run(name = f"{user_name}", event = f"{npc_name}" + ": " + user_response)
+# score = "0" + score
+# score_user = int(''.join(filter(str.isdigit, score)))
+# if score_user == 110:
+#     score_user = 0
+# all_importance.append(score_user)
 
 for i in range(15):
     npc_response = npc_llm.run(user_cefr = user_cefr, user_input = user_response, history = all_chat_string)
@@ -138,38 +138,38 @@ for i in range(15):
     all_chat.append(f"{npc_response}")
     all_chat_string += f"{npc_name}: {npc_response}\n"
     
-    score = important_score.run(name = f"{user_name}", event = f"{npc_name}" + ": " + npc_response)
-    score = "0" + score
-    score_user = int(''.join(filter(str.isdigit, score)))
-    if score_user == 110:
-        score_user = 0
-    all_importance.append(score_user)
+    # score = important_score.run(name = f"{user_name}", event = f"{npc_name}" + ": " + npc_response)
+    # score = "0" + score
+    # score_user = int(''.join(filter(str.isdigit, score)))
+    # if score_user == 110:
+    #     score_user = 0
+    # all_importance.append(score_user)
     
     user_response = user_llm.run(user_cefr = user_cefr, npc_input = npc_response, history = all_chat_string, npc_name = npc_name)
     all_chat.append(f"{user_response}")
     all_chat_string += f"{user_name}: {user_response}\n"
     print(f"{user_name}: {user_response}")
     
-    score = important_score.run(name = f"{user_name}", event = f"{npc_name}" + ": " + user_response)
-    score = "0" + score
-    score_user = int(''.join(filter(str.isdigit, score)))
-    if score_user == 110:
-        score_user = 0
-    all_importance.append(score_user)
+    # score = important_score.run(name = f"{user_name}", event = f"{npc_name}" + ": " + user_response)
+    # score = "0" + score
+    # score_user = int(''.join(filter(str.isdigit, score)))
+    # if score_user == 110:
+    #     score_user = 0
+    # all_importance.append(score_user)
 
 datetimeStr = datetime.now().strftime("%Y-%m-%d")
 
 i = 0
 chat_length = len(all_chat)
 while(i < chat_length):
-  document_user = {"_id":ObjectId(),"node":i,"timestamp":datetimeStr,"memory":all_chat[i],"name":f"{user_name}","opponent":f"{npc_name}","important":all_importance[i]}
+  document_user = {"_id":ObjectId(),"node":i,"timestamp":datetimeStr,"memory":all_chat[i],"name":f"{user_name}","opponent":f"{npc_name}"}
   i += 1
   print(Database.set_document(db, "conversations", f"{user_name}", document_user))
   
   if(i >= chat_length):
       break
   
-  document_npc = {"_id":ObjectId(),"node":i,"timestamp":datetimeStr,"memory":all_chat[i],"name":f"{npc_name}","opponent":f"{user_name}","important":all_importance[i]}
+  document_npc = {"_id":ObjectId(),"node":i,"timestamp":datetimeStr,"memory":all_chat[i],"name":f"{npc_name}","opponent":f"{user_name}"}
   i += 1
   
   print(Database.set_document(db, "conversations", f"{user_name}", document_npc))
