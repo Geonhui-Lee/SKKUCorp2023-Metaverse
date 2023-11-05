@@ -46,10 +46,9 @@ chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=1)
 
 
 npc_template = """
-You're job is a Police Officer(do not forget).  *Always* Answer to the user briefly and concisely in a way that a Police Officer would answer.
-situation : you are explaining to the user all about your job. *You are not in a ordering situation*.
-            try to carry on the converstation by talking about the interests and the bad at of the user.
-            
+You're job is an Artist(do not forget).  *Always* Answer to the user concisely in a way that an Artist would answer.
+situation : you are explaining to the user all about your job. *try to carry on the converstation by talking about the interests of the user. Also, try to solve what the user is bad at.*
+
 user is bad at:
 {retrieve}
 
@@ -64,19 +63,19 @@ If user is unable to answer:
     You should *suggest* a user response along with advice to the user.
 
 Memory: {history}
-Opponent:{user_input}
+user:{user_input}
 You:"""
 
 user_name = "user2"
-npc_name = "Police Officer"
+npc_name = "Artist"
 user_cefr = "pre-A1"
 retrieve_collection = db.get_collection(user_name, 'Retrieves')
-last_retrieve = retrieve_collection.find_one(sort=[('_id', -1)])
+last_retrieve = retrieve_collection.find_one(sort=[('node', -1)])
 retrieve_str = last_retrieve['retrieve'] if last_retrieve else "nothing"
 print(retrieve_str)
-
+print()
 reflect_collection = db.get_collection(user_name, 'Reflects')
-last_reflect = reflect_collection.find_one(sort=[('_id', -1)])
+last_reflect = reflect_collection.find_one(sort=[('node', -1)])
 reflect_str = last_reflect['reflect'] if last_reflect else "nothing"
 print(reflect_str)
 
@@ -135,7 +134,7 @@ all_importance = list()
 #     score_user = 0
 # all_importance.append(score_user)
 
-for i in range(10):
+for i in range(3):
     npc_response = npc_llm.run(user_cefr = user_cefr, user_input = user_response, history = all_chat_string, retrieve = retrieve_str, reflect = reflect_str)
     print(f"{npc_name}: {npc_response}")
     all_chat.append(f"{npc_response}")
@@ -180,6 +179,7 @@ while(i < chat_length):
 
 retrieve(f"{npc_name}", f"{user_name}")
 reflect(f"{npc_name}", f"{user_name}")
+  
   
   
 
