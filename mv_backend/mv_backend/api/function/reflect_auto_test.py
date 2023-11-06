@@ -97,7 +97,7 @@ def reflect(npc, user):
     for chat_data in conversation:
         data_num += 1
         all_chat_data.append(chat_data["name"] + ": " + chat_data['memory'])
-        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["name"] + ": " + chat_data['memory'])
+        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["name"] + ": " + chat_data)
         # all_chat_data.append(chat_data)
         all_chat_data_string += chat_data["name"] + ": " + chat_data['memory'] + "\n"
     
