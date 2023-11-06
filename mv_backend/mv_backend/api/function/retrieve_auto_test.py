@@ -77,8 +77,8 @@ def retrieve(npc, user):
     for chat_data in conversation:
         data_num += 1
         all_chat_data.append(chat_data["name"] + ": " + chat_data['memory'])
-        all_chat_data_node.append("[" + str(data_num) + "] " + chat_data["name"] + ": " + chat_data['memory'])
-        all_chat_data.append(chat_data)
+        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["name"] + ": " + chat_data['memory'])
+        # all_chat_data.append(chat_data)
         all_chat_data_string += chat_data["name"] + ": " + chat_data['memory'] + "\n"
     
     if data_num == 0:
@@ -150,14 +150,14 @@ def retrieve(npc, user):
         recency *= 0.995
         
         # chat_data_score["[" + str(data_num) + "]" + chat_data] += 0.1*score + recency
-        chat_data_score["[" + str(data_num) + "] " + chat_data['memory']] += recency
+        chat_data_score["[" + str(data_num) + "]" + chat_data] += recency
     
     sorted_dict = sorted(chat_data_score.items(), key = lambda item: item[1], reverse = True)
     print(sorted_dict)
 
     # find the insights with 30 important data
     important_data_string = "[1] "
-    important_data_string += generate_important.run(event = all_chat_data_string, user = user)
+    important_data_string += generate_important.run(name = user, event = all_chat_data_string)
     data_num = 0
     for chat_data in sorted_dict:
         data_num += 1
