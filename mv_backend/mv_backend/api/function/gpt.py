@@ -2,9 +2,10 @@ from django.http import HttpResponse, JsonResponse
 from mv_backend.lib.database import Database
 from mv_backend.settings import OPENAI_API_KEY
 from langchain.chains import LLMChain
-from langchain.memory import ConversationBufferMemory
+from langchain.memory import ConversationSummaryBufferMemory
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
+from langchain.llms import OpenAI
 from langchain.schema import (
     AIMessage,
     HumanMessage,
@@ -19,7 +20,7 @@ db = Database()
 openai.api_key = OPENAI_API_KEY
 import os
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
-memory = ConversationBufferMemory(memory_key="chat_history", input_key= "user_input")
+memory_dict = dict()
 chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 before_opponent = ""
 #"""
@@ -60,13 +61,6 @@ query_prompt = PromptTemplate(
     input_variables=["chat_history", "npc", "persona", "user_cefr", "interest", "retrieve", "user_input"], template=query_template
 )
 
-query = LLMChain(
-    llm=chat,
-    prompt=query_prompt,
-    memory = memory,
-    verbose=True
-)
-
 #########
 
 # important_template = """
@@ -88,6 +82,7 @@ query = LLMChain(
 
 def call(request):
     global before_opponent
+    global memory_dict
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
     # openai.api_key = OPENAI_API_KEY
@@ -108,36 +103,45 @@ def call(request):
             user_name = chat_data["content"]
             break
         
+    if user_name not in memory_dict:
+        memory_dict[user_name] = ConversationSummaryBufferMemory(llm= OpenAI(), max_token_limit = 500,memory_key="chat_history", input_key= "user_input")
     
-    if(before_opponent != opponent):
-        memory.clear()
+    memory = memory_dict.get(user_name)
+    
+    query = LLMChain(
+    llm=chat,
+    prompt=query_prompt,
+    memory = memory,
+    verbose=True
+    )
+        
     
     user_message = ""
     user_message = body["messages"][-1]["content"]
     all_chat_data_string = ""
-    # for chat_data in body["messages"]:
-    #     if chat_data["role"] == "user":
-    #         all_chat_data_string += "waiter" + ": " + chat_data["content"] + "\n"
-    #         user_message = chat_data["content"]
-    #     else:
-    #         all_chat_data_string += chat_data["role"] + ": " + chat_data["content"] + "\n"
+    for chat_data in body["messages"]:
+        if chat_data["role"] == "user":
+            all_chat_data_string += f"{user_name}" + ": " + chat_data["content"] + "\n"
+            user_message = chat_data["content"]
+        elif chat_data["role"] == f"{opponent}":
+            all_chat_data_string += f"{opponent}" + ": " + chat_data["content"] + "\n"
 
     conversation = Database.get_all_documents(db, f"{user_name}" , "Conversations")
 
     before_data_num = 0
-    for chat_data in conversation:
-        if (chat_data["name"] == f"{user_name}" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == f"{user_name}"):
-            before_data_num += 1
+    # for chat_data in conversation:
+    #     if (chat_data["name"] == f"{user_name}" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == f"{user_name}"):
+    #         before_data_num += 1
     
-    data_num = 0
-    for chat_data in conversation:
-        if (chat_data["name"] == f"{user_name}" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == f"{user_name}"):
-            data_num += 1
-            if data_num >= before_data_num - 100:
-                all_chat_data_string += chat_data["name"] + ": " + chat_data["memory"] + "\n"
+    # data_num = 0
+    # for chat_data in conversation:
+    #     if (chat_data["name"] == f"{user_name}" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == f"{user_name}"):
+    #         data_num += 1
+    #         if data_num >= before_data_num - 100:
+    #             all_chat_data_string += chat_data["name"] + ": " + chat_data["memory"] + "\n"
     
-    if data_num == 0:
-        all_chat_data_string = "None"
+    # if data_num == 0:
+    #     all_chat_data_string = "None"
     
     cefr_data = Database.get_all_documents(db, f"{user_name}", "CEFR")
     retrieve_data = Database.get_all_documents(db, f"{user_name}", "Retrieves")
@@ -161,6 +165,11 @@ def call(request):
             break
         retrieve += str(data_num) + ". " + data + "\n"
     
+    retrieve = """
+    1. The user does not understand the jargon very well.
+    2. The user does not understand the complex sentence structure well.
+    3. The user is not good at expressing his or her meaning in English.
+    """
     
     answer = query.predict(npc = opponent, persona = persona_dict[opponent], user_cefr = cefr, interest = interest, retrieve = retrieve, user_input = user_message)
 

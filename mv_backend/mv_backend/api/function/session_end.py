@@ -7,6 +7,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
 from mv_backend.api.function.retrieve_auto_test import *
 from mv_backend.api.function.reflect_auto_test import *
+from mv_backend.api.function.gpt import memory_dict
 from langchain.schema import (
     AIMessage,
     HumanMessage,
@@ -102,6 +103,7 @@ def call(request):
         document_opponent = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":i,"name":opponent,"opponent":user_name}
         print(Database.set_document(db, user_name, "Conversations", document_opponent))
     
+    memory_dict.get(user_name).clear
     retrieve(opponent, user_name)
     reflect(opponent, user_name)
 
