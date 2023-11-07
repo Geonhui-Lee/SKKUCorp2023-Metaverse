@@ -1,2 +1,2 @@
-gh_venv\Scripts\activate.bat
-python manage.py runserver
+@echo off
+gh_venv\Scripts\activate.bat && python manage.py runserver
