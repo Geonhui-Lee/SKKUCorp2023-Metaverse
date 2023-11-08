@@ -64,6 +64,8 @@ def call(request):
     opponent_num_data = 0
     user_chat_data_string = ""
     opponent_chat_data_string = ""
+    
+    # memory_dict.get(user_name).clear
 
     for chat_data in body["messages"]:
         if chat_data["role"] == user_name:
@@ -103,7 +105,6 @@ def call(request):
         document_opponent = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":i,"name":opponent,"opponent":user_name}
         print(Database.set_document(db, user_name, "Conversations", document_opponent))
     
-    memory_dict.get(user_name).clear
     retrieve(opponent, user_name)
     reflect(opponent, user_name)
 

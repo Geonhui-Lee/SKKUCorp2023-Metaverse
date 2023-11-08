@@ -47,7 +47,7 @@ user's interest: {interest}
 user is bad at: {retrieve}
 
 If user is unable to answer:
-    You have to *suggest* a user answer along with advice to the user by *using* user's bad.
+    *Ask* the user if they don't understand the question, and if so, You have to *suggest* a user answer along with advice to the user by *using* user's bad.
 
 previouse conversation:
 {chat_history}
@@ -146,7 +146,7 @@ def call(request):
     cefr_data = Database.get_all_documents(db, f"{user_name}", "CEFR")
     retrieve_data = Database.get_all_documents(db, f"{user_name}", "Retrieves")
 
-    cefr = "pre-A1"
+    cefr = "C1"
     interest = ""
     retrieve = ""
     retrieve_list = list()
@@ -166,9 +166,9 @@ def call(request):
         retrieve += str(data_num) + ". " + data + "\n"
     
     retrieve = """
-    1. The user does not understand the jargon very well.
-    2. The user does not understand the complex sentence structure well.
-    3. The user is not good at expressing his or her meaning in English.
+    1. The user does not know words such as "expand, billion".
+    2. The user does not understand sentence structures such as "particle phrases".
+    3. The user do not understand long sentences well.
     """
     
     answer = query.predict(npc = opponent, persona = persona_dict[opponent], user_cefr = cefr, interest = interest, retrieve = retrieve, user_input = user_message)
