@@ -132,6 +132,7 @@ def retrieve(npc, user, chat_data_list):
     focal_points = "Find out what the user is bad at (grammar, understanding of context, etc.)"
     ####프롬프트 추가 final_points#####
     final_points = """
+    Find out what the user is bad at (grammar, understanding of context, etc.)
     If the user has made a gramatical mistake conduct the following tasks. 
     1. find and explain the gramatical mistakes the user has made in two sentences.
     2. *Always* show the *exact* sentence the user made a mistake in.
@@ -143,7 +144,6 @@ def retrieve(npc, user, chat_data_list):
     If the user was impolite or morally wrong conduct the following tasks.
     1. *Always* find and explain the *exact* term the user used that was impolite or morally wrong.
     2. *Always* show the *exact* sentence the user was impolite or morally wrong.
-
     """
     embedded_query = embeddings_model.embed_query(focal_points)
     embedings = embeddings_model.embed_documents(all_chat_data_string)
