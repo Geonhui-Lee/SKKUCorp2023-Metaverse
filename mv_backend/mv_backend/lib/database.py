@@ -1,5 +1,6 @@
 from pymongo.mongo_client import MongoClient
 from mv_backend.settings import MONGODB_CONNECTION_STRING
+from collections.abc import MutableMapping
 
 class Database:
     def __init__(self, unique_id=None):
