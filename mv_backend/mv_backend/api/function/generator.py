@@ -11,7 +11,7 @@ from pymongo.server_api import ServerApi
 from retrieve_auto_test import *
 from reflect_auto_test import *
 
-MONGODB_CONNECTION_STRING = "mongodb+srv://geonhui:dotgeon@metaverse.px60xor.mongodb.net/?"
+MONGODB_CONNECTION_STRING = "mongodb+srv://skku:skku@metaverse.px60xor.mongodb.net/?retryWrites=true&w=majority"
 class Database:
     def __init__(self):
         self.client = MongoClient(MONGODB_CONNECTION_STRING, server_api=ServerApi('1'))
