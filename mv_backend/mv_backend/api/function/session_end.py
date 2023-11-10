@@ -62,7 +62,7 @@ def call(request):
     user_chat_data_string = ""
     opponent_chat_data_string = ""
     
-    # memory_dict.get(user_name).clear
+    memory_dict.get(user_name).clear
 
     conversation = Database.get_all_documents(db, user_name, "Conversations")
     print(conversation)
