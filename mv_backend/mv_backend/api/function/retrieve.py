@@ -131,6 +131,9 @@ def retrieve(npc, user, chat_data_list):
     
 
     focal_points = "Find out what the user is bad at (grammar, understanding of context, etc.)"
+    ####프롬프트 추가 final_points#####
+    final_points = """
+    """
     embedded_query = embeddings_model.embed_query(focal_points)
     embedings = embeddings_model.embed_documents(all_chat_data_string)
 
