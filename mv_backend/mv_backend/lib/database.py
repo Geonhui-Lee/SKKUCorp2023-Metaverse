@@ -1,10 +1,12 @@
 from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
+#from pymongo.server_api import ServerApi
 from mv_backend.settings import MONGODB_CONNECTION_STRING
+from collections.abc import MutableMapping
 
 class Database:
     def __init__(self, unique_id=None):
-        self.client = MongoClient(MONGODB_CONNECTION_STRING, server_api=ServerApi('1'))
+        #self.client = MongoClient(MONGODB_CONNECTION_STRING, server_api=ServerApi('1'))
+        self.client = MongoClient(MONGODB_CONNECTION_STRING)
         self.uid = unique_id
     
     def get_uid(self):
