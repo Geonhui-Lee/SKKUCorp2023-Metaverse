@@ -1,10 +1,9 @@
 from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
 uri = "mongodb+srv://geonhui:geonhui@geonhui.qq5lmdq.mongodb.net/?retryWrites=true&w=majority"
 
 class Database:
     def __init__(self):
-        self.client = MongoClient(uri, server_api=ServerApi('1'))
+        self.client = MongoClient(uri)
     
     def get_client(self):
         return self.client

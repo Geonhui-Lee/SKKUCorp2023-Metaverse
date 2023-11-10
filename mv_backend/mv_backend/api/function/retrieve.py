@@ -10,7 +10,6 @@ import json, openai
 from datetime import datetime
 from bson.objectid import ObjectId
 from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
 from mv_backend.lib.database import Database
 
 OPENAI_API_KEY = "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"
