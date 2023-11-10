@@ -7,12 +7,8 @@ from bson.objectid import ObjectId
 import openai
 
 from pymongo.mongo_client import MongoClient
-<<<<<<< Updated upstream
 from retrieve import *
 from reflect import *
-=======
-from pymongo.server_api import ServerApi
->>>>>>> Stashed changes
 
 MONGODB_CONNECTION_STRING = "mongodb+srv://skku:skku@metaverse.px60xor.mongodb.net/?retryWrites=true&w=majority"
 class Database:
