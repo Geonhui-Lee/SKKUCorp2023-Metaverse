@@ -1,7 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 
 from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
 
 from mv_backend.lib.database import Database
 

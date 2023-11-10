@@ -7,9 +7,9 @@ from mv_backend.api.function.hello_world import call as hello_world
 
 from mv_backend.api.function.gpt import call as gpt
 
-from mv_backend.api.function.retrieve import call as retrieve
+from mv_backend.api.function.retrieve import retrieve as retrieve
 
-from mv_backend.api.function.reflect import call as reflect
+from mv_backend.api.function.reflect import reflect as reflect
 
 from mv_backend.api.function.plan import call as plan
 

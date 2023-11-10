@@ -43,8 +43,10 @@ CEFR is the English's level criteria established by the Common European Framewor
 Please talk to the user according to the user's English level. The user's English level is provided as a CEFR indicator.
 
 user's CEFR: {user_cefr}
-user's interest: {interest}
+user's Character: {reflect}
 user is bad at: {retrieve}
+
+You *always* generate customized answers to the user by referring to user's characteristics and user's bad.
 
 If user is unable to answer:
     *Ask* the user if they don't understand the question, and if so, You have to *suggest* a user answer along with advice to the user by *using* user's bad.
@@ -58,7 +60,7 @@ now answer
 """
 
 query_prompt = PromptTemplate(
-    input_variables=["chat_history", "npc", "persona", "user_cefr", "interest", "retrieve", "user_input"], template=query_template
+    input_variables=["chat_history", "npc", "persona", "user_cefr", "reflect", "retrieve", "user_input"], template=query_template
 )
 
 #########
@@ -145,18 +147,23 @@ def call(request):
     
     cefr_data = Database.get_all_documents(db, f"{user_name}", "CEFR")
     retrieve_data = Database.get_all_documents(db, f"{user_name}", "Retrieves")
+    refelct_data = Database.get_all_documents(db, f"{user_name}", "Retrieves")
 
     cefr = "C1"
     interest = ""
     retrieve = ""
     retrieve_list = list()
+    refelct = ""
+    refelct_list = list()
 
     for data in cefr_data:
         cefr = data["cefr"]
-        interest = data["interest"]
     
     for data in retrieve_data:
         retrieve_list.append(data["retrieve"])
+
+    for data in refelct_list:
+        refelct_list.append(data['reflect'])
     
     data_num = 0
     for data in reversed(retrieve_list):
@@ -164,6 +171,12 @@ def call(request):
         if data_num > 4:
             break
         retrieve += str(data_num) + ". " + data + "\n"
+
+    for data in reversed(refelct_list):
+        data_num += 1
+        if data_num > 4:
+            break
+        refelct += str(data_num) + ". " + data + "\n"
     
     retrieve = """
     1. The user does not know words such as "expand, billion".
@@ -171,7 +184,7 @@ def call(request):
     3. The user do not understand long sentences well.
     """
     
-    answer = query.predict(npc = opponent, persona = persona_dict[opponent], user_cefr = cefr, interest = interest, retrieve = retrieve, user_input = user_message)
+    answer = query.predict(npc = opponent, persona = persona_dict[opponent], user_cefr = cefr, reflect = refelct, retrieve = retrieve, user_input = user_message)
 
     conversation = Database.get_all_documents(db, f"{user_name}", "Conversations")
     print(conversation)

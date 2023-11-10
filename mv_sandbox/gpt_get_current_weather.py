@@ -3,11 +3,10 @@ import json
 from gitignore.env import OPENAI_API_KEY
 
 from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
 uri = "mongodb+srv://geonhui:geonhui@geonhui.qq5lmdq.mongodb.net/?retryWrites=true&w=majority"
 
 # Create a new client and connect to the server
-client = MongoClient(uri, server_api=ServerApi('1'))
+client = MongoClient(uri)
 # Send a ping to confirm a successful connection
 try:
     client.admin.command('ping')
@@ -23,7 +22,7 @@ def get_current_weather(location, unit="celsius"):
     """Get the current weather in a given location"""
     
     # Create a new client and connect to the server
-    client = MongoClient(uri, server_api=ServerApi('1'))
+    client = MongoClient(uri)
     # Send a ping to confirm a successful connection
     try:
         client.admin.command('ping')

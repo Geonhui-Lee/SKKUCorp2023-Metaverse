@@ -5,8 +5,8 @@ from langchain.chains import LLMChain
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
-from mv_backend.api.function.retrieve_auto_test import *
-from mv_backend.api.function.reflect_auto_test import *
+from mv_backend.api.function.retrieve import *
+from mv_backend.api.function.reflect import *
 from mv_backend.api.function.gpt import memory_dict
 from langchain.schema import (
     AIMessage,
@@ -79,15 +79,19 @@ def call(request):
     
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
 
+    chat_data_list = list()
+
     for chat_data in body["messages"]:
         if chat_data["role"] == user_name:
             user_chat_data_string += chat_data["content"] + "\n"
+            chat_data_list.append(chat_data["role"] + ": " + chat_data["content"])
             user_num_data += 1
             document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":chat_data["content"],"name":user_name,"opponent":opponent}
             print(Database.set_document(db, user_name, "Conversations", document_user))
             node += 1
         if chat_data["role"] == opponent:
             opponent_chat_data_string += chat_data["content"] + "\n"
+            chat_data_list.append(chat_data["role"] + ": " + chat_data["content"])
             opponent_num_data += 1
             document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":chat_data["content"],"name":opponent,"opponent":user_name}
             print(Database.set_document(db, user_name, "Conversations", document_user))
@@ -104,8 +108,8 @@ def call(request):
     # if data_num != 0:
     #     node = i["node"] + 1
     
-    retrieve(opponent, user_name)
-    reflect(opponent, user_name)
+    retrieve(opponent, user_name, chat_data_list)
+    reflect(opponent, user_name, chat_data_list)
 
     messages_response = body["messages"] + [
         {

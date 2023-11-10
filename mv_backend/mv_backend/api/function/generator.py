@@ -7,8 +7,8 @@ from bson.objectid import ObjectId
 import openai
 
 from pymongo.mongo_client import MongoClient
-from retrieve_auto_test import *
-from reflect_auto_test import *
+from retrieve import *
+from reflect import *
 
 MONGODB_CONNECTION_STRING = "mongodb+srv://skku:skku@metaverse.px60xor.mongodb.net/?retryWrites=true&w=majority"
 class Database:
@@ -119,8 +119,10 @@ print(f"{npc_name}: Hi I'm {npc_name}.")
 user_response = input("")
 print(f"{user_name}: {user_response}")
 all_chat = list()
+all_chat_list = list()
 all_chat_string = ""
 all_chat.append(f"{user_response}")
+all_chat_list.append(f"{user_name}: {user_response}")
 all_chat_string += f"{user_name}: {user_response}\n"
 all_importance = list()
 
@@ -136,6 +138,7 @@ for i in range(15):
     print(f"{npc_name}: {npc_response}")
     all_chat.append(f"{npc_response}")
     all_chat_string += f"{npc_name}: {npc_response}\n"
+    all_chat_list.append(f"{npc_name}: {user_response}")
     
     # score = important_score.run(name = f"{user_name}", event = f"{npc_name}" + ": " + npc_response)
     # score = "0" + score
@@ -148,6 +151,7 @@ for i in range(15):
     all_chat.append(f"{user_response}")
     all_chat_string += f"{user_name}: {user_response}\n"
     print(f"{user_name}: {user_response}")
+    all_chat_list.append(f"{user_name}: {user_response}")
     
     # score = important_score.run(name = f"{user_name}", event = f"{npc_name}" + ": " + user_response)
     # score = "0" + score
@@ -174,8 +178,8 @@ while(i < chat_length):
   print(Database.set_document(db, f"{user_name}", "conversations",  document_npc))
 
 
-retrieve(f"{npc_name}", f"{user_name}")
-reflect(f"{npc_name}", f"{user_name}")
+retrieve(f"{npc_name}", f"{user_name}", all_chat_list)
+reflect(f"{npc_name}", f"{user_name}", all_chat_list)
   
   
 
