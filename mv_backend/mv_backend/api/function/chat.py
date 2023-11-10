@@ -21,11 +21,7 @@ db = Database()
 openai.api_key = OPENAI_API_KEY
 
 memory_dict = dict()
-<<<<<<< Updated upstream
 chat = CommonChatOpenAI()
-=======
-chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
->>>>>>> Stashed changes
 before_opponent = ""
 #"""
 # You are a customer at a pizza restaurant. 
