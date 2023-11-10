@@ -80,7 +80,7 @@ npc_name = "Police Officer"
 user_cefr = "pre-A1"
 
 user_prompt = PromptTemplate(
-    input_variables= ["user_cefr","npc_name","npc_input", "history"],
+    input_variables= ["user_cefr", "npc_name", "npc_input", "history"],
     template=user_template
 )
 
