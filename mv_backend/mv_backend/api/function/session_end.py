@@ -22,27 +22,26 @@ db = Database()
 openai.api_key = OPENAI_API_KEY
 import os
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
-memory = ConversationBufferMemory(memory_key="chat_history", input_key= "user_input")
-chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
+# chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 
 ###prompt
-important_template = """
-Find {num} important dialogues in the following conversation of {name}.
+# important_template = """
+# Find {num} important dialogues in the following conversation of {name}.
 
-Conversation: 
-{event}
+# Conversation: 
+# {event}
 
-Ranking:
-[1]"""
+# Ranking:
+# [1]"""
 
-important_prompt = PromptTemplate(
-    input_variables=["event", "name", "num"], template=important_template
-)
+# important_prompt = PromptTemplate(
+#     input_variables=["event", "name", "num"], template=important_template
+# )
 
-important_query = LLMChain(
-    llm=chat,
-    prompt=important_prompt
-)
+# important_query = LLMChain(
+#     llm=chat,
+#     prompt=important_prompt
+# )
 
 def call(request):
     body_unicode = request.body.decode('utf-8')
@@ -67,19 +66,6 @@ def call(request):
     
     # memory_dict.get(user_name).clear
 
-    for chat_data in body["messages"]:
-        if chat_data["role"] == user_name:
-            user_chat_data_string += chat_data["content"] + "\n"
-            user_num_data += 1
-        if chat_data["role"] == opponent:
-            opponent_chat_data_string += chat_data["content"] + "\n"
-            opponent_num_data += 1
-
-    if user_num_data > 10:
-        user_num_data = 10
-    if opponent_num_data > 10:
-        opponent_num_data = 10
-    
     conversation = Database.get_all_documents(db, user_name, "Conversations")
     print(conversation)
     node = 0
@@ -92,18 +78,31 @@ def call(request):
         node = i["node"] + 1
     
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
-    user_result = important_query.run(event = user_chat_data_string, name = user_name, num = user_num_data)
-    opponent_result = important_query.run(event = opponent_chat_data_string, name = opponent, num = opponent_num_data)
 
-    user_save_data = user_result.split("\n")
-    opponent_save_data = opponent_result.split("\n")
+    for chat_data in body["messages"]:
+        if chat_data["role"] == user_name:
+            user_chat_data_string += chat_data["content"] + "\n"
+            user_num_data += 1
+            document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":chat_data["content"],"name":user_name,"opponent":opponent}
+            print(Database.set_document(db, user_name, "Conversations", document_user))
+            node += 1
+        if chat_data["role"] == opponent:
+            opponent_chat_data_string += chat_data["content"] + "\n"
+            opponent_num_data += 1
+            document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":chat_data["content"],"name":opponent,"opponent":user_name}
+            print(Database.set_document(db, user_name, "Conversations", document_user))
+            node += 1
+    
+    # conversation = Database.get_all_documents(db, user_name, "Conversations")
+    # print(conversation)
+    # node = 0
+    # data_num = 0
 
-    for i in user_save_data:
-        document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":i,"name":user_name,"opponent":opponent}
-        print(Database.set_document(db, user_name, "Conversations", document_user))
-    for i in opponent_save_data:
-        document_opponent = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":i,"name":opponent,"opponent":user_name}
-        print(Database.set_document(db, user_name, "Conversations", document_opponent))
+    # for i in conversation:
+    #     data_num += 1
+    
+    # if data_num != 0:
+    #     node = i["node"] + 1
     
     retrieve(opponent, user_name)
     reflect(opponent, user_name)
