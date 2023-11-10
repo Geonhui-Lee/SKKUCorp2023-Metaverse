@@ -70,6 +70,7 @@ generate_insights_template = """
 Input:
 {event}
 
+Insights into your conversational tendencies(e.g., ), interests(e.g., ), and relationships with {name}(e.g., ).
 What are the {name}'s 5 high-level insights about {opponent} can be inferred from the above statement? (example format: insight (because of 1, 5, 3))
 1.
 """
