@@ -221,25 +221,26 @@ def call(request):
     # print(Database.set_document(db, f"{user_name}", "Conversations",  document_customer))
 
     #improved_answer_chat = CommonChatOpenAI()
-    improvement_openai_client = openai()
-    improvement_messages = [
-        #{"role": "system", "content": "NPC(Assistant)가 답변을 해야하는 상황이야. NPC가 Reflect (유저 특성) 정보, Retrieve (미진사항) 정보를 기반으로 다음 대화에 들어갈 때 사용자를 정확히 인지하고 그거에 맞게 대화 세션을 어떻게 이끌어 나갈지를 설계해야 돼. 주어진 Reflect 정보, Retrieve 정보를 반영해서 기존 답변을 개선해줘."},
-        {"role": "system", "content": "The NPC (Assistant) has to answer. NPC needs to design how to accurately recognize the user and lead the conversation session when entering the next conversation based on Reflect information and Retrieve information. Please improve the existing answer by reflecting the given Reflect information and Retrieve information."},
-        {"role": "system", "content": "You must NOT change the meaning of the answer. Your Reflect and Retrieve information should be delivered indirectly."},
-        {"role": "assistant", "content": answer},
-        {"role": "system", "content": "[Reflect (user's characteristics) Information] " + reflect},
-        {"role": "system", "content": "[Retrieve (improvements that the user needs to acknowledge)] " + retrieve}
-    ]
-    improvement_response = improvement_openai_client.chat.completions.create(
-        model=gpt_model_name,
-        messages=improvement_messages
-    )
-    improvement_answer = improvement_response["choices"][0]["text"]
+    #improvement_openai_client = openai()
+    # improvement_messages = [
+    #     #{"role": "system", "content": "NPC(Assistant)가 답변을 해야하는 상황이야. NPC가 Reflect (유저 특성) 정보, Retrieve (미진사항) 정보를 기반으로 다음 대화에 들어갈 때 사용자를 정확히 인지하고 그거에 맞게 대화 세션을 어떻게 이끌어 나갈지를 설계해야 돼. 주어진 Reflect 정보, Retrieve 정보를 반영해서 기존 답변을 개선해줘."},
+    #     {"role": "system", "content": "The NPC (Assistant) has to answer. NPC needs to design how to accurately recognize the user and lead the conversation session when entering the next conversation based on Reflect information and Retrieve information. Please improve the existing answer by reflecting the given Reflect information and Retrieve information."},
+    #     {"role": "assistant", "content": answer},
+    #     {"role": "system", "content": "[Reflect (user's characteristics) Information] " + reflect},
+    #     {"role": "system", "content": "[Retrieve (improvements that the user needs to acknowledge)] " + retrieve}
+    # ]
+    
+    # improvement_response = openai.ChatCompletion.create(
+    #     model=gpt_model_name,
+    #     messages=improvement_messages
+    # )
+    #print(improvement_response["choices"])
+    #improvement_answer = improvement_response["choices"][0]["message"]["content"]
 
     messages_response = body["messages"] + [
         {
             "role": opponent,
-            "content": improvement_answer, #answer
+            "content": answer, #improvement_answer, #answer
         }
     ]
     before_opponent = opponent
