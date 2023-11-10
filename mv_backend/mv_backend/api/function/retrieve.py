@@ -167,7 +167,7 @@ def retrieve(npc, user, chat_data_list):
         if data_num > 30:
             break
         important_data_string += chat_data[0] + "\n"
-    retrieve = generate_retrieve.run(query = focal_points, name = npc + "'s", event = important_data_string)
+    retrieve = generate_retrieve.run(query = final_points, name = npc + "'s", event = important_data_string)
 
     previous = Database.get_all_documents(db, user, "Retrieves")
     print(previous)
