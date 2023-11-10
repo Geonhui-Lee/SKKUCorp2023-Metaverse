@@ -88,7 +88,7 @@ def reflect(npc, user):
     # )
 
     ### mongoDB user's memory ###
-    conversation = db.get_recent_documents(user, "conversations")
+    conversation = db.get_recent_documents(user, "Conversations")
     data_num = 0
 
     all_chat_data = []
