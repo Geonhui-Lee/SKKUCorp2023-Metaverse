@@ -1,5 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from mv_backend.lib.database import Database
+from mv_backend.lib.common import CommonChatOpenAI
 from mv_backend.settings import OPENAI_API_KEY
 from langchain.chains import LLMChain
 from langchain.memory import ConversationSummaryBufferMemory
@@ -18,10 +19,9 @@ from bson.objectid import ObjectId
 db = Database()
 
 openai.api_key = OPENAI_API_KEY
-import os
-os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
+
 memory_dict = dict()
-chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
+chat = CommonChatOpenAI()
 before_opponent = ""
 #"""
 # You are a customer at a pizza restaurant. 
@@ -87,12 +87,6 @@ def call(request):
     global memory_dict
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
-    # openai.api_key = OPENAI_API_KEY
-    # openai_response = openai.ChatCompletion.create(
-    #     model="gpt-3.5-turbo",
-    #     messages=body["messages"]
-    # )
-    # openai_response_message = openai_response["choices"][0]["message"]
     
     for chat_data in body["messages"]:
         if chat_data["role"] == "npc_name":
@@ -110,15 +104,13 @@ def call(request):
     
     memory = memory_dict.get(user_name)
     
-    query = LLMChain(
-    llm=chat,
-    prompt=query_prompt,
-    memory = memory,
-    verbose=True
+    LLMChainQuery = LLMChain(
+        llm = chat,
+        prompt = query_prompt,
+        memory = memory,
+        verbose = True
     )
-        
     
-    user_message = ""
     user_message = body["messages"][-1]["content"]
     all_chat_data_string = ""
     for chat_data in body["messages"]:
@@ -147,14 +139,14 @@ def call(request):
     
     cefr_data = Database.get_all_documents(db, f"{user_name}", "CEFR")
     retrieve_data = Database.get_all_documents(db, f"{user_name}", "Retrieves")
-    refelct_data = Database.get_all_documents(db, f"{user_name}", "Retrieves")
+    reflect_data = Database.get_all_documents(db, f"{user_name}", "Retrieves")
 
     cefr = "C1"
     interest = ""
     retrieve = ""
     retrieve_list = list()
-    refelct = ""
-    refelct_list = list()
+    reflect = ""
+    reflect_list = list()
 
     for data in cefr_data:
         cefr = data["cefr"]
@@ -162,8 +154,8 @@ def call(request):
     for data in retrieve_data:
         retrieve_list.append(data["retrieve"])
 
-    for data in refelct_list:
-        refelct_list.append(data['reflect'])
+    for data in reflect_list:
+        reflect_list.append(data['reflect'])
     
     data_num = 0
     for data in reversed(retrieve_list):
@@ -172,11 +164,11 @@ def call(request):
             break
         retrieve += str(data_num) + ". " + data + "\n"
 
-    for data in reversed(refelct_list):
+    for data in reversed(reflect_list):
         data_num += 1
         if data_num > 4:
             break
-        refelct += str(data_num) + ". " + data + "\n"
+        reflect += str(data_num) + ". " + data + "\n"
     
     retrieve = """
     1. The user does not know words such as "expand, billion".
@@ -184,7 +176,15 @@ def call(request):
     3. The user do not understand long sentences well.
     """
     
-    answer = query.predict(npc = opponent, persona = persona_dict[opponent], user_cefr = cefr, reflect = refelct, retrieve = retrieve, user_input = user_message)
+    # "Reflect/Retrieve 정보를 기반으로 다음 대화에 들어갈 때 선생님이 이 아이를 정확히 인지하고 그거에 맞게 대화 세션을 어떻게 이끌어 나갈지를 설계해야 돼."
+    answer = LLMChainQuery.predict(
+        npc = opponent,
+        persona = persona_dict[opponent],
+        user_cefr = cefr,
+        reflect = reflect,
+        retrieve = retrieve,
+        user_input = user_message,
+    )
 
     conversation = Database.get_all_documents(db, f"{user_name}", "Conversations")
     print(conversation)
