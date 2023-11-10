@@ -68,7 +68,8 @@ generate_insights_template = """
 Input:
 {event}
 
-What are the {name} high-level insights about {opponent} can be inferred from the above statement? (example format: insight (because of 1, 5, 3))
+Insights into your conversational tendencies(e.g., ), interests(e.g., ), and relationships with {name}(e.g., ).
+What are the {name}'s 5 high-level insights about {opponent} can be inferred from the above statement? (example format: insight (because of 1, 5, 3))
 1.
 """
 generate_insights_prompt = PromptTemplate(
@@ -186,7 +187,7 @@ def reflect(npc, user, chat_data_list):
         if data_num > 30:
             break
         important_data_string += chat_data[0] + "\n"
-    insights = generate_insights.run(name = npc + "'s 5", opponent = user, event = important_data_string)
+    insights = generate_insights.run(name = npc, opponent = user, event = important_data_string)
 
     previous = Database.get_all_documents(db, user, "Reflects")
     print(previous)
