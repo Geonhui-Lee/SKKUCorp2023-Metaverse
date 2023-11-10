@@ -65,21 +65,21 @@ generate_retrieve = LLMChain(
     prompt=generate_prompt
 )
 
-def retrieve(npc, user):
+def retrieve(npc, user, chat_data_list):
 
     ### mongoDB user's memory ###
-    conversation = db.get_recent_documents(user, "Conversations")
+    # conversation = db.get_recent_documents(user, "Conversations")
     data_num = 0
 
     all_chat_data = []
     all_chat_data_node = []
     all_chat_data_string = ""
-    for chat_data in conversation:
+    for chat_data in reversed(chat_data_list):
         data_num += 1
-        all_chat_data.append(chat_data["name"] + ": " + chat_data['memory'])
-        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data["name"] + ": " + chat_data['memory'])
+        all_chat_data.append(chat_data)
+        all_chat_data_node.append("[" + str(data_num) + "]" + chat_data)
         # all_chat_data.append(chat_data)
-        all_chat_data_string += chat_data["name"] + ": " + chat_data['memory'] + "\n"
+        all_chat_data_string += chat_data + "\n"
     
     if data_num == 0:
         return
