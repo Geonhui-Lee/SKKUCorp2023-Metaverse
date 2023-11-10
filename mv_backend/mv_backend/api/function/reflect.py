@@ -70,7 +70,11 @@ Input:
 {event}
 
 Insights into your conversational tendencies(e.g., user speak briefly), interests(e.g., user likes soccer), and relationships with {name}(e.g., NPC mentors the user).
-What are the {name}'s 5 high-level insights about {opponent} can be inferred from the above statement? (example format: insight (because of 1, 5, 3))
+What are the {name}'s 5 high-level insights about {opponent} can be inferred from the above statement?
+example format: insight
+Because of [1],
+Because of [5],
+Because of [3],
 1.
 """
 generate_insights_prompt = PromptTemplate(

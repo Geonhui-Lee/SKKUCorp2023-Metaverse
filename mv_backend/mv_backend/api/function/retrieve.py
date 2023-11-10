@@ -53,7 +53,11 @@ Query:
 Input:
 {event}
 
-What 1 answer to the query can {name} infer from the above statements? (example format: insight (because of 1, 5, 3))
+What 1 answer to the query can {name} infer from the above statements?
+example format: {name} is bad at
+Because of [1],
+Because of [5],
+Because of [3],
 1.
 """
 generate_prompt = PromptTemplate(
