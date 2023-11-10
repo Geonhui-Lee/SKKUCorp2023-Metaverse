@@ -186,18 +186,19 @@ def call(request):
         user_input = user_message,
     )
 
-    conversation = Database.get_all_documents(db, f"{user_name}", "Conversations")
-    print(conversation)
-    node = 0
-    data_num = 0
+    #conversation = Database.get_all_documents(db, f"{user_name}", "Conversations")
+    
+    # #print(conversation)
+    # #node = 0
+    # #data_num = 0
 
-    for i in conversation:
-        data_num += 1
+    # for i in conversation:
+    #     data_num += 1
     
-    if data_num != 0:
-        node = i["node"] + 1
+    # if data_num != 0:
+    #     node = i["node"] + 1
     
-    datetimeStr = datetime.now().strftime("%Y-%m-%d")
+    # datetimeStr = datetime.now().strftime("%Y-%m-%d")
 
     # important_str = important_score.run(event = user_message, name = f"{user_name}")
     # important_str = "0" + important_str
@@ -212,10 +213,10 @@ def call(request):
     #     score_customer = 0
     
     # document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":user_message,"name":f"{user_name}","opponent":opponent,"important":score_user}
-    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":user_message,"name":f"{user_name}","opponent":opponent}
-    node += 1
+    #document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":user_message,"name":f"{user_name}","opponent":opponent}
+    #node += 1
     # document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":answer,"name":opponent,"opponent":f"{user_name}","important":score_customer}
-    document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":answer,"name":opponent,"opponent":f"{user_name}"}
+    # document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":answer,"name":opponent,"opponent":f"{user_name}"}
     # print(Database.set_document(db, f"{user_name}" , "Conversations", document_user))
     # print(Database.set_document(db, f"{user_name}", "Conversations",  document_customer))
 
