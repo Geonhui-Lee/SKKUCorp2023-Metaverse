@@ -20,8 +20,6 @@ from bson.objectid import ObjectId
 db = Database()
 
 openai.api_key = OPENAI_API_KEY
-import os
-os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 # chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 
 ###prompt

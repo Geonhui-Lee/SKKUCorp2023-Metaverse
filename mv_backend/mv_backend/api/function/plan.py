@@ -1,5 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from mv_backend.lib.database import Database
+from mv_backend.lib.common import CommonChatOpenAI
 from mv_backend.settings import OPENAI_API_KEY
 import json, openai
 from langchain.chains import LLMChain
@@ -22,7 +23,7 @@ openai.api_key = OPENAI_API_KEY
 import os
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
-chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
+chat = CommonChatOpenAI()
 
 wrong_plan_template = """
 Your objective is to make 5 breif but detailed plans based on the given information to allow the user to improve their english or their part time service this could also include recommending a specific menu the next time the customer comes. Make sure to give a reasoning of why you made this plan and which retireve and reflect data the plan was based on.

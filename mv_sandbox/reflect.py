@@ -1,5 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from mv_backend.lib.database import Database
+from mv_backend.lib.common import CommonChatOpenAI
 from mv_backend.settings import OPENAI_API_KEY
 import json, openai
 from langchain.chains import LLMChain
@@ -23,7 +24,7 @@ openai.api_key = OPENAI_API_KEY
 import os
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
-chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
+chat = CommonChatOpenAI()
 
 embeddings_model = OpenAIEmbeddings()
 # every prompts for this code

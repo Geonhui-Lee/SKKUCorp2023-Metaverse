@@ -10,6 +10,7 @@ import json, openai
 from datetime import datetime
 from bson.objectid import ObjectId
 from mv_backend.lib.database import Database
+from mv_backend.lib.common import CommonChatOpenAI
 
 OPENAI_API_KEY = "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"
 
@@ -21,7 +22,7 @@ MONGODB_CONNECTION_STRING = "mongodb+srv://geonhui:dotgeon@metaverse.px60xor.mon
 
 db = Database()
 
-chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
+chat = CommonChatOpenAI()
 
 embeddings_model = OpenAIEmbeddings()
 # every prompts for this code
