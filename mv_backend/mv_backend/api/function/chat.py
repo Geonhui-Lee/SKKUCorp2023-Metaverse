@@ -154,7 +154,7 @@ def call(request):
         retrieve_list.append(data["retrieve"])
 
     for data in reflect_data:
-        reflect_list.append(data['reflect'])
+        reflect_list.append(data["reflect"])
     
     data_num = 0
     for data in reversed(retrieve_list):
@@ -162,7 +162,8 @@ def call(request):
         if data_num > 4:
             break
         retrieve += str(data_num) + ". " + data + "\n"
-
+    
+    data_num = 0
     for data in reversed(reflect_list):
         data_num += 1
         if data_num > 4:
