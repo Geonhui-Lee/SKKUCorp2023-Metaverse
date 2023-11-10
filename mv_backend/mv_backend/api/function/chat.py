@@ -45,8 +45,8 @@ Please talk to the user according to the user's English level. The user's Englis
 user's CEFR: {user_cefr}
 user's Character: {reflect}
 user is bad at: {retrieve}
+you **always** *suggest* a user answer that the user can understand by *referring* *user's bad*.   
 
-You *always* generate customized answers to the user by referring to user's characteristics and user's bad.
 
 If user is unable to answer:
     *Ask* the user if they don't understand the question, and if so, You have to *suggest* a user answer along with advice to the user by *using* user's bad.
@@ -141,7 +141,7 @@ def call(request):
     retrieve_data = Database.get_all_documents(db, f"{user_name}", "Retrieves")
     reflect_data = Database.get_all_documents(db, f"{user_name}", "Retrieves")
 
-    cefr = "C1"
+    cefr = "Pre-A1"
     interest = ""
     retrieve = ""
     retrieve_list = list()

@@ -7,7 +7,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
 from mv_backend.api.function.retrieve import *
 from mv_backend.api.function.reflect import *
-from mv_backend.api.function.gpt import memory_dict
+from mv_backend.api.function.chat import memory_dict
 from langchain.schema import (
     AIMessage,
     HumanMessage,
