@@ -139,10 +139,9 @@ def call(request):
     
     cefr_data = Database.get_all_documents(db, f"{user_name}", "CEFR")
     retrieve_data = Database.get_all_documents(db, f"{user_name}", "Retrieves")
-    reflect_data = Database.get_all_documents(db, f"{user_name}", "Retrieves")
+    reflect_data = Database.get_all_documents(db, f"{user_name}", "Reflects")
 
     cefr = "Pre-A1"
-    interest = ""
     retrieve = ""
     retrieve_list = list()
     reflect = ""
@@ -154,7 +153,7 @@ def call(request):
     for data in retrieve_data:
         retrieve_list.append(data["retrieve"])
 
-    for data in reflect_list:
+    for data in reflect_data:
         reflect_list.append(data['reflect'])
     
     data_num = 0
