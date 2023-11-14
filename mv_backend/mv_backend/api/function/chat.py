@@ -33,7 +33,7 @@ before_opponent = ""
 # Pepperoni pizza
 # Potato pizza
 
-persona_dict = {"Pizza Chef" : "Your name is Jake. You're job a pizza chef(Don't forget)" , "Police Officer" : "Your name is Mike. You're job a police officer(Don't forget)", "Artist" : "Your name is Bob. You're job an artist(Don't forget)", "Astronaut" : "Your name is Armstrong. You're job an astronaut(Don't forget)"}
+persona_dict = {"Pizza Chef" : "Your name is Jake. You're job a pizza chef(Don't forget you are not a pizza worker. Do not serve a pizza. Explain about pizza)" , "Police Officer" : "Your name is Mike. You're job a police officer(Don't forget)", "Artist" : "Your name is Bob. You're job an artist(Don't forget)", "Astronaut" : "Your name is Armstrong. You're job an astronaut(Don't forget)"}
 
 query_template = """
 You are a {npc} who communicates with user. *Always* Answer briefly and concisely.

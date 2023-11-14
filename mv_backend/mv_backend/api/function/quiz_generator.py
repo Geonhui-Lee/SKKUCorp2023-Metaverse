@@ -45,13 +45,13 @@ chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=1)
 
 
 npc_template = """
-You are a quiz maker. You have to make 5 quizzes(only make 5 quiz) based on what the user is bad at. Make a quiz so that the user can improve its English skills and English communitcation.
-The quiz should have a question, 4 choices, a answer, and a explanation. Question, and the explenation must be written in *Korean*, And the choices and the answer must be written in *English*.
-
 user is bad at:
 {retrieve}
 
-Make 5 quiz and write it down in a json format.
+You are a quiz maker for the User. You have to make 3 quizzes(only make 3 quiz) that helps solve the bad parts user has(Especially grammer).
+The quiz should have a question, 4 choices, a answer, and a explanation. Question, and the explenation must be written in *Korean*, And the choices and the answer must be written in *English*.
+
+Make 3 quiz and write it down in a json format.
 
 ex) {example}
 """
@@ -64,9 +64,7 @@ example = """{
         "explanation": "서울은 대한민국의 수도이다."
     },
     "quiz2": {...},
-    "quiz3": {...},
-    "quiz4": {...},
-    "quiz5": {...}
+    "quiz3": {...}
 }"""
 
 npc_prompt = PromptTemplate(
