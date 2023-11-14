@@ -17,6 +17,8 @@ from mv_backend.api.function.menu import call as menu
 
 from mv_backend.api.function.cefr import call as cefr
 
+from mv_backend.api.function.quiz_generator import call as quiz_generator
+
 from mv_backend.api.function.session_end import call as session_end
 
 from mv_backend.api.function.database.data_load import gh_call as data_load
@@ -42,4 +44,5 @@ def api_path():
         api_render('session_end', session_end),
         api_render('data/load', data_load),
         api_render('data/job_prompt', job_prompt),
+        api_render('quiz_generator', quiz_generator),
     ]
