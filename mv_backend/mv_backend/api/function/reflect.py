@@ -206,3 +206,5 @@ def reflect(npc, user, chat_data_list):
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
     document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":insights,"name":npc}
     print(Database.set_document(db, user, "Reflects", document_user))
+
+    return document_user
