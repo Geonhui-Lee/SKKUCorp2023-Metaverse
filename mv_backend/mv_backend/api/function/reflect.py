@@ -69,7 +69,7 @@ generate_insights_template = """
 Input:
 {event}
 
-Insights into your conversational tendencies(e.g., user speak briefly), interests(e.g., user likes soccer), and relationships with {name}(e.g., NPC mentors the user).
+Insights into your conversational styles(e.g., user speak briefly), interests(e.g., user likes soccer).
 What are the {name}'s 5 high-level insights about {opponent} can be inferred from the above statement? (example format: insight (because of 1, 5, 3))
 1.
 """
@@ -206,3 +206,5 @@ def reflect(npc, user, chat_data_list):
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
     document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":insights,"name":npc}
     print(Database.set_document(db, user, "Reflects", document_user))
+
+    return document_user

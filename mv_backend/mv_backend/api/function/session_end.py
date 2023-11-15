@@ -106,9 +106,9 @@ def call(request):
     
     # if data_num != 0:
     #     node = i["node"] + 1
-    
-    retrieve(opponent, user_name, chat_data_list)
-    reflect(opponent, user_name, chat_data_list)
+
+    retrieve_document = retrieve(opponent, user_name, chat_data_list)
+    reflect_document = reflect(opponent, user_name, chat_data_list)
 
     messages_response = body["messages"] + [
         {
@@ -116,7 +116,9 @@ def call(request):
             "content": "end"
         }
     ]
-    
+
     return JsonResponse({
-        "messages": messages_response
+        "messages": messages_response,
+        "retrieve": json.dumps(retrieve_document),
+        "reflect": json.dumps(reflect_document)
     })
