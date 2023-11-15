@@ -48,7 +48,7 @@ npc_template = """
 user is bad at:
 {retrieve}
 
-You are a quiz maker for the User. You have to make 3 quizzes(only make 3 quiz) that helps solve the bad parts user has(Especially grammer).
+You are a quiz maker for the User. You have to make 3 quizzes(only make 3 quiz) that helps solve the bad parts user has.
 The quiz should have a question, 4 choices, a answer, and a explanation. Question, and the explenation must be written in *Korean*, And the choices and the answer must be written in *English*.
 
 Make 3 quiz and write it down in a json format.
