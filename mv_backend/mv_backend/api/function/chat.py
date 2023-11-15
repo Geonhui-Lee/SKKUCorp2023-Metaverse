@@ -52,7 +52,7 @@ Please point out when the user does something that is not polite or moral.
 If user is unable to answer:
     *Ask* the user if they don't understand the question, and if so, You have to *suggest* a user answer along with advice to the user by *using* user's bad.
 
-previouse conversation:
+previous conversation:
 {chat_history}
 Current user conversation:
 {user_input}
@@ -93,6 +93,23 @@ def call(request):
         if chat_data["role"] == "npc_name":
             opponent = chat_data["content"]
             break
+        
+    #대화 내용 DB에서 가져오기
+    if(before_opponent != opponent):
+        conversation = db.get_recent_documents(f"{user_name}", "Conversations", 10)
+        i=0
+        user_response = ""
+        npc_response = ""
+        while(i < len(conversation['messages'])):
+            if(conversation['messages'][i]['role'] == 'user'):
+                user_response = conversation['messages'][i]['content']
+            elif(conversation['messages'][i]['role'] == opponent):
+                npc_response = conversation['messages'][i]['content']
+            i += 1
+            if(user_response != "" and npc_response != ""):
+                memory.save_context({"input":user_response} , {"output":npc_response})
+                user_response = ""
+                npc_response = ""
         
     user_name = ""
     for chat_data in body["messages"]:
