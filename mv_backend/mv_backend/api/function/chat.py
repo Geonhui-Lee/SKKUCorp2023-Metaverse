@@ -104,28 +104,27 @@ def call(request):
     
     memory = memory_dict.get(user_name)
     
-    #대화 내용 DB에서 가져오기
-    # conversation = db.get_recent_documents(user_name, "Conversations", 10)
-    # i=0
-    # user_response = ""
-    # npc_response = ""
-    # while(i < conversation):
-    #     if(conversation[i]['name'] == 'user'):
-    #         user_response = conversation[i]['memory']
-    #     elif(conversation[i]['name'] == opponent):
-    #         npc_response = conversation[i]['memory']
-    #         i += 1
-    #     if(user_response != "" and npc_response != ""):
-    #         memory.save_context({"input":user_response} , {"output":npc_response})
-    #         user_response = ""
-    #         npc_response = ""
-    
     LLMChainQuery = LLMChain(
         llm = chat,
         prompt = query_prompt,
         memory = memory,
         verbose = True
     )
+    
+    #대화 내용 DB에서 가져오기
+    if(before_opponent != opponent):
+        conversation = db.get_recent_documents(user_name, "Conversations", 10)
+        user_response = ""
+        npc_response = ""
+        for session in conversation:
+            if(session['name'] == 'user'):
+                user_response = session['memory']
+            elif(session['name'] == opponent):
+                npc_response = session['memory']
+            if(user_response != "" and npc_response != ""):
+                memory.save_context({"input":user_response} , {"output":npc_response})
+                user_response = ""
+                npc_response = ""
     
     user_message = body["messages"][-1]["content"]
     all_chat_data_string = ""
