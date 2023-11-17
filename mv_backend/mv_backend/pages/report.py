@@ -9,8 +9,6 @@ from mv_backend.lib.common import CommonChatOpenAI, gpt_model_name
 from mv_backend.pages.report_test import ReportTest
 
 class Report:
-    latest_cefr = "Pre-A1"
-
     npc_conversation_dict = {}
     npc_retrieve_dict = {}
     npc_reflect_dict = {}
@@ -103,6 +101,7 @@ def gh_render(request):
         llm_messages = [
             {"role": "system", "content": "The Retrieve information indicates how the NPC (assistant) previously understood the improvements the user should make regarding English conversation skills development. The username is {username}. The previous NPC has interacted with the user as a {key}. All the user messages with the [#] form indicate the user's transcript spoken during the conversation."},
             {"role": "system", "content": "This request is to display the Retrieve information in a reported evaluation format with wordings that fit the reader's comprehension level (CEFR)."},
+            {"role": "system", "content": "Focus on what the user has mistaken and what the user should improve. The user's transcript is not necessary to be displayed in the report."},
             {"role": "system", "content": "Username: {username} (The reader prefers the user named as a noun Student, not the actual username.)"},
             {"role": "system", "content": "Reader's CEFR level: {}".format(report.latest_cefr)},
             {"role": "system", "content": "Retrieve logs:\n\n{}".format(merged_information)}
