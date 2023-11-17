@@ -53,7 +53,7 @@ Query:
 Input:
 {event}
 
-What one answer to the query can {name} infer from the above statements?
+What an answer to the query can {name} infer from the above statements?
 example format:
     grammar mistake: 
     not understand: 
