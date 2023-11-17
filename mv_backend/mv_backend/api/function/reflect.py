@@ -75,8 +75,11 @@ Extract information about the topic {opponent} is curious about.
 Extract the {opponent}'s conversation style (aggressive, calm, speak briefly, etc.).
 Extracts information about the topic of conversation between {name} and {opponent}.
 
-What are the {name}'s 5 high-level insights about {opponent} can be inferred from the above statement? (example format: insight (because of 1, 5, 3))
-1.
+What are the {name}'s 5 high-level insights about {opponent} can be inferred from the above statement?
+example format:
+    interest: (noun)
+    conversation style: (noun)
+    topic of conversation: (noun)
 """
 generate_insights_prompt = PromptTemplate(
     input_variables=["name", "opponent", "event"], template=generate_insights_template
