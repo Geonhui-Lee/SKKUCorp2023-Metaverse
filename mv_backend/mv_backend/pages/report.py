@@ -101,14 +101,16 @@ def gh_render(request):
     for key in report.npc_retrieve_dict.keys():
         merged_information = '.\n'.join(report.npc_retrieve_dict[key])
         llm_messages = [
-            {"role": "system", "content": "The Retrieve information indicates how the NPC (assistant) previously understood the improvements the user should make regarding English conversation skills development. The username is user0. The previous NPC has interacted with the user as a police officer. This request is to display the Retrieve information in a reported evaluation format with wordings that fit the user's comprehension level. (CEFR) All the user messages with the [#] form indicate the user's transcript spoken during the conversation."},
-            {"role": "system", "content": "User's CEFR level: {}".format(report.latest_cefr)},
-            {"role": "system", "content": "Reflect logs:\n\n{}".format(merged_information)}
+            {"role": "system", "content": "The Retrieve information indicates how the NPC (assistant) previously understood the improvements the user should make regarding English conversation skills development. The username is {username}. The previous NPC has interacted with the user as a {key}. All the user messages with the [#] form indicate the user's transcript spoken during the conversation."},
+            {"role": "system", "content": "This request is to display the Retrieve information in a reported evaluation format with wordings that fit the reader's comprehension level (CEFR)."},
+            {"role": "system", "content": "Username: {username} (The reader prefers the user named as a noun Student, not the actual username.)"},
+            {"role": "system", "content": "Reader's CEFR level: {}".format(report.latest_cefr)},
+            {"role": "system", "content": "Retrieve logs:\n\n{}".format(merged_information)}
         ]
         for conversation in report.npc_conversation_dict[key]:
             llm_messages.append({
-                "role": "user",
-                "content": "[{}] {}".format(conversation["node"], conversation["memory"])
+                "role": "system",
+                "content": "User's Statement [{}] {}".format(conversation["node"], conversation["memory"])
             })
         report.npc_normalized_retrieve_dict[key] = get_llm_content(llm_messages)
 
@@ -116,14 +118,16 @@ def gh_render(request):
     for key in report.npc_reflect_dict.keys():
         merged_information = '.\n'.join(report.npc_reflect_dict[key])
         llm_messages = [
-            {"role": "system", "content": f"The Reflect information indicates how the NPC (assistant) previously understood the user's characteristics. The username is {username}. The previous NPC has interacted with the user as a {key}. This request is to display the Reflect information in a report format format with wordings that fit the user's comprehension level (CEFR). All the user messages with the [#] form indicate the user's transcript spoken during the conversation."},
-            {"role": "system", "content": "User's CEFR level: {}".format(report.latest_cefr)},
+            {"role": "system", "content": f"The Reflect information indicates how the NPC (assistant) previously understood the user's characteristics. The username is {username}. The previous NPC has interacted with the user as a {key}. All the user statements with the [#] form indicate the user's transcript spoken during the conversation."},
+            {"role": "system", "content": f"This request is to display the Reflect information in a report format with wordings that fit the reader's comprehension level (CEFR)."},
+            {"role": "system", "content": "Username: {username} (The reader prefers the user named as a noun Student, not the actual username.)"},
+            {"role": "system", "content": "Reader's CEFR level: {}".format(report.latest_cefr)},
             {"role": "system", "content": "Reflect logs:\n\n{}".format(merged_information)}
         ]
         for conversation in report.npc_conversation_dict[key]:
             llm_messages.append({
-                "role": "user",
-                "content": "[{}] {}".format(conversation["node"], conversation["memory"])
+                "role": "system",
+                "content": "User's Statement [{}] {}".format(conversation["node"], conversation["memory"])
             })
         report.npc_normalized_reflect_dict[key] = get_llm_content(llm_messages)
 
