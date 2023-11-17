@@ -55,7 +55,7 @@ Input:
 
 What one answer to the query can {name} infer from the above statements?
 example format:
-    bad at: 
+    grammar mistake: 
     not understand: 
     impolite or morally wrong: 
 """
