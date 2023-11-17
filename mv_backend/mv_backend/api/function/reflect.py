@@ -206,4 +206,4 @@ def reflect(npc, user, chat_data_list):
     document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":insights,"name":npc}
     print(Database.set_document(db, user, "Reflects", document_user))
 
-    return document_user
+    return insights

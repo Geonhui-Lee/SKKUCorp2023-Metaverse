@@ -198,4 +198,4 @@ def retrieve(npc, user, chat_data_list):
     document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"retrieve":retrieve,"name":npc}
     print(Database.set_document(db, user, "Retrieves", document_user))
 
-    return document_user
+    return retrieve
