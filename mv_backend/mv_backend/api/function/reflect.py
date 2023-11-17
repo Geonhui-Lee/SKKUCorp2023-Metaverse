@@ -90,7 +90,6 @@ def reflect(npc, user, chat_data_list):
     ### mongoDB user's memory ###
     # conversation = db.get_recent_documents(user, "Conversations")
     data_num = 0
-
     all_chat_data = []
     all_chat_data_node = []
     all_chat_data_string = ""

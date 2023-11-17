@@ -52,6 +52,8 @@ If user is unable to answer:
     *Ask* the user if they don't understand the question, and if so, You have to *suggest* a user answer along with advice to the user by *using* user's bad.
 
 previous conversation:
+{summary}
+{previous_conversation}
 {chat_history}
 Current user conversation:
 {user_input}
@@ -60,7 +62,7 @@ now answer
 """
 
 query_prompt = PromptTemplate(
-    input_variables=["chat_history", "npc", "persona", "user_cefr", "reflect", "retrieve", "user_input"], template=query_template
+    input_variables=["chat_history", "previous_conversation", "npc", "persona", "user_cefr", "reflect", "retrieve", "user_input", "summary"], template=query_template
 )
 
 #########
@@ -100,7 +102,7 @@ def call(request):
             break
         
     if user_name not in memory_dict:
-        memory_dict[user_name] = ConversationSummaryBufferMemory(llm= OpenAI(), max_token_limit = 500,memory_key="chat_history", input_key= "user_input")
+        memory_dict[user_name] = ConversationSummaryBufferMemory(llm= OpenAI(), max_token_limit = 100,memory_key="chat_history", input_key= "user_input", return_messages= True)
     
     memory = memory_dict.get(user_name)
     
@@ -110,21 +112,20 @@ def call(request):
         memory = memory,
         verbose = True
     )
-    
+    chat_history=  ""
+    summary = ""
     #대화 내용 DB에서 가져오기
     if(before_opponent != opponent):
         conversation = db.get_recent_documents(user_name, "Conversations", 10)
-        user_response = ""
-        npc_response = ""
+        conversation = list(conversation)
         for session in conversation:
-            if(session['name'] == 'user'):
-                user_response = session['memory']
+            if(session['name'] == user_name):
+                chat_history += "User: " + session['memory'] + "\n"
             elif(session['name'] == opponent):
-                npc_response = session['memory']
-            if(user_response != "" and npc_response != ""):
-                memory.save_context({"input":user_response} , {"output":npc_response})
-                user_response = ""
-                npc_response = ""
+                chat_history +=  opponent + ": " + session['memory'] + "\n"
+            elif(session['name'] == 'summary'):
+                summary += session['memory']
+    print(chat_history)
     
     user_message = body["messages"][-1]["content"]
     all_chat_data_string = ""
@@ -199,6 +200,8 @@ def call(request):
         reflect = reflect,
         retrieve = retrieve,
         user_input = user_message,
+        previous_conversation = chat_history,
+        summary = summary
     )
 
     #conversation = Database.get_all_documents(db, f"{user_name}", "Conversations")
@@ -260,6 +263,8 @@ def call(request):
     ]
     before_opponent = opponent
     
+    print(memory.load_memory_variables({}))
+    print(type(memory.load_memory_variables({})['chat_history'][0]) == HumanMessage)
     return JsonResponse({
         "messages": messages_response
     })
