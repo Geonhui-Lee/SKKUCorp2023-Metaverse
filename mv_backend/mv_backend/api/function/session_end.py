@@ -5,6 +5,7 @@ from langchain.chains import LLMChain
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
+from mv_backend.lib.common import CommonChatOpenAI, gpt_model_name
 from mv_backend.api.function.retrieve import *
 from mv_backend.api.function.reflect import *
 from mv_backend.api.function.cefr import *
@@ -22,8 +23,21 @@ db = Database()
 
 openai.api_key = OPENAI_API_KEY
 # chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
-
+chat = CommonChatOpenAI()
 ###prompt
+translate_template = """
+{content}
+
+Translate the content into Korean.
+"""
+translate_prompt = PromptTemplate(
+    input_variables=["content"], template=translate_template
+)
+
+translate = LLMChain(
+    llm=chat,
+    prompt=translate_prompt
+)
 # important_template = """
 # Find {num} important dialogues in the following conversation of {name}.
 
@@ -120,9 +134,45 @@ def call(request):
 
     #retrieve_document = retrieve(opponent, user_name, chat_data_list)
     ##reflect_document = reflect(opponent, user_name, chat_data_list)
-    retrieve(opponent, user_name, chat_data_list)
-    reflect(opponent, user_name, chat_data_list)
+    retrieve_content = retrieve(opponent, user_name, chat_data_list)
+    reflect_content = reflect(opponent, user_name, chat_data_list)
 
+    retrieve_korean = translate.run(content = retrieve_content)
+    reflect_korean =translate.run(content = reflect_content)
+    
+    previous = Database.get_all_documents(db, user_name, "Retrieves_Kor")
+    print(previous)
+    data_num = 0
+    node = 0
+
+    for i in previous:
+        data_num += 1
+    
+    if data_num != 0:
+        print(i)
+        node = i["node"]
+        node += 1
+    
+    datetimeStr = datetime.now().strftime("%Y-%m-%d")
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"retrieve":retrieve_korean,"name":opponent}
+    print(Database.set_document(db, user_name, "Retrieves_Kor", document_user))
+
+    previous = Database.get_all_documents(db, user_name, "Reflects_Kor")
+    print(previous)
+    data_num = 0
+    node = 0
+
+    for i in previous:
+        data_num += 1
+    
+    if data_num != 0:
+        print(i)
+        node = i["node"]
+        node += 1
+    
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"retrieve":reflect_korean,"name":opponent}
+    print(Database.set_document(db, user_name, "Reflects_Kor", document_user))
+    
     messages_response = body["messages"] + [
         {
             "role": opponent,
@@ -132,6 +182,6 @@ def call(request):
 
     return JsonResponse({
         "messages": messages_response,
-        "retrieve": json.dumps(retrieve_document),
-        "reflect": json.dumps(reflect_document)
+        # "retrieve": json.dumps(retrieve_document),
+        # "reflect": json.dumps(reflect_document)
     })

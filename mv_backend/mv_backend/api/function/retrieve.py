@@ -53,8 +53,11 @@ Query:
 Input:
 {event}
 
-What one summary answer and explanation to the query can {name} infer from the above statements? (example format: insight (because of 1, 5, 3))
-1.
+What an answer to the query can {name} infer from the above statements?
+example format:
+    grammar mistake: 
+    not understand: 
+    impolite or morally wrong: 
 """
 generate_prompt = PromptTemplate(
     input_variables=["query", "name", "event"], template=generate_template
