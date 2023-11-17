@@ -23,6 +23,8 @@ openai.api_key = OPENAI_API_KEY
 memory_dict = dict()
 chat = CommonChatOpenAI()
 before_opponent = ""
+chat_history = ""
+summary = ""
 #"""
 # You are a customer at a pizza restaurant. 
 # You are in an ordering situation.
@@ -45,22 +47,25 @@ Please talk to the user according to the user's English level. The user's Englis
 user's CEFR: {user_cefr}
 user's character: {reflect}
 user is bad at: {retrieve}
-you **always** *suggest* a user answer that the user can understand by *referring* *user's bad* and that match the user's conversation style by *referring* *user's character*.
-When the user doesn't seem interested in the conversation, induce the conversation on the topic of the user's interests.
+you **always** suggest an answer that the user can understand by *referring* *user's bad* and that fits the user's conversation style.
+You should always have a conversation about your job.
+But, *Only If* user doesn't seem interested in a conversation, induce a conversation about user's interests, *keeping concept of your job*.
 
-If user is unable to answer:
-    *Ask* the user if they don't understand the question, and if so, You have to *suggest* a user answer along with advice to the user by *using* user's bad.
+If (user is unable to answer):
+    First, *MUST* *Ask* the user if they don't understand the question.
+    then, *Only if* it is confirmed that the user did not understand You have to *suggest* a user answer along with advice to the user by *using* user's bad.
 
 previous conversation:
+{summary}
+{previous_conversation}
 {chat_history}
 Current user conversation:
-{user_input}
-now answer
+user: {user_input}
 {npc}: 
 """
 
 query_prompt = PromptTemplate(
-    input_variables=["chat_history", "npc", "persona", "user_cefr", "reflect", "retrieve", "user_input"], template=query_template
+    input_variables=["chat_history", "previous_conversation", "npc", "persona", "user_cefr", "reflect", "retrieve", "user_input", "summary"], template=query_template
 )
 
 #########
@@ -85,6 +90,8 @@ query_prompt = PromptTemplate(
 def call(request):
     global before_opponent
     global memory_dict
+    global summary
+    global chat_history
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
     
@@ -100,7 +107,7 @@ def call(request):
             break
         
     if user_name not in memory_dict:
-        memory_dict[user_name] = ConversationSummaryBufferMemory(llm= OpenAI(), max_token_limit = 500,memory_key="chat_history", input_key= "user_input")
+        memory_dict[user_name] = ConversationSummaryBufferMemory(llm= OpenAI(), max_token_limit = 100,memory_key="chat_history", input_key= "user_input", return_messages= True)
     
     memory = memory_dict.get(user_name)
     
@@ -111,20 +118,19 @@ def call(request):
         verbose = True
     )
     
+    
     #대화 내용 DB에서 가져오기
     if(before_opponent != opponent):
-        conversation = db.get_recent_documents(user_name, "Conversations", 10)
-        user_response = ""
-        npc_response = ""
-        for session in conversation:
-            if(session['name'] == 'user'):
-                user_response = session['memory']
+        conversation = db.get_recent_documents(user_name, "Memory", 10)
+        conversation = list(conversation)
+        for session in reversed(conversation):
+            if(session['name'] == user_name):
+                chat_history += "User: " + session['memory'] + "\n"
             elif(session['name'] == opponent):
-                npc_response = session['memory']
-            if(user_response != "" and npc_response != ""):
-                memory.save_context({"input":user_response} , {"output":npc_response})
-                user_response = ""
-                npc_response = ""
+                chat_history +=  opponent + ": " + session['memory'] + "\n"
+            elif(session['name'] == 'summary'):
+                summary += session['memory']
+    print(chat_history)
     
     user_message = body["messages"][-1]["content"]
     all_chat_data_string = ""
@@ -192,6 +198,10 @@ def call(request):
     # """
     
     # "Reflect/Retrieve 정보를 기반으로 다음 대화에 들어갈 때 선생님이 이 아이를 정확히 인지하고 그거에 맞게 대화 세션을 어떻게 이끌어 나갈지를 설계해야 돼."
+    # reflect = """
+    # insight: user is interested in soccer.
+    # insight: user's conversation style is simple and concise.
+    # """
     answer = LLMChainQuery.predict(
         npc = opponent,
         persona = persona_dict[opponent],
@@ -199,6 +209,8 @@ def call(request):
         reflect = reflect,
         retrieve = retrieve,
         user_input = user_message,
+        previous_conversation = chat_history,
+        summary = summary
     )
 
     #conversation = Database.get_all_documents(db, f"{user_name}", "Conversations")
@@ -251,6 +263,7 @@ def call(request):
     # )
     #print(improvement_response["choices"])
     #improvement_answer = improvement_response["choices"][0]["message"]["content"]
+    
 
     messages_response = body["messages"] + [
         {
@@ -260,6 +273,8 @@ def call(request):
     ]
     before_opponent = opponent
     
+    print(memory.load_memory_variables({}))
+    print(type(memory.load_memory_variables({})['chat_history'][0]) == HumanMessage)
     return JsonResponse({
         "messages": messages_response
     })

@@ -109,12 +109,12 @@ A1	Has a very basic repertoire of words and simple phrases related to personal d
 cefr_template = """
 I want you to act as an English teacher and professional English level assessor based on CEFR. First, learn the following CEFR guidelines for assessing English fluency. If you understand, say “Cattywambus”. Here are the guidelines: 
 {CEFR}
-I want you to use the guidelines to assess student's(user's) English. Find an accurate level assessment. Then answer that is *one word* must be in "pre-A1", "A1", "A2", "B1", "B2", "C1", "C2", "Idk". This is what I want you to assess: 
+I want you to use the guidelines to assess {name}'s English. Find an accurate level assessment. Then answer that is *one word* must be in "pre-A1", "A1", "A2", "B1", "B2", "C1", "C2", "Idk". This is what I want you to assess: 
 {query}
 """
 
 cefr_prompt = PromptTemplate(
-    input_variables=["CEFR", "query"],
+    input_variables=["CEFR", "name", "query"],
     template=cefr_template,
 )
 
@@ -125,72 +125,71 @@ generate_cefr = LLMChain(
 
 #########
 
-interest_template = """
-You have to find the interests of student from the conversation.
-*MUST* If you can't find a student's interest, *don't print anything*.
-This is what I want you to assess chat log: 
-{query}
-Interest format: interest1, interest2, interest3, ...
-example: soccer, iPhone, dance
+# interest_template = """
+# You have to find the interests of student from the conversation.
+# *MUST* If you can't find a student's interest, *don't print anything*.
+# This is what I want you to assess chat log: 
+# {query}
+# Interest format: interest1, interest2, interest3, ...
+# example: soccer, iPhone, dance
 
-Interest:
-"""
+# Interest:
+# """
 
-interest_prompt = PromptTemplate(
-    input_variables=["query"],
-    template=interest_template,
-)
+# interest_prompt = PromptTemplate(
+#     input_variables=["query"],
+#     template=interest_template,
+# )
 
-generate_interest = LLMChain(
-    llm=chat,
-    prompt=interest_prompt
-)
+# generate_interest = LLMChain(
+#     llm=chat,
+#     prompt=interest_prompt
+# )
 
-#########
-
-def call(request):
-    body_unicode = request.body.decode('utf-8')
-    body = json.loads(body_unicode)
+# #########
+def cefr(user, chat_data_list):
+    # body_unicode = request.body.decode('utf-8')
+    # body = json.loads(body_unicode)
 
     # check the conversation
-    user_name = ""
-    for chat_data in body["messages"]:
-        if chat_data["role"] == "user_name":
-            user_name = chat_data["content"]
-            break
-        
-    conversation = Database.get_all_documents(db, "conversations", f"{user_name}")
+    # user_name = ""
+    # for chat_data in body["messages"]:
+    #     if chat_data["role"] == "user_name":
+    #         user_name = chat_data["content"]
+    #         break
 
-    before_chat_data = []
-    data_num = 0
-    for chat_data in conversation:
-        data_num += 1
-        before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
+    # conversation = Database.get_all_documents(db, "conversations", user)
+
+    # before_chat_data = []
+    # data_num = 0
+    # for chat_data in conversation:
+    #     data_num += 1
+    #     before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
     
-    if data_num == 0:
-        messages_response = body["messages"] + [
-            {
-                "role": "assistant",
-                "content": "insights: " + "None"
-            }
-        ]
+    # if data_num == 0:
+    #     messages_response = body["messages"] + [
+    #         {
+    #             "role": "assistant",
+    #             "content": "insights: " + "None"
+    #         }
+    #     ]
 
-        return JsonResponse({
-            "messages": messages_response
-        })
+    #     return JsonResponse({
+    #         "messages": messages_response
+    #     })
     
     data_num = 0
     all_chat_data_string = ""
-    for chat_data in reversed(before_chat_data):
+    for chat_data in reversed(chat_data_list):
         data_num += 1
         if data_num > 30:
             break
         all_chat_data_string += chat_data + "\n"
     
-    cur_cefr = generate_cefr.run(CEFR = CEFR, query = all_chat_data_string)
-    cur_interest = generate_interest.run(query = all_chat_data_string)
+    cur_cefr = generate_cefr.run(CEFR = CEFR, name = user, query = all_chat_data_string)
+    # cur_interest = generate_interest.run(query = all_chat_data_string)
 
-    cefr_data = Database.get_all_documents(db, "CEFR", f"{user_name}")
+    cefr_data = Database.get_all_documents(db, user, "CEFR")
     print(cefr_data)
     node = 0
     data_num = 0
@@ -203,14 +202,14 @@ def call(request):
     
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
     
-    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"cefr":cur_cefr,"interest":cur_interest,"name":f"{user_name}"}
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"cefr":cur_cefr}
 
-    print(Database.set_document(db, "CEFR", f"{user_name}", document_user))
+    print(Database.set_document(db, user, "CEFR", document_user))
 
     messages_response = [
         {
-            "role": f"{user_name}",
-            "content": "CEFR: " + cur_cefr + ", Interest: " + cur_interest
+            "role": user,
+            "content": "CEFR: " + cur_cefr
         }
     ]
     

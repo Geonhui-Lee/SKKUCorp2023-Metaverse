@@ -53,7 +53,7 @@ Query:
 Input:
 {event}
 
-What 1 answer to the query can {name} infer from the above statements? (example format: insight (because of 1, 5, 3))
+What one summary answer and explanation to the query can {name} infer from the above statements? (example format: insight (because of 1, 5, 3))
 1.
 """
 generate_prompt = PromptTemplate(
@@ -135,7 +135,7 @@ def retrieve(npc, user, chat_data_list):
     final_points = """
     Find out what the user is bad at (grammar, understanding of context, etc.)
     If the user has made a gramatical mistake conduct the following tasks. 
-    1. find and explain the gramatical mistakes the user has made in two sentences.
+    1. find and explain the gramatical mistakes the user has made in two sentences with the specific grammar.
     2. *Always* show the *exact* sentence the user made a mistake in.
 
     If the user did not understand a word or a sentence conduct the following tasks.
@@ -198,4 +198,4 @@ def retrieve(npc, user, chat_data_list):
     document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"retrieve":retrieve,"name":npc}
     print(Database.set_document(db, user, "Retrieves", document_user))
 
-    return document_user
+    return retrieve

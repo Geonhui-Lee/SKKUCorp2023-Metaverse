@@ -6,35 +6,12 @@ from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from datetime import datetime
 from bson.objectid import ObjectId
+from mv_backend.lib.database import Database
 import openai
 
 from pymongo.mongo_client import MongoClient
 
 MONGODB_CONNECTION_STRING = "mongodb+srv://geonhui:dotgeon@metaverse.px60xor.mongodb.net/?"
-class Database:
-    def __init__(self):
-        self.client = MongoClient(MONGODB_CONNECTION_STRING)
-    
-    def get_client(self):
-        return self.client
-
-    def get_database(self, database_name):
-        return self.client[database_name]
-
-    def get_collection(self, database_name, collection_name):
-        return self.get_database(database_name)[collection_name]
-    
-    def get_all_collections(self, database_name):
-        return self.get_database(database_name).list_collection_names()
-    
-    def get_all_documents(self, database_name, collection_name):
-        return self.get_collection(database_name, collection_name).find()
-    
-    def set_document(self, database_name, collection_name, document):
-        return self.get_collection(database_name, collection_name).insert_one(document)
-    
-    def set_documents(self, database_name, collection_name, documents):
-        return self.get_collection(database_name, collection_name).insert_many(documents)
 
 db = Database()
 OPENAI_API_KEY = "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"
@@ -49,7 +26,11 @@ user is bad at:
 {retrieve}
 
 You are a quiz maker for the User. You have to make 3 quizzes(only make 3 quiz) that helps solve the bad parts user has.
-The quiz should have a question, 4 choices, a answer, and a explanation. Question, and the explenation must be written in *Korean*, And the choices and the answer must be written in *English*.
+*If* the user is bad at grammer, make a quiz that helps user to learn grammer.
+*If* the user has a problem with his/hers attitude, make a quiz that helps user to learn how to behave.
+*If* the user does not understand the context of the text, make a quiz that helps user to understand the context of the text.
+The quiz should have a question, 4 choices, a answer, and a explanation. Question, and the explenation must be written in *Korean*(always Korean), And the choices and the answer must be written in *English*.
+The Explenation must inlcude why the other choices are wrong, and why the answer is correct.
 
 Make 3 quiz and write it down in a json format.
 
@@ -96,9 +77,3 @@ def call(request):
     return JsonResponse({
         "npc_response": npc_response
     })
-
-  
-  
-  
-
-  

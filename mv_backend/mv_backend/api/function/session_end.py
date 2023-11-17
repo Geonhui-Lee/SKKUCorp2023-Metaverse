@@ -7,6 +7,7 @@ from langchain.prompts import PromptTemplate
 from langchain.chat_models import ChatOpenAI
 from mv_backend.api.function.retrieve import *
 from mv_backend.api.function.reflect import *
+from mv_backend.api.function.cefr import *
 from mv_backend.api.function.chat import memory_dict
 from langchain.schema import (
     AIMessage,
@@ -56,14 +57,8 @@ def call(request):
         if chat_data["role"] == "user_name":
             user_name = chat_data["content"]
             break
-
-    user_num_data = 0
-    opponent_num_data = 0
-    user_chat_data_string = ""
-    opponent_chat_data_string = ""
     
     memory = memory_dict.get(user_name)
-    memory.clear
 
     conversation = Database.get_all_documents(db, user_name, "Conversations")
     print(conversation)
@@ -78,20 +73,33 @@ def call(request):
     
     datetimeStr = datetime.now().strftime("%Y-%m-%d")
 
+    history = memory.load_memory_variables({})['chat_history']
     chat_data_list = list()
-
+    for message in history:
+        if type(message) == HumanMessage:
+            chat_data_list.append(user_name + ": " + message.content)
+            document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":message.content,"name":user_name,"opponent":opponent}
+            print(Database.set_document(db, user_name, "Memory", document_user))
+            node += 1
+        elif type(message) == AIMessage:
+            chat_data_list.append(opponent + ": " + message.content)
+            document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":message.content,"name":opponent,"opponent":user_name}
+            print(Database.set_document(db, user_name, "Memory", document_user))
+            node += 1 
+        else:
+            document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":message.content,"name":"summary","opponent":"summary"}
+            print(Database.set_document(db, user_name, "Memory", document_user))
+            node += 1
+            
+    
     for chat_data in body["messages"]:
         if chat_data["role"] == user_name:
-            user_chat_data_string += chat_data["content"] + "\n"
             chat_data_list.append(chat_data["role"] + ": " + chat_data["content"])
-            user_num_data += 1
             document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":chat_data["content"],"name":user_name,"opponent":opponent}
             print(Database.set_document(db, user_name, "Conversations", document_user))
             node += 1
         if chat_data["role"] == opponent:
-            opponent_chat_data_string += chat_data["content"] + "\n"
             chat_data_list.append(chat_data["role"] + ": " + chat_data["content"])
-            opponent_num_data += 1
             document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":chat_data["content"],"name":opponent,"opponent":user_name}
             print(Database.set_document(db, user_name, "Conversations", document_user))
             node += 1
@@ -106,6 +114,9 @@ def call(request):
     
     # if data_num != 0:
     #     node = i["node"] + 1
+    
+    if(memory):
+        memory.clear
 
     #retrieve_document = retrieve(opponent, user_name, chat_data_list)
     ##reflect_document = reflect(opponent, user_name, chat_data_list)
@@ -121,6 +132,6 @@ def call(request):
 
     return JsonResponse({
         "messages": messages_response,
-        #"retrieve": json.dumps(retrieve_document),
-        #"reflect": json.dumps(reflect_document)
+        "retrieve": json.dumps(retrieve_document),
+        "reflect": json.dumps(reflect_document)
     })

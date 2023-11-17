@@ -70,6 +70,11 @@ Input:
 {event}
 
 Insights into your conversational styles(e.g., user speak briefly), interests(e.g., user likes soccer).
+Extract information about {opponent}’s interests.
+Extract information about the topic {opponent} is curious about.
+Extract the {opponent}'s conversation style (aggressive, calm, speak briefly, etc.).
+Extracts information about the topic of conversation between {name} and {opponent}.
+
 What are the {name}'s 5 high-level insights about {opponent} can be inferred from the above statement? (example format: insight (because of 1, 5, 3))
 1.
 """
@@ -90,7 +95,6 @@ def reflect(npc, user, chat_data_list):
     ### mongoDB user's memory ###
     # conversation = db.get_recent_documents(user, "Conversations")
     data_num = 0
-
     all_chat_data = []
     all_chat_data_node = []
     all_chat_data_string = ""
@@ -207,4 +211,4 @@ def reflect(npc, user, chat_data_list):
     document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":insights,"name":npc}
     print(Database.set_document(db, user, "Reflects", document_user))
 
-    return document_user
+    return insights
