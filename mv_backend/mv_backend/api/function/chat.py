@@ -47,8 +47,10 @@ Please talk to the user according to the user's English level. The user's Englis
 user's CEFR: {user_cefr}
 user's character: {reflect}
 user is bad at: {retrieve}
-you **always** *suggest* a user answer that the user can understand by *referring* *user's bad* and that match the user's conversation style by *referring* *user's character*.
-When the user doesn't seem interested in the conversation, induce the conversation on the topic of the user's interests.
+you **always** *suggest* a user answer that the user can understand by *referring* *user's bad* and that fits the user's conversation style.
+You should always have a conversation about your job.
+But, If user doesn't seem interested in a conversation, induce a conversation about user's interests, *keeping concept of your job*.
+
 
 If user is unable to answer:
     *Ask* the user if they don't understand the question, and if so, You have to *suggest* a user answer along with advice to the user by *using* user's bad.
@@ -197,6 +199,10 @@ def call(request):
     # """
     
     # "Reflect/Retrieve 정보를 기반으로 다음 대화에 들어갈 때 선생님이 이 아이를 정확히 인지하고 그거에 맞게 대화 세션을 어떻게 이끌어 나갈지를 설계해야 돼."
+    # reflect = """
+    # insight: user is interested in soccer.
+    # insight: user's conversation style is simple and concise.
+    # """
     answer = LLMChainQuery.predict(
         npc = opponent,
         persona = persona_dict[opponent],
@@ -258,6 +264,7 @@ def call(request):
     # )
     #print(improvement_response["choices"])
     #improvement_answer = improvement_response["choices"][0]["message"]["content"]
+    
 
     messages_response = body["messages"] + [
         {
