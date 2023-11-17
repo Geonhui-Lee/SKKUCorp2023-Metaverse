@@ -132,6 +132,6 @@ def call(request):
 
     return JsonResponse({
         "messages": messages_response,
-        "retrieve": json.dumps(retrieve_document),
-        "reflect": json.dumps(reflect_document)
+        # "retrieve": json.dumps(retrieve_document),
+        # "reflect": json.dumps(reflect_document)
     })
