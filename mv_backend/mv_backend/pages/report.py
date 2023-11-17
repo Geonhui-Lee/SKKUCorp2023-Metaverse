@@ -1,10 +1,10 @@
 from mv_backend.settings import OPENAI_API_KEY
 from django.shortcuts import render
 import json
-from openai import OpenAI
+import openai
 
 from mv_backend.lib.database import Database
-from mv_backend.lib.common import CommonChatOpenAI, gpt_model_name
+from mv_backend.lib.common import gpt_model_name
 
 from mv_backend.pages.report_test import ReportTest
 
@@ -24,7 +24,7 @@ def get_parameter(request, name, default_value):
         return default_value
 
 def get_llm_content(llm_messages):
-    client = OpenAI(
+    client = openai(
         api_key=OPENAI_API_KEY,
     )
     llm_response = client.chat.completions.create(
