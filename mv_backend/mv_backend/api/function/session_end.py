@@ -79,34 +79,34 @@ def call(request):
         if type(message) == HumanMessage:
             chat_data_list.append(user_name + ": " + message.content)
             document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":message.content,"name":user_name,"opponent":opponent}
-            print(Database.set_document(db, user_name, "Conversations", document_user))
+            print(Database.set_document(db, user_name, "Memory", document_user))
             node += 1
         elif type(message) == AIMessage:
             chat_data_list.append(opponent + ": " + message.content)
             document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":message.content,"name":opponent,"opponent":user_name}
-            print(Database.set_document(db, user_name, "Conversations", document_user))
+            print(Database.set_document(db, user_name, "Memory", document_user))
             node += 1 
         else:
             document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":message.content,"name":"summary","opponent":"summary"}
-            print(Database.set_document(db, user_name, "Conversations", document_user))
+            print(Database.set_document(db, user_name, "Memory", document_user))
             node += 1
             
     
-    # for chat_data in body["messages"]:
-    #     if chat_data["role"] == user_name:
-    #         user_chat_data_string += chat_data["content"] + "\n"
-    #         chat_data_list.append(chat_data["role"] + ": " + chat_data["content"])
-    #         user_num_data += 1
-    #         document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":chat_data["content"],"name":user_name,"opponent":opponent}
-    #         print(Database.set_document(db, user_name, "Conversations", document_user))
-    #         node += 1
-    #     if chat_data["role"] == opponent:
-    #         opponent_chat_data_string += chat_data["content"] + "\n"
-    #         chat_data_list.append(chat_data["role"] + ": " + chat_data["content"])
-    #         opponent_num_data += 1
-    #         document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":chat_data["content"],"name":opponent,"opponent":user_name}
-    #         print(Database.set_document(db, user_name, "Conversations", document_user))
-    #         node += 1
+    for chat_data in body["messages"]:
+        if chat_data["role"] == user_name:
+            user_chat_data_string += chat_data["content"] + "\n"
+            chat_data_list.append(chat_data["role"] + ": " + chat_data["content"])
+            user_num_data += 1
+            document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":chat_data["content"],"name":user_name,"opponent":opponent}
+            print(Database.set_document(db, user_name, "Conversations", document_user))
+            node += 1
+        if chat_data["role"] == opponent:
+            opponent_chat_data_string += chat_data["content"] + "\n"
+            chat_data_list.append(chat_data["role"] + ": " + chat_data["content"])
+            opponent_num_data += 1
+            document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":chat_data["content"],"name":opponent,"opponent":user_name}
+            print(Database.set_document(db, user_name, "Conversations", document_user))
+            node += 1
     
     # conversation = Database.get_all_documents(db, user_name, "Conversations")
     # print(conversation)
