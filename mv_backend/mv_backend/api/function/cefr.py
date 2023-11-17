@@ -109,12 +109,12 @@ A1	Has a very basic repertoire of words and simple phrases related to personal d
 cefr_template = """
 I want you to act as an English teacher and professional English level assessor based on CEFR. First, learn the following CEFR guidelines for assessing English fluency. If you understand, say “Cattywambus”. Here are the guidelines: 
 {CEFR}
-I want you to use the guidelines to assess student's(user's) English. Find an accurate level assessment. Then answer that is *one word* must be in "pre-A1", "A1", "A2", "B1", "B2", "C1", "C2", "Idk". This is what I want you to assess: 
+I want you to use the guidelines to assess {name}'s English. Find an accurate level assessment. Then answer that is *one word* must be in "pre-A1", "A1", "A2", "B1", "B2", "C1", "C2", "Idk". This is what I want you to assess: 
 {query}
 """
 
 cefr_prompt = PromptTemplate(
-    input_variables=["CEFR", "query"],
+    input_variables=["CEFR", "name", "query"],
     template=cefr_template,
 )
 
@@ -186,7 +186,7 @@ def cefr(user, chat_data_list):
             break
         all_chat_data_string += chat_data + "\n"
     
-    cur_cefr = generate_cefr.run(CEFR = CEFR, query = all_chat_data_string)
+    cur_cefr = generate_cefr.run(CEFR = CEFR, name = user, query = all_chat_data_string)
     # cur_interest = generate_interest.run(query = all_chat_data_string)
 
     cefr_data = Database.get_all_documents(db, user, "CEFR")
