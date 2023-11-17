@@ -23,6 +23,8 @@ openai.api_key = OPENAI_API_KEY
 memory_dict = dict()
 chat = CommonChatOpenAI()
 before_opponent = ""
+chat_history = ""
+summary = ""
 #"""
 # You are a customer at a pizza restaurant. 
 # You are in an ordering situation.
@@ -87,6 +89,8 @@ query_prompt = PromptTemplate(
 def call(request):
     global before_opponent
     global memory_dict
+    global summary
+    global chat_history
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
     
@@ -112,13 +116,13 @@ def call(request):
         memory = memory,
         verbose = True
     )
-    chat_history=  ""
-    summary = ""
+    
+    
     #대화 내용 DB에서 가져오기
     if(before_opponent != opponent):
-        conversation = db.get_recent_documents(user_name, "Conversations", 10)
+        conversation = db.get_recent_documents(user_name, "Memory", 10)
         conversation = list(conversation)
-        for session in conversation:
+        for session in reversed(conversation):
             if(session['name'] == user_name):
                 chat_history += "User: " + session['memory'] + "\n"
             elif(session['name'] == opponent):
