@@ -94,13 +94,11 @@ def call(request):
     
     for chat_data in body["messages"]:
         if chat_data["role"] == user_name:
-            user_chat_data_string += chat_data["content"] + "\n"
             chat_data_list.append(chat_data["role"] + ": " + chat_data["content"])
             document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":chat_data["content"],"name":user_name,"opponent":opponent}
             print(Database.set_document(db, user_name, "Conversations", document_user))
             node += 1
         if chat_data["role"] == opponent:
-            opponent_chat_data_string += chat_data["content"] + "\n"
             chat_data_list.append(chat_data["role"] + ": " + chat_data["content"])
             document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":chat_data["content"],"name":opponent,"opponent":user_name}
             print(Database.set_document(db, user_name, "Conversations", document_user))
