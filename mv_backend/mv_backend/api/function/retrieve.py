@@ -135,7 +135,7 @@ def retrieve(npc, user, chat_data_list):
     final_points = """
     Find out what the user is bad at (grammar, understanding of context, etc.)
     If the user has made a gramatical mistake conduct the following tasks. 
-    1. find and explain the gramatical mistakes the user has made in two sentences.
+    1. find and explain the gramatical mistakes the user has made in two sentences with the specific grammar.
     2. *Always* show the *exact* sentence the user made a mistake in.
 
     If the user did not understand a word or a sentence conduct the following tasks.
