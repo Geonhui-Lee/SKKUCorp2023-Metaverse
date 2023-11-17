@@ -25,6 +25,8 @@ from mv_backend.api.function.database.data_load import gh_call as data_load
 
 from mv_backend.api.function.database.job_prompt import gh_call as job_prompt
 
+from mv_backend.pages.report import gh_render as report_page
+
 def api_render(name, output):
     return path(
         'api/' + name + '/',
@@ -45,4 +47,6 @@ def api_path():
         api_render('data/load', data_load),
         api_render('data/job_prompt', job_prompt),
         api_render('quiz_generator', quiz_generator),
+
+        path('report/', report_page, name='report')
     ]
