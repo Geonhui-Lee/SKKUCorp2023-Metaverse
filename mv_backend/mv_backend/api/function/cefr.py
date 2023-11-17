@@ -107,7 +107,7 @@ A1	Has a very basic repertoire of words and simple phrases related to personal d
 """
 
 cefr_template = """
-I want you to act as an English teacher and professional English level assessor based on CEFR. First, learn the following CEFR guidelines for assessing English fluency. If you understand, say “Cattywambus”. Here are the guidelines: 
+I want you to act as an English teacher and professional English level assessor based on CEFR. First, learn the following CEFR guidelines for assessing English fluency. Here are the guidelines: 
 {CEFR}
 I want you to use the guidelines to assess {name}'s English. Find an accurate level assessment. Then answer that is *one word* must be in "pre-A1", "A1", "A2", "B1", "B2", "C1", "C2", "Idk". This is what I want you to assess: 
 {query}
