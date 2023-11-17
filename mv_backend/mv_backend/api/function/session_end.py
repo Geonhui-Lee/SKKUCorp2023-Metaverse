@@ -177,7 +177,7 @@ def call(request):
     messages_response = body["messages"] + [
         {
             "role": "reflect",
-            "content": messages_response
+            "content": reflect_content
         }
     ]
 
