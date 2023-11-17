@@ -6,7 +6,7 @@ from openai import OpenAI
 from mv_backend.lib.database import Database
 from mv_backend.lib.common import CommonChatOpenAI, gpt_model_name
 
-from mv_backend.pages.report_test import conversation_documents, cefr_documents, retrieve_documents, reflect_documents
+from mv_backend.pages.report_test import ReportTest
 
 class Report:
     latest_cefr = "Pre-A1"
@@ -49,10 +49,18 @@ def gh_render(request):
     username = PARAMETERS["username"]
 
     database = Database()
-    #conversation_documents = Database.get_all_documents(database, f"{username}", "Conversations")
-    #cefr_documents = Database.get_all_documents(database, f"{username}", "CEFR")
-    #retrieve_documents = Database.get_all_documents(database, f"{username}", "Retrieves")
-    #reflect_documents = Database.get_all_documents(database, f"{username}", "Reflects")
+
+    report_test = ReportTest()
+    if (report_test.test_mode == True):
+        conversation_documents = report_test.conversation_documents
+        cefr_documents = report_test.cefr_documents
+        retrieve_documents = report_test.retrieve_documents
+        reflect_documents = report_test.reflect_documents
+    else:
+        conversation_documents = Database.get_all_documents(database, f"{username}", "Conversations")
+        cefr_documents = Database.get_all_documents(database, f"{username}", "CEFR")
+        retrieve_documents = Database.get_all_documents(database, f"{username}", "Retrieves")
+        reflect_documents = Database.get_all_documents(database, f"{username}", "Reflects")
 
 
     report = Report()
@@ -108,7 +116,7 @@ def gh_render(request):
     for key in report.npc_reflect_dict.keys():
         merged_information = '.\n'.join(report.npc_reflect_dict[key])
         llm_messages = [
-            {"role": "system", "content": f"The Reflect information indicates how the NPC (assistant) previously understood the user's characteristics. The username is {username}. The previous NPC has interacted with the user as a {key}. This request is to display the Reflect information in a reported evaluation format format with wordings that fit the user's comprehension level (CEFR). All the user messages with the [#] form indicate the user's transcript spoken during the conversation."},
+            {"role": "system", "content": f"The Reflect information indicates how the NPC (assistant) previously understood the user's characteristics. The username is {username}. The previous NPC has interacted with the user as a {key}. This request is to display the Reflect information in a report format format with wordings that fit the user's comprehension level (CEFR). All the user messages with the [#] form indicate the user's transcript spoken during the conversation."},
             {"role": "system", "content": "User's CEFR level: {}".format(report.latest_cefr)},
             {"role": "system", "content": "Reflect logs:\n\n{}".format(merged_information)}
         ]
