@@ -112,6 +112,7 @@ def gh_render(request):
                 "content": "User's Statement [{}] {}".format(conversation["node"], conversation["memory"])
             })
         report.npc_normalized_retrieve_dict[key] = get_llm_content(llm_messages)
+        report.npc_normalized_retrieve_dict[key] = report.npc_normalized_retrieve_dict[key].replace('"', '\\"')
 
     
     for key in report.npc_reflect_dict.keys():
@@ -129,8 +130,9 @@ def gh_render(request):
                 "content": "User's Statement [{}] {}".format(conversation["node"], conversation["memory"])
             })
         report.npc_normalized_reflect_dict[key] = get_llm_content(llm_messages)
+        report.npc_normalized_reflect_dict[key] = report.npc_normalized_reflect_dict[key].replace('"', '\\"')
 
-    return render(request, 'test.html', {
+    return render(request, 'report.html', {
         "reflect_json": json.dumps(report.npc_normalized_reflect_dict),
         "retrieve_json": json.dumps(report.npc_normalized_retrieve_dict),
     })
