@@ -49,7 +49,7 @@ user's character: {reflect}
 user is bad at: {retrieve}
 you **always** suggest an answer that the user can understand by *referring* *user's bad* and that fits the user's conversation style.
 You should always have a conversation about your job.
-But, *Only If* user doesn't seem interested in a conversation, induce a conversation about user's interests, *keeping concept of your job*.
+*Only If* user doesn't seem interested in a conversation, induce a conversation about user's interests, *keeping concept of your job*.
 
 If (user is unable to answer):
     First, *MUST* *Ask* the user if they don't understand the question.
@@ -198,10 +198,10 @@ def call(request):
     # """
     
     # "Reflect/Retrieve 정보를 기반으로 다음 대화에 들어갈 때 선생님이 이 아이를 정확히 인지하고 그거에 맞게 대화 세션을 어떻게 이끌어 나갈지를 설계해야 돼."
-    # reflect = """
-    # insight: user is interested in soccer.
-    # insight: user's conversation style is simple and concise.
-    # """
+    reflect = """
+    insight: user is interested in soccer.
+    insight: user's conversation style is simple and concise.
+    """
     answer = LLMChainQuery.predict(
         npc = opponent,
         persona = persona_dict[opponent],
