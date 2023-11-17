@@ -70,10 +70,11 @@ Input:
 {event}
 
 Insights into your conversational styles(e.g., briefly), interests(e.g., soccer).
-Extract information about {opponent}’s interests.
-Extract information about the topic {opponent} is curious about.
-Extract the {opponent}'s conversation style (e.g., Analytical, Assertive, Emotional, Facilitative, Dynamic, Dominant, Passive, Reflective).
-Extracts information about the topic of conversation between {name} and {opponent}.
+Insights:
+    Information about {opponent}’s interests.
+    Information about the topic {opponent} is curious about.
+    The {opponent}'s conversation style (e.g., Analytical, Assertive, Emotional, Facilitative, Dynamic, Dominant, Passive, Reflective).
+    Information about the topic of conversation between {name} and {opponent}.
 
 What are the {name}'s high-level insights about {opponent} can be inferred from the above statement?
 example format:
