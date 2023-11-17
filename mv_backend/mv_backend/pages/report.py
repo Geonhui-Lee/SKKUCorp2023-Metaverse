@@ -1,7 +1,7 @@
 from mv_backend.settings import OPENAI_API_KEY
 from django.shortcuts import render
 import json
-from openai import OpenAI
+from langchain.llms import OpenAI
 
 from mv_backend.lib.database import Database
 from mv_backend.lib.common import CommonChatOpenAI, gpt_model_name
