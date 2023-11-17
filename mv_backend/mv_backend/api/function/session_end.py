@@ -136,10 +136,11 @@ def call(request):
     ##reflect_document = reflect(opponent, user_name, chat_data_list)
     retrieve_content = retrieve(opponent, user_name, chat_data_list)
     reflect_content = reflect(opponent, user_name, chat_data_list)
+    cefr_content = cefr(user_name, chat_data_list)
 
     retrieve_korean = translate.run(content = retrieve_content)
     reflect_korean =translate.run(content = reflect_content)
-    
+
     previous = Database.get_all_documents(db, user_name, "Retrieves_Kor")
     print(previous)
     data_num = 0
@@ -175,13 +176,24 @@ def call(request):
     
     messages_response = body["messages"] + [
         {
-            "role": opponent,
-            "content": "end"
+            "role": "reflect",
+            "content": messages_response
         }
     ]
 
+    messages_response += [
+        {
+            "role": "retrieve",
+            "content": retrieve_content
+        }
+    ]
+
+    messages_response += [
+        {
+            "role": "cefr",
+            "content": cefr_content
+        }
+    ]
     return JsonResponse({
-        "messages": messages_response,
-        # "retrieve": json.dumps(retrieve_document),
-        # "reflect": json.dumps(reflect_document)
+        "messages": messages_response
     })

@@ -206,13 +206,14 @@ def cefr(user, chat_data_list):
 
     print(Database.set_document(db, user, "CEFR", document_user))
 
-    messages_response = [
-        {
-            "role": user,
-            "content": "CEFR: " + cur_cefr
-        }
-    ]
+    return cefr_data
+    # messages_response = [
+    #     {
+    #         "role": user,
+    #         "content": "CEFR: " + cur_cefr
+    #     }
+    # ]
     
-    return JsonResponse({
-        "messages": messages_response
-    })
+    # return JsonResponse({
+    #     "messages": messages_response
+    # })
