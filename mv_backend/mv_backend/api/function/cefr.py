@@ -206,7 +206,7 @@ def cefr(user, chat_data_list):
 
     print(Database.set_document(db, user, "CEFR", document_user))
 
-    return cefr_data
+    return cur_cefr
     # messages_response = [
     #     {
     #         "role": user,
