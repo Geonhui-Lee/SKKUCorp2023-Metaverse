@@ -53,7 +53,7 @@ Query:
 Input:
 {event}
 
-What 1 summary answer to the query can {name} infer from the above statements? (example format: insight (because of 1, 5, 3))
+What one summary answer and explanation to the query can {name} infer from the above statements? (example format: insight (because of 1, 5, 3))
 1.
 """
 generate_prompt = PromptTemplate(
