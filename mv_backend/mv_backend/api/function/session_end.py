@@ -178,14 +178,14 @@ def call(request):
     messages_response = [
         {
             "role": "reflect",
-            "content": reflect_content
+            "content": reflect_korean
         }
     ]
 
     messages_response += [
         {
             "role": "retrieve",
-            "content": retrieve_content
+            "content": retrieve_korean
         }
     ]
 
