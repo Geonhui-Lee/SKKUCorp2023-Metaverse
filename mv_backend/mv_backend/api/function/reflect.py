@@ -77,8 +77,12 @@ Insights:
     Information about the topic of conversation between {name} and {opponent}.
 
 What are the {name}'s high-level insights about {opponent} can be inferred from the above statement?
+example:
+    interest: soccer, spacecraft, game
+    conversation style: Emotional, Passive
+    topic of conversation: price of spacecraft
 high-level insights format:
-    interest: (noun, e.g., soccer, spacecraft, game)
+    interest: (noun)
     conversation style: (noun)
     topic of conversation: (noun)
 """
