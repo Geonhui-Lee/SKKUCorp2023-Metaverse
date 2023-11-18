@@ -42,7 +42,7 @@ def call(request):
     for i in reflect:
         reflect_string = i["reflect"]
     for i in retrieve:
-        reflect_string = i["retrieve"]
+        retrieve_string = i["retrieve"]
     for i in cefr:
         cefr_string = i["cefr"]
     
@@ -56,7 +56,7 @@ def call(request):
     messages_response += [
         {
             "role": "retrieve",
-            "content": reflect_string
+            "content": retrieve_string
         }
     ]
 
