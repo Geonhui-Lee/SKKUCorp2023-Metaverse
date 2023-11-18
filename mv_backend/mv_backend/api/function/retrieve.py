@@ -53,8 +53,12 @@ Query:
 Input:
 {event}
 
-What an answer to the query can {name} infer from the above statements?
-example format:
+What the answer to the query can {name} infer from the above statements?
+example:
+    grammar mistake: Interrogative Grammar, "How much airship?" -> "How much does an airship cost?"
+    not understand: user3 may not have understood the questions given by the astronaut., "(User is unable to answer.)"
+    impolite or morally wrong: rude and disrespectful, "Shut up."
+answer format:
     grammar mistake: 
     not understand: 
     impolite or morally wrong: 

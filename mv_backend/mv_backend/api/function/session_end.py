@@ -26,6 +26,7 @@ openai.api_key = OPENAI_API_KEY
 chat = CommonChatOpenAI()
 ###prompt
 translate_template = """
+content:
 {content}
 
 Translate the content into Korean.
