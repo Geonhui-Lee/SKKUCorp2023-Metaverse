@@ -172,7 +172,7 @@ def call(request):
         node = i["node"]
         node += 1
     
-    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"retrieve":reflect_korean,"name":opponent}
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":reflect_korean,"name":opponent}
     print(Database.set_document(db, user_name, "Reflects_Kor", document_user))
     
     messages_response = [
