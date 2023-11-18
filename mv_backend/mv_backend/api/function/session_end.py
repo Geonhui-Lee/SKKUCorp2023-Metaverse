@@ -174,7 +174,7 @@ def call(request):
     document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"retrieve":reflect_korean,"name":opponent}
     print(Database.set_document(db, user_name, "Reflects_Kor", document_user))
     
-    messages_response = body["messages"] + [
+    messages_response = [
         {
             "role": "reflect",
             "content": reflect_content
@@ -194,6 +194,9 @@ def call(request):
             "content": cefr_content
         }
     ]
+
+    print(messages_response)
+    
     return JsonResponse({
         "messages": messages_response
     })
