@@ -55,13 +55,13 @@ Input:
 
 What the answer to the query can {name} infer from the above statements?
 example:
-    grammar mistake: Interrogative Grammar, "How much airship?" -> "How much does an airship cost?"
-    not understand: user3 may not have understood the questions given by the astronaut., "User is unable to answer."
-    impolite or morally wrong: rude and disrespectful, "Shut up."
-answer format:
-    grammar mistake: (noun), ->
-    not understand: (content), (conversation content)
-    impolite or morally wrong: (content), (conversation content)
+    grammar mistake: Interrogative Grammar, reason: "How much airship?" -> "How much does an airship cost?"
+    not understand: user3 may not have understood the questions given by the astronaut., reason: "User is unable to answer."
+    impolite or morally wrong: rude and disrespectful, reason: "Shut up."
+output format:
+    grammar mistake: (noun), reason:  ->
+    not understand: (content), reason: (conversation content)
+    impolite or morally wrong: (content), reason: (conversation content)
 """
 generate_prompt = PromptTemplate(
     input_variables=["query", "name", "event"], template=generate_template
@@ -141,7 +141,7 @@ def retrieve(npc, user, chat_data_list):
     ####프롬프트 추가 final_points#####
     final_points = """
     Find out what the user is bad at (grammar, understanding of context, etc.)
-    If the user has made a gramatical mistake conduct the following tasks. 
+    If the user has made a gramatical mistake conduct the following tasks.
     1. find and explain the gramatical mistakes the user has made with the specific grammar.
     2. *Always* show the *exact* sentence the user made a mistake in.
 

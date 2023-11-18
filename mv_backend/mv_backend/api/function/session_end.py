@@ -29,7 +29,7 @@ translate_template = """
 content:
 {content}
 
-Translate the content into Korean.
+Translate the content into Korean. Do not translate (reason: ).
 """
 translate_prompt = PromptTemplate(
     input_variables=["content"], template=translate_template

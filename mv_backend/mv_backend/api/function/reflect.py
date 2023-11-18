@@ -81,7 +81,7 @@ example:
     interest: soccer, spacecraft, game
     conversation style: Emotional, Passive
     topic of conversation: price of spacecraft
-high-level insights format:
+output format:
     interest: (noun)
     conversation style: (noun)
     topic of conversation: (noun)
