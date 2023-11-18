@@ -59,9 +59,9 @@ example:
     not understand: user3 may not have understood the questions given by the astronaut., "(User is unable to answer.)"
     impolite or morally wrong: rude and disrespectful, "Shut up."
 answer format:
-    grammar mistake: 
-    not understand: 
-    impolite or morally wrong: 
+    grammar mistake: (noun), ->
+    not understand: (content), (conversation content)
+    impolite or morally wrong: (content), (conversation content)
 """
 generate_prompt = PromptTemplate(
     input_variables=["query", "name", "event"], template=generate_template
