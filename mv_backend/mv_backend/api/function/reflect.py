@@ -71,9 +71,9 @@ Input:
 
 Insights into conversational styles(e.g., Sociable communication Style), interests(e.g., soccer).
 Insights:
-    Information about {opponent}’s interests.
-    Information about the topic {opponent} is curious about.
-    The {opponent}'s conversation style (e.g., Sociable Communication Style:  This child initiates interactions with others and is quick to respond to others initiations. Even if they only have few words or are hard to understand they continue to try and communicate with others. 
+    Information about *{opponent}*’s interests.
+    Information about the topic *{opponent}* is curious about.
+    The *{opponent}*'s conversation style (e.g., Sociable Communication Style:  This child initiates interactions with others and is quick to respond to others initiations. Even if they only have few words or are hard to understand they continue to try and communicate with others. 
 , Reluctant Communication Style: This child is more likely to respond to others than to initiate an interaction on their own. This child may be labelled as “shy” and may need time to “warm up” to become comfortable with new people and new environments. This child’s communicative attempts might fly under the radar so try and lookout for them. Having difficulties with communication may decrease confidence and decrease attempts at interacting with others. 
 , Passive Communication Style: This child rarely responds and rarely initiates interactions with others. Children who have this communication style may be hard to connect with because they may seem uninterested in people and objects such as toys. A developmental delay, a sickness or being on medications may lead to this more passive communication style.
 , Own Agenda Communication Style: This child usually only initiates communicating with others when they need something; otherwise, they can most often be found playing independently and alone. A child with this communication style might be hard to get a message across to as they may seem as if they are in their own little word. Children with this style of communication struggle to successfully play and share with others. ).
