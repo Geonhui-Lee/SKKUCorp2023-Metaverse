@@ -17,7 +17,7 @@ db = Database()
 OPENAI_API_KEY = "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"
 import os
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
-chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=1)
+chat = ChatOpenAI(model_name='gpt-3.5-turbo-1106', temperature=1)
 
 
 
@@ -26,11 +26,11 @@ user is bad at:
 {retrieve}
 
 You are a quiz maker for the User. You have to make 3 quizzes(only make 3 quiz) that helps solve the bad parts user has.
-*If* the user is bad at grammer, make a quiz that helps user to learn grammer.
-*If* the user has a problem with his/hers attitude, make a quiz that helps user to learn how to behave.
-*If* the user does not understand the context of the text, make a quiz that helps user to understand the context of the text.
-The quiz should have a question, 4 choices, a answer, and a explanation. Question, and the explenation must be written in *Korean*(always Korean), And the choices and the answer must be written in *English*.
-The Explenation must inlcude why the other choices are wrong, and why the answer is correct.
+*If* the user is bad at grammer, make a quiz that helps user to learn grammer by referring "user is bad at" and "reason: "(*Never* make a duplicate answer).
+*If* the user has a problem with his/hers attitude, make a quiz that helps user to learn how to behave by referring "user is bad at" and "reason: ".
+The quiz should have a question, 4 choices, a answer, and a explanation. Question, and the explenation must be written in **KOREAN(한국어로)**(always Korean), And the choices and the answer must be written in *English*.
+(The Explenation must inlcude why the other choices are wrong, and why the answer is correct)
+(The choices must have 1 correct answer, and 3 wrong answers)
 
 Make 3 quiz and write it down in a json format.
 

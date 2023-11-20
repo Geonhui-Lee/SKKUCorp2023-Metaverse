@@ -53,14 +53,23 @@ Query:
 Input:
 {event}
 
-What an answer to the query can {name} infer from the above statements?
-example format:
-    grammar mistake: 
-    not understand: 
-    impolite or morally wrong: 
+What the answer to the query can {name} infer from the above statements?
+If there is no relevant content, do not output it. For grammar and immoral parts, you should refer to the sentences spoken by {opponent}.
+example:
+    grammar mistake: 1. Interrogative Grammar | reason: "How much airship?" -> "How much does an airship cost?", \n2. ...
+    vocabulary mistake: 1. ...
+    punctuation mistake: 1. ...
+    not understand: 1. user3 may not have understood the questions given by the astronaut. | reason: "User is unable to answer.", \n2. ...
+    impolite or morally wrong: 1. rude and disrespectful | reason: "Shut up.", \n2. ...
+output format:
+    grammar mistake: 1. (noun) | reason:  -> , \n2. ...
+    vocabulary mistake: 1. (content) | reason:  -> , \n2. ...
+    punctuation mistake: 1. (content) | reason:  -> , \n2. ...
+    not understand: 1. (content) | reason: (conversation content), \n2. ...
+    impolite or morally wrong: 1. (content) | reason: (conversation content), \n2. ...
 """
 generate_prompt = PromptTemplate(
-    input_variables=["query", "name", "event"], template=generate_template
+    input_variables=["query", "name", "opponent", "event"], template=generate_template
 )
 
 generate_retrieve = LLMChain(
@@ -137,8 +146,8 @@ def retrieve(npc, user, chat_data_list):
     ####프롬프트 추가 final_points#####
     final_points = """
     Find out what the user is bad at (grammar, understanding of context, etc.)
-    If the user has made a gramatical mistake conduct the following tasks. 
-    1. find and explain the gramatical mistakes the user has made in two sentences with the specific grammar.
+    If the user has made a gramatical mistake conduct the following tasks.
+    1. find and explain the gramatical mistakes the user has made with the specific grammar.
     2. *Always* show the *exact* sentence the user made a mistake in.
 
     If the user did not understand a word or a sentence conduct the following tasks.
@@ -182,7 +191,7 @@ def retrieve(npc, user, chat_data_list):
         if data_num > 30:
             break
         important_data_string += chat_data[0] + "\n"
-    retrieve = generate_retrieve.run(query = final_points, name = npc + "'s", event = important_data_string)
+    retrieve = generate_retrieve.run(query = final_points, name = npc + "'s", opponent = user, event = important_data_string)
 
     previous = Database.get_all_documents(db, user, "Retrieves")
     print(previous)

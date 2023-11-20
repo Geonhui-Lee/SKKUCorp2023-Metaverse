@@ -26,9 +26,10 @@ openai.api_key = OPENAI_API_KEY
 chat = CommonChatOpenAI()
 ###prompt
 translate_template = """
+content:
 {content}
 
-Translate the content into Korean.
+Translate the content into Korean. Do not translate (reason: ).
 """
 translate_prompt = PromptTemplate(
     input_variables=["content"], template=translate_template
@@ -136,10 +137,11 @@ def call(request):
     ##reflect_document = reflect(opponent, user_name, chat_data_list)
     retrieve_content = retrieve(opponent, user_name, chat_data_list)
     reflect_content = reflect(opponent, user_name, chat_data_list)
+    cefr_content = cefr(user_name, chat_data_list)
 
     retrieve_korean = translate.run(content = retrieve_content)
     reflect_korean =translate.run(content = reflect_content)
-    
+
     previous = Database.get_all_documents(db, user_name, "Retrieves_Kor")
     print(previous)
     data_num = 0
@@ -170,18 +172,32 @@ def call(request):
         node = i["node"]
         node += 1
     
-    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"retrieve":reflect_korean,"name":opponent}
+    document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":reflect_korean,"name":opponent}
     print(Database.set_document(db, user_name, "Reflects_Kor", document_user))
     
-    messages_response = body["messages"] + [
+    messages_response = [
         {
-            "role": opponent,
-            "content": "end"
+            "role": "reflect",
+            "content": reflect_korean
         }
     ]
 
+    messages_response += [
+        {
+            "role": "retrieve",
+            "content": retrieve_korean
+        }
+    ]
+
+    messages_response += [
+        {
+            "role": "cefr",
+            "content": cefr_content
+        }
+    ]
+
+    print(messages_response)
+    
     return JsonResponse({
-        "messages": messages_response,
-        # "retrieve": json.dumps(retrieve_document),
-        # "reflect": json.dumps(reflect_document)
+        "messages": messages_response
     })

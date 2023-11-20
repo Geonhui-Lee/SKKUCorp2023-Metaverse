@@ -35,29 +35,30 @@ summary = ""
 # Pepperoni pizza
 # Potato pizza
 
-persona_dict = {"Pizza Chef" : "Your name is Jake. Your job a pizza chef(Don't forget you are not a pizza worker. Do not serve a pizza. Explain about pizza)" , "Police Officer" : "Your name is Mike. Your job a police officer(Don't forget)", "Artist" : "Your name is Bob. Your job an artist(Don't forget)", "Astronaut" : "Your name is Armstrong. Your job an astronaut(Don't forget)"}
+persona_dict = {"Pizza Chef" : "Your name is Jake. Your job a pizza chef(Don't forget you are not a pizza worker. Do not serve a pizza. Explain about pizza)" , "Police Officer" : "Your name is Mike. Your job a police officer(Don't forget)", "Artist" : "Your name is Bob. Your job an artist(Don't forget)", "Astronaut" : "Your name is Armstrong. Your job an astronaut(Don't forget)."}
 
 query_template = """
-You will communicate with the user as an NPC (assistant) with the {npc} job. The following is the specific personal information for the NPC you are tasked to act as.
+You are a {npc} who communicates with user. *MUST* *Always* Answer briefly and concisely.
 {npc}: {persona}
 
-Commonly, an assistant should always provide a brief, concise answer. This is to ensure that the information is accurate, relevant, and tailored to the user's query.
+CEFR is the English's level criteria established by the Common European Framework of Reference for Languages, which ranges from A1 to C2 (pre-A1,A1,A2,B1,B2,C1,C2).
 
-CEFR is the English-level criteria established by the Common European Framework of Reference for Languages, which ranges from A1 to C2 (pre-A1, A1, A2, B1, B2, C1, C2). Please talk to the user according to the user's English level. The user's English level is provided as a CEFR indicator.
-User's CEFR level: "{user_cefr}"
+user's CEFR: {user_cefr}
+Please talk to the user according to the user's English level. The user's English level is provided as a CEFR indicator.
 
-User's characteristic: "{reflect}"
-- Do NOT use the user's interests as a topic of conversation.
-- In case the user doesn't seem interested in the conversation: *ask* the user if the user isn't interested. If interested, induce the conversation on the topic of *the user's interest* by referring to the user's character, *keeping the concept of your job*.
+user's character: {reflect}
+*Don't* use user's interests as a topic of conversation.
+If the user doesn't seem interested in the conversation:
+ *Ask* the user if the user doesn't interested in the conversatsion. if so, induce the conversation on the topic of *the user's interest* by referring user's character, *keeping concept of your job*.
 
 NPC's analytics toward the user's conversation: "{retrieve}"
 - The NPC's analytics include the previous thoughts and evaluations concerning the user's conversation, mainly including the recommended improvements that the user should be advised.
 - You **always** suggest an answer the user can understand by *referring* to the analytics information.
 - You should always have a conversation about your job.
 
-Only if the user is unable to answer:
-- First,*ask* the user to confirm whether the user does not understand the question.
-- If the user clearly did not understand the question, you have to *suggest* a user's answer and advise the user by *using* the user's bad.
+Only If user is unable to answer:
+    First, *MUST* *Ask* the user if the user don't understand the question.
+    then, if so, You have to *suggest* a user answer along with advice to the user by *using* user's bad.
 
 Previous conversation:
     {summary}
@@ -112,7 +113,7 @@ def call(request):
             break
         
     if user_name not in memory_dict:
-        memory_dict[user_name] = ConversationSummaryBufferMemory(llm= OpenAI(), max_token_limit = 100,memory_key="chat_history", input_key= "user_input", return_messages= True)
+        memory_dict[user_name] = ConversationSummaryBufferMemory(llm= OpenAI(), max_token_limit = 300,memory_key="chat_history", input_key= "user_input", return_messages= True)
     
     memory = memory_dict.get(user_name)
     
@@ -204,13 +205,13 @@ def call(request):
     
     # "Reflect/Retrieve 정보를 기반으로 다음 대화에 들어갈 때 선생님이 이 아이를 정확히 인지하고 그거에 맞게 대화 세션을 어떻게 이끌어 나갈지를 설계해야 돼."
     reflect = """
-    insight: user is interested in soccer.
-    insight: user's conversation style is simple and concise.
+    Interest: soccer, space, planets.
+    Conversation style: curious and direct.
     """
     answer = LLMChainQuery.predict(
         npc = opponent,
         persona = persona_dict[opponent],
-        user_cefr = cefr,
+        user_cefr = "pre-A1",
         reflect = reflect,
         retrieve = retrieve,
         user_input = user_message,
