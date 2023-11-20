@@ -69,7 +69,7 @@ generate_insights_template = """
 Input:
 {event}
 
-Insights into your conversational styles(e.g., Sociable communication Style), interests(e.g., soccer).
+Insights into conversational styles(e.g., Sociable communication Style), interests(e.g., soccer).
 Insights:
     Information about {opponent}’s interests.
     Information about the topic {opponent} is curious about.

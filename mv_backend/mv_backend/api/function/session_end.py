@@ -90,9 +90,11 @@ def call(request):
 
     history = memory.load_memory_variables({})['chat_history']
     chat_data_list = list()
+    user_chat_data_list = list()
     for message in history:
         if type(message) == HumanMessage:
             chat_data_list.append(user_name + ": " + message.content)
+            user_chat_data_list.append(user_name + ": " + message.content)
             document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":message.content,"name":user_name,"opponent":opponent}
             print(Database.set_document(db, user_name, "Memory", document_user))
             node += 1
@@ -110,6 +112,7 @@ def call(request):
     for chat_data in body["messages"]:
         if chat_data["role"] == user_name:
             chat_data_list.append(chat_data["role"] + ": " + chat_data["content"])
+            user_chat_data_list.append(chat_data["role"] + ": " + chat_data["content"])
             document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":chat_data["content"],"name":user_name,"opponent":opponent}
             print(Database.set_document(db, user_name, "Conversations", document_user))
             node += 1
@@ -137,7 +140,7 @@ def call(request):
     ##reflect_document = reflect(opponent, user_name, chat_data_list)
     retrieve_content = retrieve(opponent, user_name, chat_data_list)
     reflect_content = reflect(opponent, user_name, chat_data_list)
-    cefr_content = cefr(user_name, chat_data_list)
+    cefr_content = cefr(user_name, user_chat_data_list)
 
     retrieve_korean = translate.run(content = retrieve_content)
     reflect_korean =translate.run(content = reflect_content)
