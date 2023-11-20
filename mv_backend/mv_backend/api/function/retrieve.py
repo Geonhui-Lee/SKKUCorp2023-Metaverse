@@ -62,6 +62,7 @@ output format:
     grammar mistake: (noun), reason:  ->
     not understand: (content), reason: (conversation content)
     impolite or morally wrong: (content), reason: (conversation content)
+
 """
 generate_prompt = PromptTemplate(
     input_variables=["query", "name", "event"], template=generate_template
