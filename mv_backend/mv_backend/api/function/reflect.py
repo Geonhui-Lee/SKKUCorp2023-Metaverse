@@ -202,7 +202,7 @@ def reflect(npc, user, chat_data_list):
     data_num = 5
     for chat_data in sorted_dict:
         data_num += 1
-        if data_num > 30:
+        if data_num > 10:
             break
         important_data_string += chat_data[0] + "\n"
     insights = generate_insights.run(name = npc, opponent = user, event = important_data_string)

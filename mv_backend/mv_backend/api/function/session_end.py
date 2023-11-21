@@ -30,7 +30,7 @@ content:
 {content}
 
 Translate the content into *Korean*. Do not translate (reason: ,  -> ).
-Do not show "None" content. Do not show bracket content.
+Do not show "None" content. Do not show bracket content. Don't show duplicate data.
 example:
 문법 실수:
 1. 주어-동사 일치 | 이유: "No I didn't likes them" -> "No, I didn't like them."
