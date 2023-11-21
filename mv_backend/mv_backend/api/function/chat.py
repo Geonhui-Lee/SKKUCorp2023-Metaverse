@@ -203,14 +203,10 @@ def call(request):
     # """
     
     # "Reflect/Retrieve 정보를 기반으로 다음 대화에 들어갈 때 선생님이 이 아이를 정확히 인지하고 그거에 맞게 대화 세션을 어떻게 이끌어 나갈지를 설계해야 돼."
-    reflect = """
-    Interest: soccer, space, planets.
-    Conversation style: curious and direct.
-    """
     answer = LLMChainQuery.predict(
         npc = opponent,
         persona = persona_dict[opponent],
-        user_cefr = "pre-A1",
+        user_cefr = cefr,
         reflect = reflect,
         retrieve = retrieve,
         user_input = user_message,
