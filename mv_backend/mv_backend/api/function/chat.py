@@ -136,11 +136,11 @@ def call(request):
         conversation = db.get_recent_documents(user_name, "Memory", 10)
         conversation = list(conversation)
         for session in reversed(conversation):
-            if(session['name'] == user_name):
+            if(session['name'] == user_name and session['opponent'] == opponent):
                 chat_history += "User: " + session['memory'] + "\n"
             elif(session['name'] == opponent):
                 chat_history +=  opponent + ": " + session['memory'] + "\n"
-            elif(session['name'] == 'summary'):
+            elif(session['name'] == 'summary' and session['opponent'] == opponent):
                 summary += session['memory']
     print(chat_history)
     

@@ -133,7 +133,7 @@ def call(request):
             print(Database.set_document(db, user_name, "Memory", document_user))
             node += 1 
         else:
-            document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":message.content,"name":"summary","opponent":"summary"}
+            document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":message.content,"name":"summary","opponent":opponent}
             print(Database.set_document(db, user_name, "Memory", document_user))
             node += 1
             
