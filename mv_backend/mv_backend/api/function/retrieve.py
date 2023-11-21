@@ -55,7 +55,7 @@ Input:
 {event}
 
 What the *answer* to the query can {name} infer from the above statements?
-If content is None, *do not* show content. If there is no content, only show "None".
+If content is None, *do not* show content. If there is no content, only show "None". Don't show duplicate data.
 example:
     grammar mistake: 1. Interrogative Grammar | reason: "How much airship?" -> "How much does an airship cost?"
     vocabulary mistake: None
