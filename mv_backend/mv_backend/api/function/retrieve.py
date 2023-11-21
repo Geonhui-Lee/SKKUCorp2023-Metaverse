@@ -55,6 +55,7 @@ Input:
 {event}
 
 What the answer to the query can {name} infer from the above statements?
+If content is None, *do not* show content.
 example:
     grammar mistake: 1. Interrogative Grammar | reason: "How much airship?" -> "How much does an airship cost?"
     vocabulary mistake: None
@@ -144,6 +145,7 @@ def retrieve(npc, user, chat_data_list):
     If the user has made a gramatical mistake conduct the following tasks.
     1. find and explain the gramatical mistakes the user has made with the specific grammar.
     2. *Always* show the *exact* sentence the user made a mistake in.
+    3. Correct sentences that the user made a mistake and show them.
 
     If the user was impolite or morally wrong conduct the following tasks.
     1. *Always* find and explain the *exact* term the user used that was impolite or morally wrong.
