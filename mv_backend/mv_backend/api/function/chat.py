@@ -47,7 +47,7 @@ CEFR is the English-level criteria established by the Common European Framework 
 User's CEFR level: "{user_cefr}"
 
 User's characteristic: "{reflect}"
-- *Always* induce the conversation on the topic of *your job* and *the user's interest* by referring *user's character*.
+- *Always* induce the conversation on the topic of *your job* and *the user's interest* by referring *user's character*, *keeping concept of your job*.
 - *Always* generate answer that match *the user's conversation style*.
 
 NPC's analytics toward the user's conversation: "{retrieve}"
