@@ -90,7 +90,7 @@ def call(request):
     prompt=npc_prompt
     )
 
-    npc_response = npc_llm.run(retrieve = retrieve_str,user_cefr = cefr ,example = example1)
+    npc_response = npc_llm.run(retrieve = retrieve_str,user_cefr = cefr ,example = example)
 
     print(npc_response)
 

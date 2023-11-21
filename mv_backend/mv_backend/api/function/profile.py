@@ -43,8 +43,12 @@ def call(request):
     cefr_string = ""
     for i in reflect:
       result = i["reflect"].split(":")
-      interest_set.add(result[1].split('\n')[0])
-      coversationStyle_set.add(result[2].split('\n')[0])
+      interests = result[1].split('\n')[0].split(",")
+      for interest in interests:
+          interest_set.add(interest)
+      conversationStyles = result[2].split('\n')[0].split(",")
+      for conversationStyle in conversationStyles:
+        coversationStyle_set.add(conversationStyle)
       
     
     retrieve_set = set()
