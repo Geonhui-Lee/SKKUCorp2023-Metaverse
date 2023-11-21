@@ -62,8 +62,8 @@ example:
     bad manners: 1. rude and disrespectful | reason: "Shut up."
 output format:
     grammar mistake: 1. (noun) | reason:  -> \n2. ...
-    vocabulary mistake: 1. (content) | reason:  -> \n2. ...
-    bad manners: 1. (content) | reason: (conversation content)\n2. ...
+    vocabulary mistake: 1. (noun) | reason:  -> \n2. ...
+    bad manners: 1. (noun) | reason: (conversation content)\n2. ...
 """
 generate_prompt = PromptTemplate(
     input_variables=["query", "name", "opponent", "event"], template=generate_template
@@ -148,7 +148,7 @@ def retrieve(npc, user, chat_data_list):
     3. Correct sentences that the user made a mistake and show them.
 
     If the user has made a bad manners conduct the following tasks.
-    1. find and explain the bad manners the user has made with the specific manners.
+    1. find and explain the bad manners the user has made.
     2. *Always* show the *exact* sentence the user made the bad manners.
     """
     embedded_query = embeddings_model.embed_query(focal_points)
