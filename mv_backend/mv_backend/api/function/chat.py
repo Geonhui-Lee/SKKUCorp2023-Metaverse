@@ -73,7 +73,7 @@ Current user conversation:
 user: {user_input}
 {npc}: 
 foramt:
-{npc}: (two sentence)
+(two sentence)
 """ #아이가 짧게 질문했을 때 길게 말할 수 있도록 할 것
 
 query_prompt = PromptTemplate(
