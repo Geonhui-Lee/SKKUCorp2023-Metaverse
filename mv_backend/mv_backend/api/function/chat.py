@@ -197,14 +197,14 @@ def call(request):
     data_num = 0
     for data in reversed(retrieve_list):
         data_num += 1
-        if data_num > 4:
+        if data_num > 1:
             break
         retrieve += str(data_num) + ". " + data + "\n"
     
     data_num = 0
     for data in reversed(reflect_list):
         data_num += 1
-        if data_num > 4:
+        if data_num > 1:
             break
         reflect += str(data_num) + ". " + data + "\n"
     
@@ -215,6 +215,9 @@ def call(request):
     # """
     
     # "Reflect/Retrieve 정보를 기반으로 다음 대화에 들어갈 때 선생님이 이 아이를 정확히 인지하고 그거에 맞게 대화 세션을 어떻게 이끌어 나갈지를 설계해야 돼."
+    if(cefr == "Idk"):
+        cefr = "pre-A1"
+    
     answer = LLMChainQuery.predict(
         npc = opponent,
         persona = persona_dict[opponent],

@@ -35,27 +35,43 @@ def call(request):
             user_name = chat_data["content"]
             break
     
-    reflect = Database.get_recent_documents(db, user_name, "Reflects_Kor", 1)
-    retrieve = Database.get_recent_documents(db, user_name, "Retrieves_Kor", 1)
+    reflect = Database.get_recent_documents(db, user_name, "Reflects_Kor", 3)
+    retrieve = Database.get_recent_documents(db, user_name, "Retrieves_Kor", 3)
     cefr = Database.get_recent_documents(db, user_name, "CEFR", 1)
+    interest_set = set()
+    coversationStyle_set = set()
+    cefr_string = ""
     for i in reflect:
-        reflect_string = i["reflect"]
+      result = i["reflect"].split(":")
+      interest_set.add(result[1].split('\n')[0])
+      coversationStyle_set.add(result[2].split('\n')[0])
+      
+    
+    retrieve_set = set()
     for i in retrieve:
-        retrieve_string = i["retrieve"]
+      result = i["retrieve"].split("|")
+      retrieve_set.add(result[0].split('.')[1])
     for i in cefr:
-        cefr_string = i["cefr"]
+      cefr_string += i["cefr"]
     
     messages_response = [
         {
-            "role": "reflect",
-            "content": reflect_string
+            "role": "interest",
+            "content": str(interest_set).removeprefix('{').removesuffix('}')
+        }
+    ]
+    
+    messages_response += [
+        {
+            "role": "conversationStyle",
+            "content": str(coversationStyle_set).removeprefix('{').removesuffix('}')
         }
     ]
 
     messages_response += [
         {
             "role": "retrieve",
-            "content": retrieve_string
+            "content": str(retrieve_set).removeprefix('{').removesuffix('}')
         }
     ]
 
