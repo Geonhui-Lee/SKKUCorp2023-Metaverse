@@ -37,7 +37,7 @@ example:
 2. ...
 format:
 문법 실수:
-1. (korean) | 이유: (english -> english)
+1. (korean) | 이유: (english)
 2. ...
 """
 translate_prompt = PromptTemplate(
