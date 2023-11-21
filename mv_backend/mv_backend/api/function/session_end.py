@@ -29,7 +29,12 @@ translate_template = """
 content:
 {content}
 
-Translate the content into Korean. Do not translate (reason: ).
+Translate the content into *Korean*. Do not translate (reason: ,  -> ).
+Do not show "None" content. Do not show bracket content.
+example:
+문법 실수:
+1. (korean) | 이유: (english)
+2. ...
 """
 translate_prompt = PromptTemplate(
     input_variables=["content"], template=translate_template

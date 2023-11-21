@@ -188,7 +188,16 @@ def cefr(user, chat_data_list):
     
     cur_cefr = generate_cefr.run(CEFR = CEFR, name = user, query = all_chat_data_string)
     # cur_interest = generate_interest.run(query = all_chat_data_string)
+    print(cur_cefr)
+    cefr = Database.get_recent_documents(db, user, "CEFR", 1)
+    
+    cefr_string = "pre-A1"
+    for i in cefr:
+        cefr_string = i["cefr"]
 
+    if cur_cefr == "Idk":
+        cur_cefr = cefr_string
+    
     cefr_data = Database.get_all_documents(db, user, "CEFR")
     print(cefr_data)
     node = 0
