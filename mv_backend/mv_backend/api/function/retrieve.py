@@ -146,10 +146,6 @@ def retrieve(npc, user, chat_data_list):
     1. find and explain the gramatical mistakes the user has made with the specific grammar.
     2. *Always* show the *exact* sentence the user made a mistake in.
 
-    If the user did not understand a word or a sentence conduct the following tasks.
-    1. *Always* find the *exact* word or sentence the user did not understand.
-    2. *Always* show the *exact* sentence the user did not understand.
-
     If the user was impolite or morally wrong conduct the following tasks.
     1. *Always* find and explain the *exact* term the user used that was impolite or morally wrong.
     2. *Always* show the *exact* sentence the user was impolite or morally wrong.
