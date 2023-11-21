@@ -37,8 +37,9 @@ The quiz should have a question, 4 choices, a answer, and a explanation. Questio
 
 Make 3 quiz and write it down in a json format.
 
-Don't make the same quiz as the example (only refer to format). Make quizs that fits "user is bad at" and "reason: ".
+Don't make the same quiz as the example (only refer to format). Make quizs that fits "user is bad at" and "reason: ". *Must* include "<color=red>" and "</color>".
 ex) {example}
+
 """
 
 example = """{
@@ -47,6 +48,16 @@ example = """{
         "choices": ["We is playing games.", "They are singing.", "He am reading a book.", "She liking to dance."],
         "answer": "They are singing.",
         "explanation": "1. <color=red>We is playing games.</color> -> <color=green>We are playing games</color>: 주어 'We'에 맞는 동사 'is' 대신 'are'를 사용해야 합니다.  2. <color=green>They are singing.</color>: 주어 'They'에 맞는 동사 'are'가 사용되었습니다. 3. <color=red>He am reading a book.</color> -> <color=green>He is reading a book.</color>:주어 'He'에 맞는 동사 'am' 대신 'is'를 사용해야 합니다.  4. <color=red>She liking to dance.</color> -> <color=green>She likes to dance.</color>:'She'와 'liking'이 함께 사용될 때는 동사의 기본형이 사용되어야 합니다. "
+    },
+    "quiz2": {...},
+    "quiz3": {...}
+}"""
+example1 = """{
+    "quiz1": {
+        "question": "question content",
+        "choices": ["wrong choics1", "correct choice", "wrong choice2", "wrong choice3"],
+        "answer": "answer cotent",
+        "explanation": "1. <color=red>wrong sentence</color> -> <color=green>correct sentence</color>: explanation1 content 2. <color=green>They are singing.</color>: explanation2 content 3. <color=red>wrong sentence</color> -> <color=green>correct sentence</color>:explanation3 content   4. <color=red>wrong sentenc</color> -> <color=green>correct sentence</color>:explanation4 content"
     },
     "quiz2": {...},
     "quiz3": {...}
@@ -79,7 +90,7 @@ def call(request):
     prompt=npc_prompt
     )
 
-    npc_response = npc_llm.run(retrieve = retrieve_str,user_cefr = cefr ,example = example)
+    npc_response = npc_llm.run(retrieve = retrieve_str,user_cefr = cefr ,example = example1)
 
     print(npc_response)
 
