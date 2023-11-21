@@ -49,8 +49,11 @@ def call(request):
     
     retrieve_set = set()
     for i in retrieve:
-      result = i["retrieve"].split("|")
-      retrieve_set.add(result[0].split('.')[1])
+      result = i["retrieve"].split("무례함:")[0].split("|")
+      print(result)
+      length = len(result)
+      for j in range(length-1):
+         retrieve_set.add(result[j].split(f"{j+1}.")[1])
     for i in cefr:
       cefr_string += i["cefr"]
     
