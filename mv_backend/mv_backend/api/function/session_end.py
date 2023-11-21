@@ -44,6 +44,26 @@ translate = LLMChain(
     llm=chat,
     prompt=translate_prompt
 )
+###
+reflect_translate_template = """
+content:
+{content}
+
+Translate the content into *Korean*. Do not translate (reason: ,  -> ).
+Do not show "None" content. Do not show bracket content.
+example:
+관심사: (korean)
+대화 성향: (korean)
+대화 주제: (korean)
+"""
+reflect_translate_prompt = PromptTemplate(
+    input_variables=["content"], template=reflect_translate_template
+)
+
+reflect_translate = LLMChain(
+    llm=chat,
+    prompt=reflect_translate_prompt
+)
 # important_template = """
 # Find {num} important dialogues in the following conversation of {name}.
 
@@ -148,7 +168,7 @@ def call(request):
     cefr_content = cefr(user_name, user_chat_data_list)
 
     retrieve_korean = translate.run(content = retrieve_content)
-    reflect_korean =translate.run(content = reflect_content)
+    reflect_korean = reflect_translate.run(content = reflect_content)
 
     previous = Database.get_all_documents(db, user_name, "Retrieves_Kor")
     print(previous)
