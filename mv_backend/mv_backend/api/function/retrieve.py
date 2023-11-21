@@ -49,7 +49,7 @@ generate_important = LLMChain(
 # !<INPUT 1>! -- target persona name or "the conversation"
 generate_template = """
 Query:
-Find out what the *{opponent}* is bad at (grammar, impolite or morally wrong etc.)
+Find out what the *{opponent}* is bad at (grammar, impolite or morally wrong, etc.)
 {query}
 Input:
 {event}
