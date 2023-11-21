@@ -19,6 +19,8 @@ from mv_backend.api.function.quiz_generator import call as quiz_generator
 
 from mv_backend.api.function.current import call as current
 
+from mv_backend.api.function.profile import call as profile
+
 from mv_backend.api.function.session_end import call as session_end
 
 from mv_backend.api.function.database.data_load import gh_call as data_load
@@ -43,6 +45,7 @@ def api_path():
         api_render('plan', plan),
         api_render('menu', menu),
         api_render('current', current),
+        api_render('profile', profile),
         api_render('session_end', session_end),
         api_render('data/load', data_load),
         api_render('data/job_prompt', job_prompt),
