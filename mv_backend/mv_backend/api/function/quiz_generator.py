@@ -37,7 +37,7 @@ The quiz should have a question, 4 choices, a answer, and a explanation. Questio
 
 Make 3 quiz and write it down in a json format.
 
-Don't make the same quiz as the example (only refer to format). Make quizs that fits "user is bad at" and "reason: ". *Must* include "<color=red>" and "</color>".
+The order of correct and wrong choices in the example is *not fixed* (*Must* make it in random order). Make quizs that fits "user is bad at" and "reason: ". *Must* include "<color=red>" and "</color>".
 ex) {example}
 
 """
@@ -55,7 +55,7 @@ example = """{
 example1 = """{
     "quiz1": {
         "question": "question content",
-        "choices": ["wrong choics1", "correct choice", "wrong choice2", "wrong choice3"],
+        "choices": ["wrong choice1", "correct choice", "wrong choice2", "wrong choice3"],
         "answer": "answer cotent",
         "explanation": "1. <color=red>wrong sentence</color> -> <color=green>correct sentence</color>: explanation1 content 2. <color=green>They are singing.</color>: explanation2 content 3. <color=red>wrong sentence</color> -> <color=green>correct sentence</color>:explanation3 content   4. <color=red>wrong sentenc</color> -> <color=green>correct sentence</color>:explanation4 content"
     },
