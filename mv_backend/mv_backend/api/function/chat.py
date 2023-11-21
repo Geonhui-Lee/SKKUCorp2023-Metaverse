@@ -75,7 +75,7 @@ Previous conversation:
 Current user conversation:
 user: {user_input}
 {npc}: 
-"""
+""" #아이가 짧게 질문했을 때 길게 말할 수 있도록 할 것
 
 query_prompt = PromptTemplate(
     input_variables=["chat_history", "previous_conversation", "npc", "persona", "user_cefr", "reflect", "retrieve", "user_input", "summary"], template=query_template
