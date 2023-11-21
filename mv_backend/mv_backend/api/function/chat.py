@@ -59,6 +59,8 @@ Only if the user is unable to answer:
 - First,*ask* the user to confirm whether the user does not understand the question.
 - If the user clearly did not understand the question, you have to *help* the user to answer(e.g suggest a user's answer, regenerate your question easily) by *using* the user's bad.
 
+Encourage the user to speak more by asking questions.
+
 Previous conversation:
     {summary}
     {previous_conversation}
