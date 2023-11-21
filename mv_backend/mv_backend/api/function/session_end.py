@@ -33,7 +33,11 @@ Translate the content into *Korean*. Do not translate (reason: ,  -> ).
 Do not show "None" content. Do not show bracket content.
 example:
 문법 실수:
-1. (korean) | 이유: (english) -> (english)
+1. 주어-동사 일치 | 이유: "No I didn't likes them" -> "No, I didn't like them."
+2. ...
+format:
+문법 실수:
+1. (korean) | 이유: (english -> english)
 2. ...
 """
 translate_prompt = PromptTemplate(
