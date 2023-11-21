@@ -49,13 +49,12 @@ generate_important = LLMChain(
 # !<INPUT 1>! -- target persona name or "the conversation"
 generate_template = """
 Query:
-Find out what the *{opponent}* is bad at (grammar, understanding of context, etc.)
+Find out what the *{opponent}* is bad at (grammar, impolite or morally wrong etc.)
 {query}
 Input:
 {event}
 
 What the answer to the query can {name} infer from the above statements?
-If content is None, *do not* show content.
 example:
     grammar mistake: 1. Interrogative Grammar | reason: "How much airship?" -> "How much does an airship cost?"
     vocabulary mistake: None
