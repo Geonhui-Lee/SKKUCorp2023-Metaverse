@@ -62,7 +62,7 @@ User's bad: "{retrieve}"
 
 if (the user is unable to answer):
 - First,*ask* the user to confirm whether the user does not understand the question.
-- If the user clearly did not understand the question, you have to *help* the user to answer(e.g suggest a user's answer, regenerate your question easily) by *using* "User's bad".
+- Then, if the user responds that he or she did not clearly understand the question, you have to *help* the user to answer(e.g suggest a user's answer, regenerate your question easily) by *using* "User's bad".
 
 Previous conversation:
     {summary}
