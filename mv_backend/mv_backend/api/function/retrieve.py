@@ -59,11 +59,11 @@ If content is None, *do not* show content.
 example:
     grammar mistake: 1. Interrogative Grammar | reason: "How much airship?" -> "How much does an airship cost?"
     vocabulary mistake: None
-    impolite or morally wrong: 1. rude and disrespectful | reason: "Shut up."
+    bad manners: 1. rude and disrespectful | reason: "Shut up."
 output format:
     grammar mistake: 1. (noun) | reason:  -> \n2. ...
     vocabulary mistake: 1. (content) | reason:  -> \n2. ...
-    impolite or morally wrong: 1. (content) | reason: (conversation content)\n2. ...
+    bad manners: 1. (content) | reason: (conversation content)\n2. ...
 """
 generate_prompt = PromptTemplate(
     input_variables=["query", "name", "opponent", "event"], template=generate_template
@@ -147,9 +147,9 @@ def retrieve(npc, user, chat_data_list):
     2. *Always* show the *exact* sentence the user made a mistake in.
     3. Correct sentences that the user made a mistake and show them.
 
-    If the user was impolite or morally wrong conduct the following tasks.
-    1. *Always* find and explain the *exact* term the user used that was impolite or morally wrong.
-    2. *Always* show the *exact* sentence the user was impolite or morally wrong.
+    If the user has made a bad manners conduct the following tasks.
+    1. find and explain the bad manners the user has made with the specific manners.
+    2. *Always* show the *exact* sentence the user made the bad manners.
     """
     embedded_query = embeddings_model.embed_query(focal_points)
     embedings = embeddings_model.embed_documents(all_chat_data_string)
