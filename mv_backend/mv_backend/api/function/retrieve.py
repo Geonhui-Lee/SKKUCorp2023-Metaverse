@@ -54,7 +54,7 @@ Find out what the *{opponent}* is bad at (grammar, impolite or morally wrong, et
 Input:
 {event}
 
-What the answer to the query can {name} infer from the above statements?
+What the *answer* to the query can {name} infer from the above statements?
 If content is None, *do not* show content.
 example:
     grammar mistake: 1. Interrogative Grammar | reason: "How much airship?" -> "How much does an airship cost?"
