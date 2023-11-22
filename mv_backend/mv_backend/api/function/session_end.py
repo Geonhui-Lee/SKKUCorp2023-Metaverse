@@ -174,6 +174,9 @@ def call(request):
     retrieve_korean = translate.run(content = retrieve_content)
     reflect_korean = reflect_translate.run(content = reflect_content)
 
+    if retrieve_content == "None":
+        retrieve_korean = ""
+    
     previous = Database.get_all_documents(db, user_name, "Retrieves_Kor")
     print(previous)
     data_num = 0
