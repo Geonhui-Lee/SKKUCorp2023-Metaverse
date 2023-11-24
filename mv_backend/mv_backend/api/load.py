@@ -5,7 +5,8 @@ from django.urls import path
 
 from mv_backend.api.function.hello_world import call as hello_world
 
-from mv_backend.api.function.chat import call as gpt
+#from mv_backend.api.function.chat import call as gpt
+from mv_backend.api.function.chat_improved import call as gpt
 
 from mv_backend.api.function.retrieve import retrieve as retrieve
 

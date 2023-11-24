@@ -61,6 +61,22 @@ generate_important = LLMChain(
     llm=chat,
     prompt=generate_important_prompt
 )
+###
+origin_insights_template = """
+    Statements about {opponent}
+    {event}
+    What 5 high-level insights can {name} infer from
+    the above statements? (example format: insight
+    (because of 1, 5, 3))
+"""
+origin_insights_prompt = PromptTemplate(
+    input_variables=["name", "opponent", "event"], template=origin_insights_template
+)
+
+origin_insights = LLMChain(
+    llm=chat,
+    prompt=origin_insights_prompt
+)
 
 # find the insight
 # !<INPUT 0>! -- Numbered list of event/thought statements
@@ -242,4 +258,8 @@ def reflect(npc, user, chat_data_list):
     document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":insights,"name":npc}
     print(Database.set_document(db, user, "Reflects", document_user))
 
+    origin_insights = origin_insights.run(name = npc, opponent = user, event = important_data_string)
+    document_user = {"_id":ObjectId(),"timestamp":datetimeStr,"reflect":origin_insights,"name":npc}
+    print(Database.set_document(db, user, "Reflects_Origin", document_user))
+    
     return insights
