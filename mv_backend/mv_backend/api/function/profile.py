@@ -38,47 +38,61 @@ def call(request):
     reflect = Database.get_recent_documents(db, user_name, "Reflects_Kor", 3)
     retrieve = Database.get_recent_documents(db, user_name, "Retrieves_Kor", 3)
     cefr = Database.get_recent_documents(db, user_name, "CEFR", 1)
-    interest_set = set()
-    coversationStyle_set = set()
+    interest_dict = dict()
+    coversationStyle_dict = dict()
     cefr_string = ""
     for i in reflect:
       result = i["reflect"].split(":")
       interests = result[1].split('\n')[0].split(",")
       for interest in interests:
-          interest_set.add(interest)
+          if interest not in interest_dict.keys():
+              interest_dict[interest] = 1
+          else:
+              interest_dict[interest] += 1
       conversationStyles = result[2].split('\n')[0].split(",")
       for conversationStyle in conversationStyles:
-        coversationStyle_set.add(conversationStyle)
+          if conversationStyle not in coversationStyle_dict.keys():
+              coversationStyle_dict[conversationStyle] = 1
+          else:
+              coversationStyle_dict[conversationStyle] += 1
       
     
-    retrieve_set = set()
+    retrieve_dict = dict()
     for i in retrieve:
       result = i["retrieve"].split("무례함:")[0].split("|")
       print(result)
       length = len(result)
       for j in range(length-1):
-         retrieve_set.add(result[j].split(f"{j+1}.")[1])
+          retrieve_result = result[j].split(f"{j+1}.")[1]
+          if retrieve_result not in retrieve_dict.keys():
+              retrieve_dict[retrieve_result] = 1
+          else:
+              retrieve_dict[retrieve_result] += 1
     for i in cefr:
       cefr_string += i["cefr"]
+    
+    sorted_interest = list(dict(sorted(interest_dict.items(), key = lambda item: item[1], reverse = True)).keys())
+    sorted_conversationStyle = list(dict(sorted(coversationStyle_dict.items(), key = lambda item: item[1], reverse = True)).keys())
+    sorted_retrieve = list(dict(sorted(retrieve_dict.items(), key = lambda item: item[1], reverse = True)).keys())
     
     messages_response = [
         {
             "role": "interest",
-            "content": str(interest_set).removeprefix('{').removesuffix('}')
+            "content": str(sorted_interest).removeprefix('[').removesuffix(']').replace("'", "")
         }
     ]
     
     messages_response += [
         {
             "role": "conversationStyle",
-            "content": str(coversationStyle_set).removeprefix('{').removesuffix('}')
+            "content": str(sorted_conversationStyle).removeprefix('[').removesuffix(']').replace("'", "")
         }
     ]
 
     messages_response += [
         {
             "role": "retrieve",
-            "content": str(retrieve_set).removeprefix('{').removesuffix('}')
+            "content": str(sorted_retrieve).removeprefix('[').removesuffix(']').replace("'", "")
         }
     ]
 
