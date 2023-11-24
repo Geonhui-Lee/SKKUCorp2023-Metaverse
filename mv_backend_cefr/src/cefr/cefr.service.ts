@@ -11,8 +11,7 @@ export class CEFRService {
     const evaluation: CEFREvaluationDto = grade(contentToEvaluate);
 
     function getNormalizedLevelValue(level: number): number {
-      //return level >= 100 ? 0 : level;
-      return level;
+      return level >= 100 ? 0 : level;
     }
     const levels = {
       A1: getNormalizedLevelValue(evaluation.meta.levels.A1),
@@ -26,11 +25,21 @@ export class CEFRService {
 
     const normalizedGrade = ['IDK'];
     for (const level in levels) {
-      if (levels[level] >= 90) {
+      if (levels[level] >= 90 && levels[level] < 100) {
         normalizedGrade.push(level);
         break;
       }
     }
+    if (
+      (levels.A1 > 0 || levels.A2 > 0) &&
+      levels.B1 == 0 &&
+      levels.B2 == 0 &&
+      levels.C1 == 0 &&
+      levels.C2 == 0
+    ) {
+      normalizedGrade.push('Pre-A1');
+    }
+
     evaluation.meta.grade = normalizedGrade[
       normalizedGrade.length - 1
     ] as CEFREvaluationDto['meta']['grade'];
