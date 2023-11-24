@@ -33,7 +33,10 @@ Translate the content into *Korean*. Do not translate (reason: ,  -> ).
 Do not show "None" content. Do not show bracket content. Don't show duplicate data.
 example:
 문법 실수:
-1. 주어-동사 일치 | 이유: "No I didn't likes them" -> "No, I didn't like them."
+1. 주어-동사 일치 | 이유: <color=red>"No I didn't likes them"</color> -> <color=green>"No, I didn't like them."</color>
+2. ...
+비매너:
+1. 욕설 | 이유: <color=red>"Fuck you"</color>
 2. ...
 format:
 문법 실수:
