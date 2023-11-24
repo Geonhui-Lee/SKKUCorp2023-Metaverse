@@ -147,7 +147,7 @@ generate_cefr = LLMChain(
 # )
 
 # #########
-def cefr(user, chat_data_list):
+def cefr_gpt(user, chat_data_list):
     # body_unicode = request.body.decode('utf-8')
     # body = json.loads(body_unicode)
 
@@ -213,7 +213,7 @@ def cefr(user, chat_data_list):
     
     document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"cefr":cur_cefr}
 
-    print(Database.set_document(db, user, "CEFR", document_user))
+    print(Database.set_document(db, user, "CEFR_GPT", document_user))
 
     return cur_cefr
     # messages_response = [

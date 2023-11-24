@@ -8,7 +8,7 @@ from langchain.chat_models import ChatOpenAI
 from mv_backend.lib.common import CommonChatOpenAI, gpt_model_name
 from mv_backend.api.function.retrieve import *
 from mv_backend.api.function.reflect import *
-#from mv_backend.api.function.cefr import *
+from mv_backend.api.function.cefr import *
 from mv_backend.api.function.cefr_simplified import *
 from mv_backend.api.function.chat import memory_dict
 from langchain.schema import (
@@ -174,6 +174,7 @@ def call(request):
     retrieve_content = retrieve(opponent, user_name, chat_data_list)
     reflect_content = reflect(opponent, user_name, chat_data_list)
     cefr_content = cefr(user_name, user_chat_data_list)
+    cefr_gpt(user_name, user_chat_data_list)
 
     retrieve_korean = translate.run(content = retrieve_content)
     reflect_korean = reflect_translate.run(content = reflect_content)
