@@ -146,9 +146,10 @@ def call(request):
     user_message = body["messages"][-1]["content"]
     all_chat_data_string = ""
     for chat_data in body["messages"]:
-        if chat_data["role"] == "user":
+        if chat_data["role"] == user_name:
             all_chat_data_string += f"{user_name}" + ": " + chat_data["content"] + "\n"
             user_message = chat_data["content"]
+            print(user_message)
         elif chat_data["role"] == f"{opponent}":
             all_chat_data_string += f"{opponent}" + ": " + chat_data["content"] + "\n"
 
