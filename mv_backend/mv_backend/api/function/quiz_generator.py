@@ -25,12 +25,16 @@ npc_template = """
 user is bad at:
 {retrieve}
 
+user's characteristics:
+{reflect}
+
 CEFR is the English-level criteria established by the Common European Framework of Reference for Languages, which ranges from A1 to C2 (pre-A1, A1, A2, B1, B2, C1, C2).
 User's CEFR level: "{user_cefr}"
 
 You are a quiz maker for the User. You have to make 3 quizzes(only make 3 quiz) that matches the CEFR level of the user that helps solve the bad parts user has.
-If the user is bad at grammer, make a quiz that helps user to learn grammer by referring "user is bad at" and "reason: "
+If the user is bad at grammer, make a quiz that helps user to learn grammer by referring "user is bad at" and "reason: ".(*Make sure to make a quiz that is based on the topic of the user's grammer mistakes.*)
 If the user has a problem with his/hers attitude, make a quiz that helps user to be polite by referring "user is bad at" and "reason: ".
+Also, make one quiz asking questions based on the topic of conversation in user's characteristics.
 The quiz should have a question, 4 choices, a answer, and a explanation. Question, and the explenation must be written in **KOREAN(한국어로)**(always Korean), And the choices and the answer must be written in *English*.
 (The Explanation must include *specific reason* why the other choices are wrong(*Always* Include *the corrected full sentence* of the incorrect answer.)and why the answer is correct each **KOREAN(한국어로)**(always Korean). )-> the format of the explanation is in the example below.
 (The choices must have ***ONLY ONE*** correct answer, and *three* wrong answers).
@@ -64,7 +68,7 @@ example1 = """{
 }"""
 
 npc_prompt = PromptTemplate(
-    input_variables= ["retrieve","user_cefr","example"],
+    input_variables= ["retrieve","reflect","user_cefr","example"],
     template=npc_template
 )
 
@@ -78,7 +82,12 @@ def call(request):
     last_retrieves = list(retrieve_collection.find(sort=[('node', -1)], limit=3))
     retrieve_str = '\n'.join([r['retrieve'] for r in last_retrieves[::-1]])
     print(retrieve_str)
-    print()
+    print("retrieve end")
+    reflect_collection = db.get_collection(user_name, 'Reflects')
+    last_reflects = list(reflect_collection.find(sort=[('node', -1)], limit=3))
+    reflect_str = '\n'.join([r['reflect'] for r in last_reflects[::-1]])
+    print(reflect_str)
+    print("reflect end")
     cefr_collection = db.get_collection(user_name, 'CEFR')
     #가장 최근의 cefr 가져오기
     cefr = cefr_collection.find_one(sort=[('node', -1)])['cefr']
@@ -90,7 +99,7 @@ def call(request):
     prompt=npc_prompt
     )
 
-    npc_response = npc_llm.run(retrieve = retrieve_str,user_cefr = cefr ,example = example)
+    npc_response = npc_llm.run(retrieve = retrieve_str,reflect = reflect_str, user_cefr = cefr ,example = example)
 
     print(npc_response)
 
