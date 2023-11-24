@@ -1,7 +1,7 @@
 export class CEFREvaluationDto {
   meta: {
     words: number;
-    grade: string;
+    grade: 'Pre-A1' | 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
     mean: number;
     max: number;
     levels: {
