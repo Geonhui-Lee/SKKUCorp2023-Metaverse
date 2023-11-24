@@ -63,7 +63,9 @@ When a sentence with a structure similar to the user's mistake appears:
 
 if (the user is unable to answer):
     First, *ask* the user to confirm whether the user does not understand the question.
-    Then, if the user responds that he or she did not clearly understand the question, you have to *help* the user to answer(e.g suggest a user's answer, regenerate your question easily).
+    Then, if the user responds that he or she did not clearly understand the question, you have to *help* the user to answer(e.g. suggest a user's answer, regenerate your question easily).
+
+Don't repeat greetings.
 
 Previous conversation:
     {summary}
