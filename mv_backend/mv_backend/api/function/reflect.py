@@ -73,11 +73,14 @@ Insights into conversational styles(e.g., Sociable), interests(e.g., soccer).
 Insights:
     Information about *{opponent}*’s interests.
     Information about the topic *{opponent}* is curious about.
-    The *{opponent}*'s conversation style (e.g., Sociable:  This child initiates interactions with others and is quick to respond to others initiations. Even if they only have few words or are hard to understand they continue to try and communicate with others. 
-, Reluctant: This child is more likely to respond to others than to initiate an interaction on their own. This child may be labelled as “shy” and may need time to “warm up” to become comfortable with new people and new environments. This child’s communicative attempts might fly under the radar so try and lookout for them. Having difficulties with communication may decrease confidence and decrease attempts at interacting with others. 
-, Passive: This child rarely responds and rarely initiates interactions with others. Children who have this communication style may be hard to connect with because they may seem uninterested in people and objects such as toys. A developmental delay, a sickness or being on medications may lead to this more passive communication style.
+    The *{opponent}*'s conversation style (e.g., Extroverted: This child actively seeks out interactions with others and eagerly responds to others' initiatives. They thrive in social settings and are comfortable engaging with different people. Even with limited words or when facing communication challenges, they persist in their efforts to connect with others. Their enthusiasm for social engagement often leads them to initiate conversations and activities, displaying a natural ease in interacting with those around them.
+, Introverted: In contrast, this child tends to respond more than initiate interactions. They may be labeled as "shy" and typically require time to feel comfortable in new environments or around new people. Their attempts at communication might go unnoticed as they prefer observing before participating actively. Difficulties in communication can affect their confidence, making them less likely to initiate interactions. However, they can be deeply engaged and thoughtful conversationalists once they feel at ease.
+, Imaginative: This child actively engages in interactions, displaying a vibrant imagination in their conversations and activities. They initiate interactions and respond enthusiastically, infusing creativity into their communication. Their imaginative nature leads them to enjoy storytelling, creative play, and exploring various possibilities in their interactions. They often bring a sense of wonder and creativity to their social engagements, making interactions dynamic and imaginative.
+, Intuitive: In contrast, this child might not always initiate interactions but demonstrates a deep intuitive understanding of their surroundings and people. While they may be more reserved in social situations, they possess a remarkable ability to perceive emotions and nuances. When they do engage, their interactions are marked by thoughtfulness and insight, showcasing their intuitive understanding of others' feelings and the environment.
 , Curious: Children with this style are naturally inquisitive and seek out interactions to satisfy their curiosity. They actively engage in conversations and activities that pique their interest, asking questions and exploring their surroundings. Their eagerness to learn and discover may drive them to initiate conversations or activities, often demonstrating a keen interest in various subjects or objects. They might not always wait for prompts and can be proactive in seeking new information or experiences. Their communication style is marked by a genuine thirst for knowledge and exploration.
 , Aggressive: Children with this communication style tend to assert themselves forcefully in interactions. They might initiate communication or respond assertively, often dominating conversations or activities. Their expressions can be intense, sometimes coming off as confrontational or overly assertive. This behavior might stem from frustration, a desire for control, or an attempt to establish dominance. They might interrupt conversations, use strong language, or display physical aggression to communicate their needs or desires. This communication style may require guidance and support to channel their energy and assertiveness positively.
+, Polite: This child demonstrates a respectful and considerate approach in their interactions with others. They are attentive to social norms, use courteous language, and show good manners. They tend to wait for their turn to speak, listen actively, and respond thoughtfully. Their communication style reflects a genuine effort to be kind and considerate to others, often using phrases like "please" and "thank you" and showing empathy in their interactions.
+, Impolite: In contrast, this child's communication style may come across as rude or lacking in social niceties. They might interrupt conversations frequently, ignore social cues, or use language that is considered disrespectful. Their interactions might seem abrupt or dismissive, showing less regard for others' feelings or social expectations. This behavior might stem from a lack of awareness rather than intentional rudeness, requiring guidance and coaching to understand and employ more appropriate communication manners.
    Information about the topic of conversation between {name} and {opponent}.
 
 What are the {name}'s high-level insights about {opponent} can be inferred from the above statement?
@@ -91,6 +94,21 @@ output format:
     conversation style: (noun)
     topic of conversation: (noun)
 """
+# 외향적: 사교성을 좋아하고, 사람들과 쉽게 연결되며, 열심히 대화를 시작합니다.
+
+# 내향적: 시작보다 응답하기를 선호하고, 참여하기 전에 편안함을 느끼고, 관찰하는 데 시간이 걸립니다.
+
+# 상상력: 상호 작용에서 창의적이고, 스토리텔링과 창의적인 놀이를 즐기며, 대화에 창의력을 가져다 줍니다.
+
+# 직관적: 감정과 뉘앙스를 지각하고, 사회적 환경에서 유보적이며, 참여할 때 사려 깊고 통찰력이 있습니다.
+
+# 호기심: 호기심이 많고 적극적이며, 새로운 지식과 경험을 찾고, 배우고 탐색하기를 열망합니다.
+
+# 공격적: 적극적인 상호작용, 강렬한 표현, 요구를 전달하기 위해 공격성을 사용할 수 있습니다.
+
+# 예의: 존중하고 배려하며, 사회 규범에 주의하고, 정중한 언어를 사용하며, 상호 작용에 공감합니다.
+
+# 무례한 행동: 무례하게 보이고, 사회적 신호를 무시하고, 예의가 없으며, 사회적 상호작용에서 지도가 필요할 수 있습니다.
 generate_insights_prompt = PromptTemplate(
     input_variables=["name", "opponent", "event"], template=generate_insights_template
 )
