@@ -8,7 +8,8 @@ from langchain.chat_models import ChatOpenAI
 from mv_backend.lib.common import CommonChatOpenAI, gpt_model_name
 from mv_backend.api.function.retrieve import *
 from mv_backend.api.function.reflect import *
-from mv_backend.api.function.cefr import *
+#from mv_backend.api.function.cefr import *
+from mv_backend.api.function.cefr_simplified import *
 from mv_backend.api.function.chat import memory_dict
 from langchain.schema import (
     AIMessage,
