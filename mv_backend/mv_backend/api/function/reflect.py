@@ -258,8 +258,8 @@ def reflect(npc, user, chat_data_list):
     document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"reflect":insights,"name":npc}
     print(Database.set_document(db, user, "Reflects", document_user))
 
-    origin_insights = origin_insights.run(name = npc, opponent = user, event = important_data_string)
-    document_user = {"_id":ObjectId(),"timestamp":datetimeStr,"reflect":origin_insights,"name":npc}
+    origin_insight = origin_insights.run(name = npc, opponent = user, event = important_data_string)
+    document_user = {"_id":ObjectId(),"timestamp":datetimeStr,"reflect":origin_insight,"name":npc}
     print(Database.set_document(db, user, "Reflects_Origin", document_user))
-    
+
     return insights
