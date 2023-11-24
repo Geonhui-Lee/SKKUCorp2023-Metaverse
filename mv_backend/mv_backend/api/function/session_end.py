@@ -174,7 +174,7 @@ def call(request):
     retrieve_content = retrieve(opponent, user_name, chat_data_list)
     reflect_content = reflect(opponent, user_name, chat_data_list)
     cefr_content = cefr(user_name, user_chat_data_list)
-    cefr_gpt(user_name, user_chat_data_list)
+    cefr_gpt_content = cefr_gpt(user_name, user_chat_data_list)
 
     retrieve_korean = translate.run(content = retrieve_content)
     reflect_korean = reflect_translate.run(content = reflect_content)
@@ -232,7 +232,7 @@ def call(request):
     messages_response += [
         {
             "role": "cefr",
-            "content": cefr_content
+            "content": cefr_content + "(" + cefr_gpt_content + ")"
         }
     ]
 
