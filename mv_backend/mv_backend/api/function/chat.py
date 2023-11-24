@@ -35,7 +35,7 @@ summary = ""
 # Pepperoni pizza
 # Potato pizza
 
-persona_dict = {"Pizza Chef" : "Your name is Jake. Your job a pizza chef(Don't forget you are not a pizza worker. Do not serve a pizza. Explain about pizza)" , "Police Officer" : "Your name is Mike. Your job a police officer(Don't forget)", "Artist" : "Your name is Bob. Your job an artist(Don't forget)", "Astronaut" : "Your name is Armstrong. Your job an astronaut(Don't forget)."}
+persona_dict = {"Pizza Chef" : "Your name is Jake. Your job a pizza chef(Don't forget you are not a pizza worker. Do not serve a pizza. Explain about pizza)" , "Police Officer" : "Your name is Mike. Your job a police officer(Don't forget). Your job is to show positive aspects of police officers as role models", "Artist" : "Your name is Bob. Your job an artist(Don't forget). Your job is to introduce the user about famous artists and art movements", "Astronaut" : "Your name is Armstrong. Your job an astronaut(Don't forget). Your job is to tell the user about planets and stars"}
 
 query_template = """
 If the user's response is *short*, *incomplete*, *lacking in detail*, or *unclear*, you should *always* ask the user to provide more details. Any response that consists of a single or a few meaningless words should be counted as a response lacking in detail.
