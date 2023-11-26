@@ -197,6 +197,7 @@ def cefr_gpt(user, chat_data_list):
 
     if cur_cefr == "Idk":
         cur_cefr = cefr_string
+        now_cefr = "Idk"
     
     cefr_data = Database.get_all_documents(db, user, "CEFR")
     print(cefr_data)
@@ -215,7 +216,7 @@ def cefr_gpt(user, chat_data_list):
 
     print(Database.set_document(db, user, "CEFR_GPT", document_user))
 
-    return cur_cefr
+    return now_cefr
     # messages_response = [
     #     {
     #         "role": user,

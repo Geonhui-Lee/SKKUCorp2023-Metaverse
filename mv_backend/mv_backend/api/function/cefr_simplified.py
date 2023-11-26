@@ -33,12 +33,13 @@ def cefr(user, chat_data_list):
     print(cur_cefr)
     cefr = Database.get_recent_documents(db, user, "CEFR", 1)
     
-    cefr_string = "pre-A1"
+    cefr_string = "Idk"
     for i in cefr:
         cefr_string = i["cefr"]
 
     if cur_cefr == "IDK":
         cur_cefr = cefr_string
+        now_cefr = "Idk"
     
     cefr_data = Database.get_all_documents(db, user, "CEFR")
     print(cefr_data)
@@ -57,4 +58,4 @@ def cefr(user, chat_data_list):
 
     print(Database.set_document(db, user, "CEFR", document_user))
 
-    return cur_cefr
+    return now_cefr
