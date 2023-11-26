@@ -144,7 +144,7 @@ def retrieve(npc, user, chat_data_list):
     ####프롬프트 추가 final_points#####
     final_points = """
     If the user has made a gramatical mistake conduct the following tasks.
-    1. find and explain the gramatical mistakes the user has made with the specific grammar.
+    1. find and explain the gramatical mistakes the user has made with the specific grammar. (Except punctuation and capitalization)
     2. *Always* show the *exact* sentence the user made a mistake in.
     3. Correct sentences that the user made a mistake and show them.
 
