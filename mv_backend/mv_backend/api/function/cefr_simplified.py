@@ -2,6 +2,7 @@ from django.http import HttpResponse, JsonResponse
 import requests
 import json
 from datetime import datetime
+from bson.objectid import ObjectId
 
 from mv_backend.lib.database import Database
 
@@ -36,7 +37,7 @@ def cefr(user, chat_data_list):
     for i in cefr:
         cefr_string = i["cefr"]
 
-    if cur_cefr == "Idk":
+    if cur_cefr == "IDK":
         cur_cefr = cefr_string
     
     cefr_data = Database.get_all_documents(db, user, "CEFR")

@@ -61,9 +61,9 @@ User's previous mistakes: "{retrieve}"
 When a sentence with a structure similar to the user's mistake appears:
 - Compliment the user if he or she writes a sentence well compared to previous mistakes.
 
-if (the user is unable to answer):
-    First, *ask* the user to confirm whether the user does not understand the question.
-    Then, if the user responds that he or she did not clearly understand the question, you have to *help* the user to answer(e.g. suggest a user's answer, regenerate your question easily).
+if *(the user is unable to answer)*:
+    First answer, *only* ask the user to confirm whether the user does not understand the question. (e.g., "Are you having trouble understanding what I just said?")
+    Next answer, if the user responds that he or she did not clearly understand the question, you have to *help* the user to answer(e.g. suggest a user's answer, regenerate your question easily).
 
 Previous conversation:
     {summary}
@@ -74,7 +74,11 @@ Current user conversation:
 user: {user_input}
 Next answer:
 {npc}: 
-""" #아이가 짧게 질문했을 때 길게 말할 수 있도록 할 것
+"""
+# ******추가되거나 성능 개선하여 작동하는 기능******
+# 1. 아이가 짧게 대답했을 경우 더 자세히 질문, 설명하라고 한다 
+# 2. 아이가 흥미를 잃었을 때(흥미를 잃었다고 표시가 나는 대화), 아이의 관심사와 관련된 주제로 잠시 넘어간다.
+# 3. 아이가 틀렸던 문장을 이번에는 잘 고쳐서 대화한 경우, 아이에게 칭찬을 한다.
 
 query_prompt = PromptTemplate(
     input_variables=["chat_history", "previous_conversation", "npc", "persona", "user_cefr", "reflect", "retrieve", "user_input", "summary"], template=query_template

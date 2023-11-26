@@ -50,6 +50,7 @@ generate_important = LLMChain(
 generate_template = """
 Query:
 Find out what the *{opponent}* is bad at (grammar, impolite or morally wrong, etc.)
+(user is only *{opponent}*.)
 {query}
 Input:
 {event}
@@ -57,13 +58,13 @@ Input:
 What the *answer* to the query can {name} infer from the above statements?
 If content is None, *do not* show content. If there is no content, only show "None". Don't show duplicate data.
 example:
-    grammar mistake: 1. Interrogative Grammar | reason: <color=red>"How much airship?"</color> -> <color=green>"How much does an airship cost?"</color>
-    vocabulary mistake: None
-    bad manners: 1. rude and disrespectful | reason: <color=red>"Shut up."</color>
+grammar mistake: 1. <color=red>"How much airship?"</color> -> <color=green>"How much does an airship cost?"</color>\nreason: Interrogative Grammar
+vocabulary mistake: None
+bad manners: 1. <color=red>"Shut up."</color>\nreason: rude and disrespectful
 output format:
-    grammar mistake: 1. (noun) | reason: <color=red></color> -> <color=green></color>\n2. ...
-    vocabulary mistake: 1. (noun) | reason: <color=red></color> -> <color=green></color>\n2. ...
-    bad manners: 1. (noun) | reason: <color=red>(conversation content)</color>\n2. ...
+grammar mistake: 1. <color=red></color> -> <color=green></color>\nreason: (noun)\n2. ...
+vocabulary mistake: 1. <color=red></color> -> <color=green></color>\nreason: (noun)\n2. ...
+bad manners: 1. <color=red>(conversation content)</color>\nreason: (noun)\n2. ...
 """
 generate_prompt = PromptTemplate(
     input_variables=["query", "name", "opponent", "event"], template=generate_template

@@ -30,18 +30,17 @@ translate_template = """
 content:
 {content}
 
-Translate the content into *Korean*. Do not translate (reason: ,  -> ).
 Do not show "None" content. Do not show bracket content. Don't show duplicate data.
 example:
 문법 실수:
-1. 주어-동사 일치 | 이유: <color=red>"No I didn't likes them"</color> -> <color=green>"No, I didn't like them."</color>
+1. <color=red>"I like star because it is bright"</color> -> <color=green>"I like stars because they are bright."</color>\n이유: Singular/Plural Nouns
 2. ...
 비매너:
-1. 욕설 | 이유: <color=red>"Fuck you"</color>
+1. <color=red>"Fuck you"</color>\n이유: Profanity
 2. ...
 format:
 문법 실수:
-1. (korean) | 이유: (english)
+1. (*english*)\n이유: (*english*)
 2. ...
 """
 translate_prompt = PromptTemplate(
@@ -232,7 +231,7 @@ def call(request):
     messages_response += [
         {
             "role": "cefr",
-            "content": cefr_content + "(" + cefr_gpt_content + ")"
+            "content": cefr_content + "(GPT: " + cefr_gpt_content + ")"
         }
     ]
 
