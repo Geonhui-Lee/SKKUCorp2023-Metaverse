@@ -63,15 +63,15 @@ def call(request):
     
     retrieve_dict = dict()
     for i in retrieve:
-      result = i["retrieve"].split("무례함:")[0].split("|")
+      result = i["retrieve"].split("이유:")
       print(result)
       length = len(result)
       for j in range(length-1):
-          retrieve_result = result[j].split(f"{j+1}.")[1]
-          if retrieve_result not in retrieve_dict.keys():
-              retrieve_dict[retrieve_result] = 1
-          else:
-              retrieve_dict[retrieve_result] += 1
+        retrieve_result = result[j+1].split('\n')[0]
+        if retrieve_result not in retrieve_dict.keys():
+            retrieve_dict[retrieve_result] = 1
+        else:
+            retrieve_dict[retrieve_result] += 1
     for i in cefr:
       cefr_string += i["cefr"]
     
