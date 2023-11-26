@@ -41,21 +41,25 @@ def call(request):
     interest_dict = dict()
     coversationStyle_dict = dict()
     cefr_string = ""
+    data_num = 0
     for i in reflect:
-      result = i["reflect"].split(":")
-      interests = result[1].split('\n')[0].split(",")
-      for interest in interests:
-          if interest not in interest_dict.keys():
-              interest_dict[interest] = 1
-          else:
-              interest_dict[interest] += 1
-      conversationStyles = result[2].split('\n')[0].split(",")
-      for conversationStyle in conversationStyles:
-          if conversationStyle not in coversationStyle_dict.keys():
-              coversationStyle_dict[conversationStyle] = 1
-          else:
-              coversationStyle_dict[conversationStyle] += 1
-      
+        result = i["reflect"].split(":")
+        interests = result[1].split('\n')[0].split(",")
+        for interest in interests:
+            if interest not in interest_dict.keys():
+                interest_dict[interest] = 1
+            else:
+                interest_dict[interest] += 1
+        conversationStyles = result[2].split('\n')[0].split(",")
+        if (data_num == 0):
+            for conversationStyle in conversationStyles:
+                if conversationStyle not in coversationStyle_dict.keys():
+                    coversationStyle_dict[conversationStyle] = 1
+                else:
+                    coversationStyle_dict[conversationStyle] += 1
+        data_num += 1
+    
+    data_num = 0
     
     retrieve_dict = dict()
     for i in retrieve:
