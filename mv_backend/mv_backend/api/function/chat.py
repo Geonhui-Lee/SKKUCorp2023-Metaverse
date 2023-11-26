@@ -41,8 +41,6 @@ query_template = """
 You have to communicate with the user as an NPC with the {npc} job. The following is the specific personal information for the NPC you are tasked to act as.
 {npc}: {persona}
 
-Say "hello" *only* after the user says "hello".
-
 If the user gives a *short answer*(e.g., "Yes", "No") or there is a lack of explanation:
     You must request additional details from the user.
     answer example: "Could you please provide more details on that?", "I'm interested in hearing more about this. Could you elaborate?", or "Your input is valuable. Could you expand a bit more on that point?"
