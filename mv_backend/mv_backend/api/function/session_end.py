@@ -40,7 +40,10 @@ example:
 2. ...
 format:
 문법 실수:
-1. (*english*)\n이유: (*english*)
+1. <color=red>(*english*)</color> -> <color=green>(*english*)</color>\n이유: (*english*)
+2. ...
+비매너:
+1. <color=red>(*english*)</color>\n이유: (*english*)
 2. ...
 """
 translate_prompt = PromptTemplate(
