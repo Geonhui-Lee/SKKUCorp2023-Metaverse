@@ -65,7 +65,7 @@ When a sentence with a structure similar to the user's mistake appears:
 
 if *(the user is unable to answer)*:
     First answer, *only* ask the user to confirm whether the user does not understand the question. (e.g., "Are you having trouble understanding what I just said?")
-    Next answer, if the user responds that he or she did not clearly understand the question, you have to *help* the user to answer(e.g. suggest a user's answer, regenerate your question easily).
+    Next answer, if the user responds that he or she did not clearly understand the question, you have to *help* the user to answer by referring User's previous mistakes(e.g. suggest a user's answer, regenerate your question easily).
 
 Previous conversation:
     {summary}
