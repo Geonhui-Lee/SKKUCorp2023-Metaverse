@@ -191,7 +191,7 @@ def cefr_gpt(user, chat_data_list):
     print(cur_cefr)
     cefr = Database.get_recent_documents(db, user, "CEFR", 1)
     
-    cefr_string = "pre-A1"
+    cefr_string = "Idk"
     for i in cefr:
         cefr_string = i["cefr"]
 
