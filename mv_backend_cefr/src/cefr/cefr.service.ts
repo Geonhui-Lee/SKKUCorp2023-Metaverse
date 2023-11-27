@@ -23,7 +23,7 @@ export class CEFRService {
     };
     evaluation.meta.levels = levels;
 
-    const normalizedGrade = ['IDK'];
+    const normalizedGrade = [];
     for (const level in levels) {
       if (levels[level] >= 90 && levels[level] < 100) {
         normalizedGrade.push(level);
@@ -38,6 +38,18 @@ export class CEFRService {
       levels.C2 == 0
     ) {
       normalizedGrade.push('Pre-A1');
+    }
+    if (normalizedGrade.length == 0) {
+      // get the level with the highest value
+      let highestLevel = 'IDK';
+      let highestLevelValue = 0;
+      for (const level in levels) {
+        if (levels[level] > highestLevelValue) {
+          highestLevelValue = levels[level];
+          highestLevel = level;
+        }
+      }
+      normalizedGrade.push(highestLevel);
     }
 
     evaluation.meta.grade = normalizedGrade[
