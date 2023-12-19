@@ -7,7 +7,7 @@ from mv_backend.api.function.hello_world import call as hello_world
 
 from mv_backend.api.function.chat import call as gpt
 #from mv_backend.api.function.chat_improved import call as gpt
-from mv_backend.api.function.custom_chat import call as custom_chat
+from mv_backend.mv_backend.api.function.custom_persona import call as custom_persona
 
 from mv_backend.api.function.retrieve import retrieve as retrieve
 
@@ -52,7 +52,7 @@ def api_path():
         api_render('data/load', data_load),
         api_render('data/job_prompt', job_prompt),
         api_render('quiz_generator', quiz_generator),
-        api_render('custom_chat', custom_chat),
+        api_render('custom_persona', custom_persona),
 
         path('report/', report_page, name='report')
     ]

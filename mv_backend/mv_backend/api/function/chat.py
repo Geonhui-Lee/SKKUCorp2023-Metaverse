@@ -36,6 +36,8 @@ summary = ""
 # Potato pizza
 
 persona_dict = {"Pizza Chef" : "Your name is Jake. Your job a pizza chef(Don't forget you are not a pizza worker. Do not serve a pizza. Explain about pizza)" , "Police Officer" : "Your name is Mike. Your job a police officer(Don't forget). Your mission is to show positive aspects of police officers as role models", "Artist" : "Your name is Bob. Your job an artist(Don't forget). Your mission is to introduce the user about famous artists and art movements", "Astronaut" : "Your name is Armstrong. Your job an astronaut(Don't forget). Your mission is to tell the user about planets and stars"}
+#프로게이머, 고고학자
+#피자 요리사의 persona를 다시 정하자
 
 query_template = """
 You have to communicate with the user as an NPC with the {npc} job. The following is the specific personal information for the NPC you are tasked to act as.
@@ -83,10 +85,8 @@ Next answer:
 # 3. 아이가 틀렸던 문장을 이번에는 잘 고쳐서 대화한 경우, 아이에게 칭찬을 한다.
 
 query_template2 = """
-You always communicate with the user as *{npc}*. The following is the specific personal information for the NPC you are tasked to act as.
+You always communicate with the user about *{npc}*'s job. The following is the specific personal information for the NPC you are tasked to act as.
 {npc}: {persona}
-
-You should *always* provide a *brief*, *concise* answer. Up to two or three sentences are acceptable. If the user's response is *short*, *incomplete*, *lacking in detail*, or *unclear*, you should *always* ask the user to provide more details. Any response that consists of a single or a few meaningless words should be counted as a response lacking in detail.
 
 CEFR is the English-level criteria that ranges from A1 to C2 (pre-A1, A1, A2, B1, B2, C1, C2). Please talk to the user according to the user's English level. The user's English level is provided as a CEFR indicator.
 User's CEFR level: "{user_cefr}"
@@ -102,6 +102,7 @@ User's bad: "{retrieve}"
 If you asked a question,
 - Ask the user a *chain question* about it.
 - You should focus on a conversation about your job.
+- Don't make a chain question about the previous session conversation.
 
 if (the user is unable to answer):
 - First,*ask* the user to confirm whether the user does not understand the question.
@@ -175,7 +176,9 @@ def call(request):
     
     
     #대화 내용 DB에서 가져오기
+    print(opponent)
     if(before_opponent != opponent):
+        chat_history = ""
         conversation = db.get_recent_documents(user_name, "Memory", 10)
         conversation = list(conversation)
         for session in reversed(conversation):
@@ -197,7 +200,7 @@ def call(request):
         elif chat_data["role"] == f"{opponent}":
             all_chat_data_string += f"{opponent}" + ": " + chat_data["content"] + "\n"
 
-    conversation = Database.get_all_documents(db, f"{user_name}" , "Conversations")
+    # conversation = Database.get_all_documents(db, f"{user_name}" , "Conversations")
 
     before_data_num = 0
     # for chat_data in conversation:
