@@ -7,7 +7,7 @@ from mv_backend.api.function.hello_world import call as hello_world
 
 from mv_backend.api.function.chat import call as gpt
 #from mv_backend.api.function.chat_improved import call as gpt
-from mv_backend.mv_backend.api.function.custom_persona import call as custom_persona
+from mv_backend.api.function.custom_persona import call as custom_persona
 
 from mv_backend.api.function.retrieve import retrieve as retrieve
 

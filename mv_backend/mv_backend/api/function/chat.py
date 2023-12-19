@@ -15,6 +15,7 @@ from langchain.schema import (
 import json, openai
 from datetime import datetime
 from bson.objectid import ObjectId
+from custom_persona import persona
     
 db = Database()
 
@@ -260,9 +261,10 @@ def call(request):
     if(cefr == "Idk"):
         cefr = "pre-A1"
     
-    answer = LLMChainQuery.predict(
+    if(opponent == "custom"):
+        answer = LLMChainQuery.predict(
         npc = opponent,
-        persona = persona_dict[opponent],
+        persona = persona,
         user_cefr = cefr,
         reflect = reflect,
         retrieve = retrieve,
@@ -270,6 +272,17 @@ def call(request):
         previous_conversation = chat_history,
         summary = summary
     )
+    else:   
+        answer = LLMChainQuery.predict(
+            npc = opponent,
+            persona = persona_dict[opponent],
+            user_cefr = cefr,
+            reflect = reflect,
+            retrieve = retrieve,
+            user_input = user_message,
+            previous_conversation = chat_history,
+            summary = summary
+        )
 
     #conversation = Database.get_all_documents(db, f"{user_name}", "Conversations")
     
