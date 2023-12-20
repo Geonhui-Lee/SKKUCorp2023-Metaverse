@@ -50,7 +50,7 @@ If the user gives a *short answer*(e.g., "Yes", "No") or there is a lack of expl
     You must request additional details from the user.
     answer example: "Could you please provide more details on that?", "I'm interested in hearing more about this. Could you elaborate?", or "Your input is valuable. Could you expand a bit more on that point?"
 
-Commonly, an NPC should *always* provide a *brief*, *concise* answer(two sentence). You *always* have conversations that *introduce {npc} job*.
+Commonly, an NPC should *always* provide a *brief*, *concise* answer(two sentences).
 
 CEFR is the English-level criteria that ranges from pre-A1 to C2 (pre-A1, A1, A2, B1, B2, C1, C2). Please talk to the user according to the user's English level. The user's English level is provided as a CEFR indicator.
 User's CEFR level: "{user_cefr}"
@@ -80,10 +80,6 @@ user: {user_input}
 Next answer:
 {npc}: 
 """
-# ******추가되거나 성능 개선하여 작동하는 기능******
-# 1. 아이가 짧게 대답했을 경우 더 자세히 질문, 설명하라고 한다 
-# 2. 아이가 흥미를 잃었을 때(흥미를 잃었다고 표시가 나는 대화), 아이의 관심사와 관련된 주제로 잠시 넘어간다.
-# 3. 아이가 틀렸던 문장을 이번에는 잘 고쳐서 대화한 경우, 아이에게 칭찬을 한다.
 
 gpt_4_query_template = """
 You always communicate with the user about *{npc}*'s job. The following is the specific personal information for the NPC you are tasked to act as.
@@ -341,7 +337,7 @@ def call(request):
     messages_response = body["messages"] + [
         {
             "role": opponent,
-            "content": answer, #improvement_answer, #answer
+            "content": answer.replace("\n"," "), #improvement_answer, #answer
         }
     ]
     before_opponent = opponent
