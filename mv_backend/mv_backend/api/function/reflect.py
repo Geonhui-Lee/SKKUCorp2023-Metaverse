@@ -103,11 +103,9 @@ For interest, conversation style parts, you should refer to the sentences spoken
 example:
     interest: soccer, spacecraft, game
     conversation style: Passive
-    topic of conversation: price of spacecraft
 output format:
     interest: (noun)
     conversation style: (noun)
-    topic of conversation: (noun)
 """
 # 외향적: 사교성을 좋아하고, 사람들과 쉽게 연결되며, 열심히 대화를 시작합니다.
 
