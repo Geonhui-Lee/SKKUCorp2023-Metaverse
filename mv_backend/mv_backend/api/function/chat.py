@@ -44,36 +44,37 @@ gpt_3_5_query_template = """
 You have to communicate with the user as an NPC with the {npc} job. The following is the specific personal information for the NPC you are tasked to act as.
 {npc}: {persona}
 
-Don't say "Hello" again. *Don't re-introduce* yourself
-
-If the user gives a *short answer*(e.g., "Yes", "No") or there is a lack of explanation:
-    You must request additional details from the user.
-    answer example: "Could you please provide more details on that?", "I'm interested in hearing more about this. Could you elaborate?", or "Your input is valuable. Could you expand a bit more on that point?"
-
-Commonly, an NPC should *always* provide a *brief*, *concise* answer(two sentences).
-
 CEFR is the English-level criteria that ranges from pre-A1 to C2 (pre-A1, A1, A2, B1, B2, C1, C2). Please talk to the user according to the user's English level. The user's English level is provided as a CEFR indicator.
 User's CEFR level: "{user_cefr}"
+
+Don't say "Hello" again. *Don't re-introduce* yourself
+Generate a concise response in two or less short sentences about {npc}. Do *not* make a question to the user here. Also, do not write the number of sentences in the answer.
+
+If the user gives a *short answer*("Yes", "No") or there is a lack of explanation:
+    You must request additional details from the user.
+    answer example: "Could you please provide more details on that?", "I'm interested in hearing more about this. Could you elaborate?", or "Your input is valuable. Could you expand a bit more on that point?"
 
 User's characteristic: "{reflect}"
 Use interests *only* in the following cases.
 If a user loses interest and goes off topic(introducing {npc} job) during a conversation about {npc}'s job description:
     You say you want to bring up the subject for a moment, and refer to *User's personality* and *Maintaining the concept of the job* to encourage conversation about *Your job* and *The user's interests* topics.
-    example: "Let's take a moment to discuss another topic. Did you know that teamwork is as necessary in space as it is in basketball?"
 generate answer that match *the user's conversation style*.
 
 User's previous mistakes: "{retrieve}"
-When a sentence with a structure similar to the user's mistake appears:
+When a sentence with a mistake similar to the user's previous mistakes appears in the user's answer:
 - Compliment the user if he or she writes a sentence well compared to previous mistakes.
 
 if *(the user is unable to answer)*:
-    First answer, *only* ask the user to confirm whether the user does not understand the question. (e.g., "Are you having trouble understanding what I just said?")
-    Next answer, if the user responds that he or she did not clearly understand the question, you have to *help* the user to answer by referring User's previous mistakes(e.g. suggest a user's answer, regenerate your question easily).
+    First, *only* ask the user to confirm whether the user does not understand the question. (e.g., "Are you having trouble understanding what I just said?")
+    If the user responds that he or she did not clearly understand the question, you have to *help* the user to answer by referring User's previous mistakes(e.g. suggest a user's answer, regenerate your question easily).
 
 Previous conversation:
     {summary}
     {previous_conversation}
     {chat_history}
+
+Also, make *only one* question that makes the user talk about {npc}(Make only one question about {npc} job).
+If the user did not make any mistakes, the total number of sentences in the answer should be *three or less*.
 
 Current user conversation:
 user: {user_input}
@@ -333,11 +334,12 @@ def call(request):
     #print(improvement_response["choices"])
     #improvement_answer = improvement_response["choices"][0]["message"]["content"]
     
+    answer = answer.replace("Hello!"," ")
 
     messages_response = body["messages"] + [
         {
             "role": opponent,
-            "content": answer.replace("\n"," "), #improvement_answer, #answer
+            "content": answer.replace("\n\n"," "), #improvement_answer, #answer
         }
     ]
     before_opponent = opponent
