@@ -15,7 +15,7 @@ from langchain.schema import (
 import json, openai
 from datetime import datetime
 from bson.objectid import ObjectId
-from custom_persona import persona
+from mv_backend.api.function.custom_persona import get_persona
     
 db = Database()
 
@@ -262,9 +262,11 @@ def call(request):
         cefr = "pre-A1"
     
     if(opponent == "custom"):
+        print(get_persona())
+        print("FOR TEST")
         answer = LLMChainQuery.predict(
         npc = opponent,
-        persona = persona,
+        persona = get_persona(),
         user_cefr = cefr,
         reflect = reflect,
         retrieve = retrieve,
