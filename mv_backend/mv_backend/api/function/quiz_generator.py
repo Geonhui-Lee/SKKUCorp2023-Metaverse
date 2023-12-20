@@ -14,10 +14,10 @@ from pymongo.mongo_client import MongoClient
 MONGODB_CONNECTION_STRING = "mongodb+srv://geonhui:dotgeon@metaverse.px60xor.mongodb.net/?"
 
 db = Database()
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = "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"
 import os
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
-chat = ChatOpenAI(model_name='gpt-3.5-turbo-1106', temperature=1)
+chat = ChatOpenAI(model_name='gpt-4-1106-preview', temperature=1)
 
 
 
@@ -35,14 +35,14 @@ You are a quiz maker for the User. You have to make 3 quizzes(only make 3 quiz) 
 If the user is bad at grammer, make a quiz that helps user to learn grammer by referring "user is bad at" and "reason: ".(*Make sure to make a quiz that is based on the topic of the user's grammer mistakes.*)
 If the user has a problem with his/hers attitude, make a quiz that helps user to be polite by referring "user is bad at" and "reason: ".
 Also, make one quiz asking questions based on the topic of conversation in user's characteristics.
-The quiz should have a question, 4 choices, a answer, and a explanation. Question, and the explenation must be written in **KOREAN(한국어로)**(always Korean), And the choices and the answer must be written in *English*.
+The quiz should have a question, 4 choices, a answer, and a explanation. Question, and the explenation must be written in *KOREAN(한국어로)*(always Korean), And the choices and the answer must be written in *English*.
 (The Explanation must include *specific reason* why the other choices are wrong(*Always* Include *the corrected full sentence* of the incorrect answer.)and why the answer is correct each **KOREAN(한국어로)**(always Korean). )-> the format of the explanation is in the example below.
 (The choices must have ***ONLY ONE*** correct answer, and *three* wrong answers).
 
-Make 3 quiz and write it down in a json format.
+Make 3 quiz and write it down in a format.
 
 The order of correct and wrong choices in the example is *not fixed* (*Must* make it in random order). Make quizs that fits "user is bad at" and "reason: ". *Must* include "<color=red>" and "</color>".
-ex) {example}
+format) {example}
 
 """
 
