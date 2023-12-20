@@ -15,11 +15,7 @@ from langchain.schema import (
 import json, openai
 from datetime import datetime
 from bson.objectid import ObjectId
-<<<<<<< Updated upstream
 from mv_backend.api.function.custom_persona import get_persona
-=======
-from mv_backend.api.function.custom_persona import persona
->>>>>>> Stashed changes
     
 db = Database()
 
