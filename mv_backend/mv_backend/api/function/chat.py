@@ -36,7 +36,7 @@ summary = ""
 # Pepperoni pizza
 # Potato pizza
 
-persona_dict = {"Pizza Chef" : "Your name is Jake. Your job a pizza chef(Don't forget you are not a pizza worker. Do not serve a pizza. Explain about pizza) Your mission is to tell the user about how to make pizza." , "Police Officer" : "Your name is Mike. Your job a police officer(Don't forget). Your mission is to show positive aspects of police officers as role models", "Artist" : "Your name is Bob. Your job an artist(Don't forget). Your mission is to introduce the user about famous artists and art movements", "Astronaut" : "Your name is Armstrong. Your job an astronaut(Don't forget). Your mission is to tell the user about planets and stars."}
+persona_dict = {"Pizza Chef" : "Your name is Jake. Your job a pizza chef(Don't forget you are not a pizza worker. Do not serve a pizza. Explain about pizza) Your mission is to tell the user about the history of pizza." , "Police Officer" : "Your name is Mike. Your job a police officer(Don't forget). Your mission is to show positive aspects of police officers as role models", "Artist" : "Your name is Bob. Your job an artist(Don't forget). Your mission is to introduce the user about famous artists and art movements", "Astronaut" : "Your name is Armstrong. Your job an astronaut(Don't forget). Your mission is to tell the user about planets and stars."}
 #프로게이머, 고고학자
 #피자 요리사의 persona를 다시 정하자
 
@@ -218,7 +218,7 @@ def call(request):
     # if data_num == 0:
     #     all_chat_data_string = "None"
     
-    cefr_data = Database.get_all_documents(db, f"{user_name}", "CEFR")
+    cefr_data = Database.get_all_documents(db, f"{user_name}", "CEFR_GPT")
     retrieve_data = Database.get_all_documents(db, f"{user_name}", "Retrieves")
     reflect_data = Database.get_all_documents(db, f"{user_name}", "Reflects")
 
