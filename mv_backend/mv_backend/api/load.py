@@ -7,6 +7,9 @@ from mv_backend.api.function.hello_world import call as hello_world
 
 from mv_backend.api.function.chat import call as gpt
 #from mv_backend.api.function.chat_improved import call as gpt
+from mv_backend.api.function.custom_persona import call as custom_persona
+
+from mv_backend.api.function.change_model import call as change_model
 
 from mv_backend.api.function.retrieve import retrieve as retrieve
 
@@ -17,6 +20,8 @@ from mv_backend.api.function.plan import call as plan
 from mv_backend.api.function.menu import call as menu
 
 from mv_backend.api.function.quiz_generator import call as quiz_generator
+
+from mv_backend.api.function.fix_json_format import call as fix_json_format
 
 from mv_backend.api.function.current import call as current
 
@@ -51,6 +56,9 @@ def api_path():
         api_render('data/load', data_load),
         api_render('data/job_prompt', job_prompt),
         api_render('quiz_generator', quiz_generator),
+        api_render('fix_json_format', fix_json_format),
+        api_render('custom_persona', custom_persona),
+        api_render('change_model', change_model),
 
         path('report/', report_page, name='report')
     ]

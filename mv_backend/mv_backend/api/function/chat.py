@@ -15,6 +15,7 @@ from langchain.schema import (
 import json, openai
 from datetime import datetime
 from bson.objectid import ObjectId
+from mv_backend.api.function.custom_persona import get_persona
     
 db = Database()
 
@@ -35,57 +36,58 @@ summary = ""
 # Pepperoni pizza
 # Potato pizza
 
-persona_dict = {"Pizza Chef" : "Your name is Jake. Your job a pizza chef(Don't forget you are not a pizza worker. Do not serve a pizza. Explain about pizza)" , "Police Officer" : "Your name is Mike. Your job a police officer(Don't forget). Your mission is to show positive aspects of police officers as role models", "Artist" : "Your name is Bob. Your job an artist(Don't forget). Your mission is to introduce the user about famous artists and art movements", "Astronaut" : "Your name is Armstrong. Your job an astronaut(Don't forget). Your mission is to tell the user about planets and stars"}
+persona_dict = {"Pizza Chef" : "Your name is Jake. Your job a pizza chef(Don't forget you are not a pizza worker. Do not serve a pizza. Explain about pizza) Your mission is to tell the user about how to make pizza." , "Police Officer" : "Your name is Mike. Your job a police officer(Don't forget). Your mission is to show positive aspects of police officers as role models", "Artist" : "Your name is Bob. Your job an artist(Don't forget). Your mission is to introduce the user about famous artists and art movements", "Astronaut" : "Your name is Armstrong. Your job an astronaut(Don't forget). Your mission is to tell the user about planets and stars."}
+#프로게이머, 고고학자
+#피자 요리사의 persona를 다시 정하자
 
-query_template = """
+gpt_3_5_query_template = """
 You have to communicate with the user as an NPC with the {npc} job. The following is the specific personal information for the NPC you are tasked to act as.
 {npc}: {persona}
 
-Don't say "Hello" again. *Don't re-introduce* yourself
-
-If the user gives a *short answer*(e.g., "Yes", "No") or there is a lack of explanation:
-    You must request additional details from the user.
-    answer example: "Could you please provide more details on that?", "I'm interested in hearing more about this. Could you elaborate?", or "Your input is valuable. Could you expand a bit more on that point?"
-
-Commonly, an NPC should *always* provide a *brief*, *concise* answer(two sentence). You *always* have conversations that *introduce {npc} job*.
-
 CEFR is the English-level criteria that ranges from pre-A1 to C2 (pre-A1, A1, A2, B1, B2, C1, C2). Please talk to the user according to the user's English level. The user's English level is provided as a CEFR indicator.
 User's CEFR level: "{user_cefr}"
+
+Don't say "Hello" again. *Don't re-introduce* yourself
+Generate a concise response in two or less short sentences about {npc}. Do *not* make a question to the user here. Also, do not write the number of sentences in the answer.
+
+If the user gives a *short answer*("Yes", "No") or there is a lack of explanation:
+    You must request additional details from the user.
+    answer example: "Could you please provide more details on that?", "I'm interested in hearing more about this. Could you elaborate?", or "Your input is valuable. Could you expand a bit more on that point?"
 
 User's characteristic: "{reflect}"
 Use interests *only* in the following cases.
 If a user loses interest and goes off topic(introducing {npc} job) during a conversation about {npc}'s job description:
     You say you want to bring up the subject for a moment, and refer to *User's personality* and *Maintaining the concept of the job* to encourage conversation about *Your job* and *The user's interests* topics.
-    example: "Let's take a moment to discuss another topic. Did you know that teamwork is as necessary in space as it is in basketball?"
 generate answer that match *the user's conversation style*.
 
 User's previous mistakes: "{retrieve}"
-When a sentence with a structure similar to the user's mistake appears:
+When a sentence with a mistake similar to the user's previous mistakes appears in the user's answer:
 - Compliment the user if he or she writes a sentence well compared to previous mistakes.
 
 if *(the user is unable to answer)*:
-    First answer, *only* ask the user to confirm whether the user does not understand the question. (e.g., "Are you having trouble understanding what I just said?")
-    Next answer, if the user responds that he or she did not clearly understand the question, you have to *help* the user to answer by referring User's previous mistakes(e.g. suggest a user's answer, regenerate your question easily).
+    First, *only* ask the user to confirm whether the user does not understand the question. (e.g., "Are you having trouble understanding what I just said?")
+    If the user responds that he or she did not clearly understand the question, you have to *help* the user to answer by referring User's previous mistakes(e.g. suggest a user's answer, regenerate your question easily).
 
 Previous conversation:
     {summary}
     {previous_conversation}
     {chat_history}
 
+Also, make *only one* question that makes the user talk about {npc}(Make only one question about {npc} job).
+If the user did not make any mistakes, the total number of sentences in the answer should be *three or less*.
+
 Current user conversation:
 user: {user_input}
 Next answer:
 {npc}: 
 """
-# ******추가되거나 성능 개선하여 작동하는 기능******
-# 1. 아이가 짧게 대답했을 경우 더 자세히 질문, 설명하라고 한다 
-# 2. 아이가 흥미를 잃었을 때(흥미를 잃었다고 표시가 나는 대화), 아이의 관심사와 관련된 주제로 잠시 넘어간다.
-# 3. 아이가 틀렸던 문장을 이번에는 잘 고쳐서 대화한 경우, 아이에게 칭찬을 한다.
 
-query_template2 = """
-You'll engage as {npc}. Here are specific details about {npc}: {persona}.
+gpt_4_query_template = """
+You always communicate with the user about *{npc}*'s job. The following is the specific personal information for the NPC you are tasked to act as.
+{npc}: {persona}
 
-Please provide brief, concise responses, ideally two to three sentences long. If the user's input lacks detail or clarity, prompt them to provide more information. If the response is too short or incomplete, request further details.
+CEFR is the English-level criteria that ranges from A1 to C2 (pre-A1, A1, A2, B1, B2, C1, C2). Please talk to the user according to the user's English level. The user's English level is provided as a CEFR indicator.
+User's CEFR level: "{user_cefr}"
 
 Consider the user's English proficiency indicated as CEFR: "{user_cefr}".
 User's characteristic: "{reflect}"
@@ -94,9 +96,10 @@ Initiate conversation about your job and the user's interest, relating to user's
 Tailor your response to match the user's conversation style.
 User's challenge: "{retrieve}"
 
-Suggest an understandable response by referencing "User's challenge".
-Maintain the focus on discussing your job.
-When asking a question:
+If you asked a question,
+- Ask the user a *chain question* about it.
+- You should focus on a conversation about your job.
+- Don't make a chain question about the previous session conversation.
 
 Follow up with a chained question related to the topic.
 Keep the focus on discussing your job.
@@ -117,7 +120,7 @@ Format:
 """
 
 query_prompt = PromptTemplate(
-    input_variables=["chat_history", "previous_conversation", "npc", "persona", "user_cefr", "reflect", "retrieve", "user_input", "summary"], template=query_template2
+    input_variables=["chat_history", "previous_conversation", "npc", "persona", "user_cefr", "reflect", "retrieve", "user_input", "summary"], template=gpt_4_query_template
 )
 
 #########
@@ -172,7 +175,9 @@ def call(request):
     
     
     #대화 내용 DB에서 가져오기
+    print(opponent)
     if(before_opponent != opponent):
+        chat_history = ""
         conversation = db.get_recent_documents(user_name, "Memory", 10)
         conversation = list(conversation)
         for session in reversed(conversation):
@@ -194,7 +199,7 @@ def call(request):
         elif chat_data["role"] == f"{opponent}":
             all_chat_data_string += f"{opponent}" + ": " + chat_data["content"] + "\n"
 
-    conversation = Database.get_all_documents(db, f"{user_name}" , "Conversations")
+    # conversation = Database.get_all_documents(db, f"{user_name}" , "Conversations")
 
     before_data_num = 0
     # for chat_data in conversation:
@@ -254,16 +259,30 @@ def call(request):
     if(cefr == "Idk"):
         cefr = "pre-A1"
     
-    answer = LLMChainQuery.predict(
+    if(opponent == "custom"):
+        print(get_persona())
+        print("FOR TEST")
+        answer = LLMChainQuery.predict(
         npc = opponent,
-        persona = persona_dict[opponent],
+        persona = get_persona(),
         user_cefr = cefr,
         reflect = reflect,
         retrieve = retrieve,
         user_input = user_message,
         previous_conversation = chat_history,
         summary = summary
-    )
+        )
+    else:   
+        answer = LLMChainQuery.predict(
+            npc = opponent,
+            persona = persona_dict[opponent],
+            user_cefr = cefr,
+            reflect = reflect,
+            retrieve = retrieve,
+            user_input = user_message,
+            previous_conversation = chat_history,
+            summary = summary
+        )
 
     #conversation = Database.get_all_documents(db, f"{user_name}", "Conversations")
     
@@ -316,11 +335,12 @@ def call(request):
     #print(improvement_response["choices"])
     #improvement_answer = improvement_response["choices"][0]["message"]["content"]
     
+    answer = answer.replace("Hello!"," ")
 
     messages_response = body["messages"] + [
         {
             "role": opponent,
-            "content": answer, #improvement_answer, #answer
+            "content": answer.replace("\n\n"," "), #improvement_answer, #answer
         }
     ]
     before_opponent = opponent
