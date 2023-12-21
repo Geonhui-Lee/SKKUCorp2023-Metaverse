@@ -15,8 +15,6 @@ openai.api_key = OPENAI_API_KEY
 chat = CommonChatOpenAI()
 
 
-
-
 npc_template = """
 user is bad at:
 {retrieve}
@@ -84,7 +82,7 @@ def call(request):
     reflect_str = '\n'.join([r['reflect'] for r in last_reflects[::-1]])
     print(reflect_str)
     print("reflect end")
-    cefr_collection = db.get_collection(user_name, 'CEFR')
+    cefr_collection = db.get_collection(user_name, 'CEFR_GPT')
     #가장 최근의 cefr 가져오기
     cefr = cefr_collection.find_one(sort=[('node', -1)])['cefr']
     print(cefr)

@@ -55,9 +55,10 @@ If the user gives a *short answer*("Yes", "No") or there is a lack of explanatio
     answer example: "Could you please provide more details on that?", "I'm interested in hearing more about this. Could you elaborate?", or "Your input is valuable. Could you expand a bit more on that point?"
 
 User's characteristic: "{reflect}"
-Use interests ***only*** in the following cases.
-If a user has no interest and goes off topic(introducing {npc} job) during a conversation about {npc}'s job description:
-    You say you want to bring up the subject for a moment, and refer to *User's personality* and *Maintaining the concept of the job* to encourage conversation about *Your job* and *The user's interests* topics.
+Use interests *only* in the following case.(*Do not use it in other cases*)
+If, and only if the user has no interest and goes off from introducing {npc} job during a conversation about {npc}'s job description:
+    Change the topic of the conversation for a moment, by referring to *User's interest* and then return to the conversation about {npc}'s job.
+
 generate answer that match *the user's conversation style*.
 
 User's previous mistakes: "{retrieve}"
@@ -74,13 +75,12 @@ Previous conversation:
     {chat_history}
 
 Also, make *only one* question that makes the user talk about {npc}(Make only one question about {npc} job).
-If the user did not make any mistakes, the total number of sentences in the answer should be *three or less*.
+If the user did not make any mistakes, the total number of sentences in the answer should be *three or less* and they should be all short.
 
 Current user conversation:
 user: {user_input}
 Next answer:
-{npc}: 
-"""
+{npc}: """
 
 gpt_4_query_template = """
 You'll engage as {npc}. Here are specific details about {npc}: {persona}.
