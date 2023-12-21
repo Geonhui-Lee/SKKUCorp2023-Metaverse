@@ -16,7 +16,7 @@ def call(request):
     
     prompt = body['npcname'] + ', ' + body['npcjob']
     persona = wikipedia.summary(prompt, sentences = 4)
-    persona += f"\n Mission: {body['npcgoal']}"
+    persona += f"\n User's Need: {body['npcgoal']}"
     
     return JsonResponse({
         "persona": persona

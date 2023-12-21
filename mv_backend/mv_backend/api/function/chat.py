@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from mv_backend.lib.database import Database
-from mv_backend.lib.common import CommonChatOpenAI, gpt_model_name
+from mv_backend.lib.common import CommonChatOpenAI
 from mv_backend.settings import OPENAI_API_KEY
 from langchain.chains import LLMChain
 from langchain.memory import ConversationSummaryBufferMemory
@@ -115,10 +115,10 @@ user: {user_input}
 Format:
 (Two sentences)
 """
-if gpt_model_name == "gpt-4-1106-preview":
+if CommonChatOpenAI().model_name == "gpt-4-1106-preview":
     query_template = gpt_4_query_template
 
-elif gpt_model_name == "gpt-3.5-turbo-1106":
+elif CommonChatOpenAI().model_name == "gpt-3.5-turbo-1106":
     query_template = gpt_3_5_query_template
 
 query_prompt = PromptTemplate(
