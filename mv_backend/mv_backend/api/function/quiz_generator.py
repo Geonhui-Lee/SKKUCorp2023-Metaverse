@@ -11,9 +11,9 @@ import openai
 from pymongo.mongo_client import MongoClient
 
 db = Database()
-
 openai.api_key = OPENAI_API_KEY
 chat = CommonChatOpenAI()
+
 
 
 
@@ -38,7 +38,7 @@ The quiz should have a question, 4 choices, a answer, and a explanation. Questio
 Make 3 quiz and write it down in a below example format.
 
 The order of correct and wrong choices in the example is *not fixed* (*Must* make it in random order). Make quizs that fits "user is bad at" and "reason: ". *Must* include "<color=red>" and "</color>".
-ex) {example}
+format) {example}
 
 """
 
