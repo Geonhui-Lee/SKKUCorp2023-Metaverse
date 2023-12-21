@@ -79,8 +79,7 @@ If the user did not make any mistakes, the total number of sentences in the answ
 Current user conversation:
 user: {user_input}
 Next answer:
-{npc}:
-"""
+{npc}: """
 
 gpt_4_query_template = """
 You'll engage as {npc}. Here are specific details about {npc}: {persona}.
