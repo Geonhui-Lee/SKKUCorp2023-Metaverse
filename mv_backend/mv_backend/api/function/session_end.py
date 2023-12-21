@@ -9,7 +9,7 @@ from mv_backend.lib.common import CommonChatOpenAI, gpt_model_name
 from mv_backend.api.function.retrieve import *
 from mv_backend.api.function.reflect import *
 from mv_backend.api.function.cefr import *
-from mv_backend.api.function.cefr_simplified import *
+#from mv_backend.api.function.cefr_simplified import *
 from mv_backend.api.function.chat import memory_dict
 from langchain.schema import (
     AIMessage,
@@ -175,7 +175,7 @@ def call(request):
     ##reflect_document = reflect(opponent, user_name, chat_data_list)
     retrieve_content = retrieve(opponent, user_name, chat_data_list)
     reflect_content = reflect(opponent, user_name, chat_data_list)
-    cefr_content = cefr(user_name, user_chat_data_list)
+    #cefr_content = cefr(user_name, user_chat_data_list)
     cefr_gpt_content = cefr_gpt(user_name, user_chat_data_list)
 
     retrieve_korean = translate.run(content = retrieve_content)
@@ -234,7 +234,7 @@ def call(request):
     messages_response += [
         {
             "role": "cefr",
-            "content": cefr_content + "(GPT: " + cefr_gpt_content + ")"
+            "content": "(GPT: " + cefr_gpt_content + ")"
         }
     ]
 

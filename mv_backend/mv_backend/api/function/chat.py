@@ -115,9 +115,14 @@ user: {user_input}
 Format:
 (Two sentences)
 """
+if gpt_model_name == "gpt-4-1106-preview":
+    query_template = gpt_4_query_template
+
+elif gpt_model_name == "gpt-3.5-turbo-1106":
+    query_template = gpt_3_5_query_template
 
 query_prompt = PromptTemplate(
-    input_variables=["chat_history", "previous_conversation", "npc", "persona", "user_cefr", "reflect", "retrieve", "user_input", "summary"], template=gpt_4_query_template
+    input_variables=["chat_history", "previous_conversation", "npc", "persona", "user_cefr", "reflect", "retrieve", "user_input", "summary"], template=query_template
 )
 
 #########
