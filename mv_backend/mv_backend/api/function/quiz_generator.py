@@ -2,22 +2,18 @@ import json
 from django.http import JsonResponse
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
-from langchain.chat_models import ChatOpenAI
-from langchain.memory import ConversationBufferMemory
-from datetime import datetime
-from bson.objectid import ObjectId
+from mv_backend.settings import OPENAI_API_KEY
+from mv_backend.lib.common import CommonChatOpenAI
+from mv_backend.lib.database import Database
 from mv_backend.lib.database import Database
 import openai
 
 from pymongo.mongo_client import MongoClient
 
-MONGODB_CONNECTION_STRING = "mongodb+srv://geonhui:dotgeon@metaverse.px60xor.mongodb.net/?"
-
 db = Database()
-OPENAI_API_KEY = "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"
-import os
-os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
-chat = ChatOpenAI(model_name='gpt-4-1106-preview', temperature=1)
+openai.api_key = OPENAI_API_KEY
+chat = CommonChatOpenAI()
+
 
 
 
