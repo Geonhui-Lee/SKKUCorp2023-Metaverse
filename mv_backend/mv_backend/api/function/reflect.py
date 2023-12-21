@@ -89,7 +89,7 @@ Insights into conversational styles(e.g., Sociable), interests(e.g., soccer).
 Insights:
     Information about *{opponent}*’s interests.
     Information about the topic *{opponent}* is curious about.
-    The *{opponent}*'s conversation style (e.g., Extroverted(외향적): This child actively seeks out interactions with others and eagerly responds to others' initiatives. They thrive in social settings and are comfortable engaging with different people. Even with limited words or when facing communication challenges, they persist in their efforts to connect with others. Their enthusiasm for social engagement often leads them to initiate conversations and activities, displaying a natural ease in interacting with those around them.
+    The *{opponent}*'s conversation style must be chosen from the following options (options : Extroverted(외향적): This child actively seeks out interactions with others and eagerly responds to others' initiatives. They thrive in social settings and are comfortable engaging with different people. Even with limited words or when facing communication challenges, they persist in their efforts to connect with others. Their enthusiasm for social engagement often leads them to initiate conversations and activities, displaying a natural ease in interacting with those around them.
 , Introverted(내향적): In contrast, this child tends to respond more than initiate interactions. They may be labeled as "shy" and typically require time to feel comfortable in new environments or around new people. Their attempts at communication might go unnoticed as they prefer observing before participating actively. Difficulties in communication can affect their confidence, making them less likely to initiate interactions. However, they can be deeply engaged and thoughtful conversationalists once they feel at ease.
 , Imaginative(상상력): This child actively engages in interactions, displaying a vibrant imagination in their conversations and activities.Usually seek out interactions to satisfy their curiosity.They initiate interactions and respond enthusiastically, infusing creativity into their communication. Their imaginative nature leads them to enjoy storytelling, creative play, and exploring various possibilities in their interactions. They often bring a sense of wonder and creativity to their social engagements, making interactions dynamic and imaginative.
 , Intuitive(직관적): In contrast, this child might not always initiate interactions but demonstrates a deep intuitive understanding of their surroundings and people. While they may be more reserved in social situations, they possess a remarkable ability to perceive emotions and nuances. When they do engage, their interactions are marked by thoughtfulness and insight, showcasing their intuitive understanding of others' feelings and the environment.
@@ -102,7 +102,7 @@ What are the {name}'s high-level insights about {opponent} can be inferred from 
 For interest, conversation style parts, you should refer to the sentences spoken by {opponent}.
 example:
     interest: soccer, spacecraft, game
-    conversation style: Passive
+    conversation style: Extroverted
 output format:
     interest: (noun)
     conversation style: (noun)

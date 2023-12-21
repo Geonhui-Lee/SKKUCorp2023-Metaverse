@@ -26,6 +26,9 @@ openai.api_key = OPENAI_API_KEY
 chat = CommonChatOpenAI()
 
 def call(request):
+    global cefr_string
+    cefr_string = "A1"
+
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
 
@@ -37,7 +40,7 @@ def call(request):
     
     reflect = Database.get_recent_documents(db, user_name, "Reflects_Kor", 1)
     retrieve = Database.get_recent_documents(db, user_name, "Retrieves_Kor", 1)
-    cefr = Database.get_recent_documents(db, user_name, "CEFR", 1)
+    cefr = Database.get_recent_documents(db, user_name, "CEFR_GPT", 1)
     for i in reflect:
         reflect_string = i["reflect"]
     for i in retrieve:
