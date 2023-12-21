@@ -37,7 +37,7 @@ def call(request):
     
     reflect = Database.get_recent_documents(db, user_name, "Reflects_Kor", 3)
     retrieve = Database.get_recent_documents(db, user_name, "Retrieves_Kor", 3)
-    cefr = Database.get_recent_documents(db, user_name, "CEFR", 1)
+    cefr = Database.get_recent_documents(db, user_name, "CEFR_GPT", 1)
     interest_dict = dict()
     coversationStyle_dict = dict()
     cefr_string = ""
