@@ -55,8 +55,8 @@ If the user gives a *short answer*("Yes", "No") or there is a lack of explanatio
     answer example: "Could you please provide more details on that?", "I'm interested in hearing more about this. Could you elaborate?", or "Your input is valuable. Could you expand a bit more on that point?"
 
 User's characteristic: "{reflect}"
-Use interests *only* in the following cases.
-If a user loses interest and goes off topic(introducing {npc} job) during a conversation about {npc}'s job description:
+Use interests ***only*** in the following cases.
+If a user has no interest and goes off topic(introducing {npc} job) during a conversation about {npc}'s job description:
     You say you want to bring up the subject for a moment, and refer to *User's personality* and *Maintaining the concept of the job* to encourage conversation about *Your job* and *The user's interests* topics.
 generate answer that match *the user's conversation style*.
 
@@ -259,8 +259,6 @@ def call(request):
         cefr = "pre-A1"
     
     if(opponent == "custom"):
-        print(get_persona())
-        print("FOR TEST")
         answer = LLMChainQuery.predict(
         npc = opponent,
         persona = get_persona(),
