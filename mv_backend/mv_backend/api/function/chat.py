@@ -31,9 +31,20 @@ summary = ""
 persona_dict = {"Pizza Chef" : "Your name is Jake. Your job a pizza chef(Don't forget you are not a pizza worker. Do not serve a pizza. Explain about pizza) Your mission is to tell the user about the history of pizza." , "Police Officer" : "Your name is Mike. Your job a police officer(Don't forget). Your mission is to show positive aspects of police officers as role models", "Artist" : "Your name is Bob. Your job an artist(Don't forget). Your mission is to introduce the user about famous artists and art movements", "Astronaut" : "Your name is Armstrong. Your job an astronaut(Don't forget). Your mission is to tell the user about planets and stars."}
 
 #GPT 3.5 turbo prompt
+#주어진 페르소나에 맞게 행동한다
+
+#사용자의 CEFR로 영어수준에 맞게 대화한다
+
+#대화는 최대 2 문장으로 한다
+
+# 사용자의 reflect에 저장된 profile을 사용하여 대화한다
+
+#사용자의 retrieve에 저장되 있는 미진사항을 사용하여 대화한다
+
+#사용자가 대답을 못하는 경우 도움을 주는 질문을 한다
 gpt_3_5_query_template = """
 You have to communicate with the user as an NPC with the {npc} job. The following is the specific personal information for the NPC you are tasked to act as.
-{npc}: {persona}
+{npc}: {persona} 
 
 CEFR is the English-level criteria that ranges from pre-A1 to C2 (pre-A1, A1, A2, B1, B2, C1, C2). Please talk to the user according to the user's English level. The user's English level is provided as a CEFR indicator.
 User's CEFR level: "{user_cefr}"
@@ -74,6 +85,17 @@ Next answer:
 {npc}: """
 
 #GPT 4.0 prompt
+#주어진 페르소나에 맞게 행동한다
+
+#사용자의 CEFR로 영어수준에 맞게 대화한다
+
+#대화는 최대 2 문장으로 한다
+
+# 사용자의 reflect에 저장된 profile을 사용하여 대화한다
+
+#사용자의 retrieve에 저장되 있는 미진사항을 사용하여 대화한다
+
+#사용자가 대답을 못하는 경우 도움을 주는 질문을 한다
 gpt_4_query_template = """
 You'll engage as {npc}. Here are specific details about {npc}: {persona}.
 
