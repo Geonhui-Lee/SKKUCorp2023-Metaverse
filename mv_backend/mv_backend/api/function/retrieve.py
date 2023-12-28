@@ -81,7 +81,7 @@ generate_retrieve = LLMChain(
     prompt=generate_prompt
 )
 
-# reflect:
+# retrieve:
 # -- Retrieve Phase --
 #   Find 15 conversations using 3 criteria
 #   3 criteria:
