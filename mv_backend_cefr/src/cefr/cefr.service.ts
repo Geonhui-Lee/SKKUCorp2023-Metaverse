@@ -3,16 +3,18 @@ import * as grade from 'vocabulary-level-grader';
 import { AnalyzeCEFRDto } from './analyze-cefr.dto';
 import { CEFREvaluationDto } from './cefr-evaluation.dto';
 
-// https://github.com/openderock/vocabulary-level-grader
 @Injectable()
 export class CEFRService {
   analyzeCEFR(analyzeCEFRDto: AnalyzeCEFRDto): CEFREvaluationDto {
     const contentToEvaluate = analyzeCEFRDto.content;
     const evaluation: CEFREvaluationDto = grade(contentToEvaluate);
 
+    // Get normalized level value
     function getNormalizedLevelValue(level: number): number {
       return level >= 100 ? 0 : level;
     }
+
+    // CEFR level dictionary (normalized value)
     const levels = {
       A1: getNormalizedLevelValue(evaluation.meta.levels.A1),
       A2: getNormalizedLevelValue(evaluation.meta.levels.A2),
@@ -22,7 +24,7 @@ export class CEFRService {
       C2: getNormalizedLevelValue(evaluation.meta.levels.C2),
     };
     evaluation.meta.levels = levels;
-
+    
     const normalizedGrade = [];
     for (const level in levels) {
       if (levels[level] >= 90 && levels[level] < 100) {
@@ -41,7 +43,7 @@ export class CEFRService {
     }
     if (normalizedGrade.length == 0) {
       // get the level with the highest value
-      let highestLevel = 'IDK';
+      let highestLevel = 'N/A';
       let highestLevelValue = 0;
       for (const level in levels) {
         if (levels[level] > highestLevelValue) {
@@ -52,6 +54,7 @@ export class CEFRService {
       normalizedGrade.push(highestLevel);
     }
 
+    // Update the grade evaluation with the normalized value
     evaluation.meta.grade = normalizedGrade[
       normalizedGrade.length - 1
     ] as CEFREvaluationDto['meta']['grade'];
