@@ -89,7 +89,7 @@ generate_retrieve = LLMChain(
 #   recency -- conversation recency score (For previous conversations, start at 1 and multiply by 0.995)
 #   importance -- find important conversations
 #
-# -- Generate Phase -- 
+# -- Generate Phase --
 #   Generate NPC answer to a query about the user
 #
 # input:
