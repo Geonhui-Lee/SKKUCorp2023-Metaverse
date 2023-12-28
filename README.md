@@ -17,8 +17,14 @@
 cd mv_backend
 pip install -r requirements.txt
 ````
+
+3. [초기 설정] 코어 백엔드 애플리케이션은 OpenAI API Key, MongoDB 데이터베이스 등 외부적인 요소도 활용하므로 환경변수 설정을 해야 합니다. mv_backend 내에 환경변수 탬플릿 파일(`.env.template`)을 복사하여 환경변수 파일을 생성한 뒤 (`.env`), 아래와 같이 수정합니다.
+````
+OPENAI_API_KEY=sk-(OPENAI API 키 입력)
+MONGODB_CONNECTION_STRING=mongodb+srv://(MongoDB 연결 스트링 입력 )
+````
   
-3. 아래와 같은 명령어로 백엔드 애플리케이션을 실행할 수 있습니다.
+4. 아래와 같은 명령어로 백엔드 애플리케이션을 실행할 수 있습니다.
 ````
 python manage.py runserver
 ````
