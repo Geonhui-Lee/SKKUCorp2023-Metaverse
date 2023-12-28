@@ -1,3 +1,4 @@
+#백엔드 전체 GPT 모델을 관리하는 파일
 from langchain.chat_models import ChatOpenAI
 from mv_backend.settings import OPENAI_API_KEY
 import openai
