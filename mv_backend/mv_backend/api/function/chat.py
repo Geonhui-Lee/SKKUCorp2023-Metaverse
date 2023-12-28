@@ -26,20 +26,11 @@ chat = CommonChatOpenAI()
 before_opponent = ""
 chat_history = ""
 summary = ""
-#"""
-# You are a customer at a pizza restaurant. 
-# You are in an ordering situation.
 
-# menu list:
-# Bulgogi pizza
-# Cheese pizza
-# Pepperoni pizza
-# Potato pizza
 
 persona_dict = {"Pizza Chef" : "Your name is Jake. Your job a pizza chef(Don't forget you are not a pizza worker. Do not serve a pizza. Explain about pizza) Your mission is to tell the user about the history of pizza." , "Police Officer" : "Your name is Mike. Your job a police officer(Don't forget). Your mission is to show positive aspects of police officers as role models", "Artist" : "Your name is Bob. Your job an artist(Don't forget). Your mission is to introduce the user about famous artists and art movements", "Astronaut" : "Your name is Armstrong. Your job an astronaut(Don't forget). Your mission is to tell the user about planets and stars."}
-#프로게이머, 고고학자
-#피자 요리사의 persona를 다시 정하자
 
+#GPT 3.5 turbo prompt
 gpt_3_5_query_template = """
 You have to communicate with the user as an NPC with the {npc} job. The following is the specific personal information for the NPC you are tasked to act as.
 {npc}: {persona}
@@ -82,6 +73,7 @@ user: {user_input}
 Next answer:
 {npc}: """
 
+#GPT 4.0 prompt
 gpt_4_query_template = """
 You'll engage as {npc}. Here are specific details about {npc}: {persona}.
 
@@ -125,24 +117,7 @@ query_prompt = PromptTemplate(
     input_variables=["chat_history", "previous_conversation", "npc", "persona", "user_cefr", "reflect", "retrieve", "user_input", "summary"], template=query_template
 )
 
-#########
 
-# important_template = """
-# On the scale of 1 to 10, where 1 is purely mundane (e.g., routine morning greetings) and 10 is extremely poignant (e.g., a conversation about breaking up, a fight), rate the likely poignancy of the following conversation for {name}.
-
-# Conversation: 
-# {event}
-
-# Rate (return a number between 1 to 10):
-# """
-# important_prompt = PromptTemplate(
-#     input_variables=["name", "event"], template=important_template
-# )
-
-# important_score = LLMChain(
-#     llm=chat,
-#     prompt=important_prompt
-# )
 
 def call(request):
     global before_opponent
@@ -201,22 +176,9 @@ def call(request):
         elif chat_data["role"] == f"{opponent}":
             all_chat_data_string += f"{opponent}" + ": " + chat_data["content"] + "\n"
 
-    # conversation = Database.get_all_documents(db, f"{user_name}" , "Conversations")
 
     before_data_num = 0
-    # for chat_data in conversation:
-    #     if (chat_data["name"] == f"{user_name}" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == f"{user_name}"):
-    #         before_data_num += 1
-    
-    # data_num = 0
-    # for chat_data in conversation:
-    #     if (chat_data["name"] == f"{user_name}" and chat_data["opponent"] == opponent) or (chat_data["name"] == opponent and chat_data["opponent"] == f"{user_name}"):
-    #         data_num += 1
-    #         if data_num >= before_data_num - 100:
-    #             all_chat_data_string += chat_data["name"] + ": " + chat_data["memory"] + "\n"
-    
-    # if data_num == 0:
-    #     all_chat_data_string = "None"
+
     
     cefr_data = Database.get_all_documents(db, f"{user_name}", "CEFR_GPT")
     retrieve_data = Database.get_all_documents(db, f"{user_name}", "Retrieves")
@@ -251,11 +213,7 @@ def call(request):
             break
         reflect += str(data_num) + ". " + data + "\n"
     
-    # retrieve = """
-    # 1. The user does not know words such as "expand, billion".
-    # 2. The user does not understand sentence structures such as "particle phrases".
-    # 3. The user do not understand long sentences well.
-    # """
+
     
     # "Reflect/Retrieve 정보를 기반으로 다음 대화에 들어갈 때 선생님이 이 아이를 정확히 인지하고 그거에 맞게 대화 세션을 어떻게 이끌어 나갈지를 설계해야 돼."
     if(cefr == "Idk"):
@@ -284,56 +242,7 @@ def call(request):
             summary = summary
         )
 
-    #conversation = Database.get_all_documents(db, f"{user_name}", "Conversations")
     
-    # #print(conversation)
-    # #node = 0
-    # #data_num = 0
-
-    # for i in conversation:
-    #     data_num += 1
-    
-    # if data_num != 0:
-    #     node = i["node"] + 1
-    
-    # datetimeStr = datetime.now().strftime("%Y-%m-%d")
-
-    # important_str = important_score.run(event = user_message, name = f"{user_name}")
-    # important_str = "0" + important_str
-    # score_user = int(''.join(filter(str.isdigit, important_str)))
-    # if score_user > 10:
-    #     score_user = 0
-    
-    # important_str = important_score.run(event = opponent + ": " + answer, name = f"{user_name}")
-    # important_str = "0" + important_str
-    # score_customer = int(''.join(filter(str.isdigit, important_str)))
-    # if score_customer > 10:
-    #     score_customer = 0
-    
-    # document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":user_message,"name":f"{user_name}","opponent":opponent,"important":score_user}
-    #document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":user_message,"name":f"{user_name}","opponent":opponent}
-    #node += 1
-    # document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":answer,"name":opponent,"opponent":f"{user_name}","important":score_customer}
-    # document_customer = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":answer,"name":opponent,"opponent":f"{user_name}"}
-    # print(Database.set_document(db, f"{user_name}" , "Conversations", document_user))
-    # print(Database.set_document(db, f"{user_name}", "Conversations",  document_customer))
-
-    #improved_answer_chat = CommonChatOpenAI()
-    #improvement_openai_client = openai()
-    # improvement_messages = [
-    #     #{"role": "system", "content": "NPC(Assistant)가 답변을 해야하는 상황이야. NPC가 Reflect (유저 특성) 정보, Retrieve (미진사항) 정보를 기반으로 다음 대화에 들어갈 때 사용자를 정확히 인지하고 그거에 맞게 대화 세션을 어떻게 이끌어 나갈지를 설계해야 돼. 주어진 Reflect 정보, Retrieve 정보를 반영해서 기존 답변을 개선해줘."},
-    #     {"role": "system", "content": "The NPC (Assistant) has to answer. NPC needs to design how to accurately recognize the user and lead the conversation session when entering the next conversation based on Reflect information and Retrieve information. Please improve the existing answer by reflecting the given Reflect information and Retrieve information."},
-    #     {"role": "assistant", "content": answer},
-    #     {"role": "system", "content": "[Reflect (user's characteristics) Information] " + reflect},
-    #     {"role": "system", "content": "[Retrieve (improvements that the user needs to acknowledge)] " + retrieve}
-    # ]
-    
-    # improvement_response = openai.ChatCompletion.create(
-    #     model=gpt_model_name,
-    #     messages=improvement_messages
-    # )
-    #print(improvement_response["choices"])
-    #improvement_answer = improvement_response["choices"][0]["message"]["content"]
     
     answer = answer.replace("Hello!"," ")
 
