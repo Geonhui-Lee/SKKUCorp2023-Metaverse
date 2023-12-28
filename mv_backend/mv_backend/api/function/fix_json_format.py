@@ -1,3 +1,4 @@
+# Description: GetQuiz.cs(Unity)와 연결된 파일, 백엔드(quiz_generator.py)에서 생성한 퀴즈 값이 에러가 뜬다면, 이 파일을 통해 다시 수정하게 함 #
 import json
 from django.http import JsonResponse
 from langchain.chains import LLMChain
@@ -10,6 +11,7 @@ openai.api_key = OPENAI_API_KEY
 chat = CommonChatOpenAI()
 
 
+# JSON 형식에 문제가 있으면, 수정 요청 또한, 예시 형식에 맞춰서 수정하라고 알려줌
 npc_template = """
 {input}
 
@@ -34,6 +36,7 @@ npc_prompt = PromptTemplate(
     template=npc_template
 )
 
+# 요청이 들어오면, JSON 형식을 확인하고, 문제가 있으면 수정하라고 알려줌
 def call(request):
 
     npc_llm = LLMChain(
@@ -45,6 +48,7 @@ def call(request):
     print()
     print(npc_response)
 
+    # 수정한 값을 밑의 json 형식에 맞춰서 다시 보냄
     return JsonResponse({
         "npc_response" : npc_response
     })
