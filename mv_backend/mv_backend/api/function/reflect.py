@@ -64,7 +64,7 @@ generate_important = LLMChain(
     prompt=generate_important_prompt
 )
 
-# prompt: Create NPC insights about the user 
+# prompt: Create NPC insights about the user
 # 
 # input:
 # {event} -- converstation converstation (user <-> npc)
