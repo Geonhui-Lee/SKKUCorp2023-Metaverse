@@ -6,10 +6,7 @@ from langchain.prompts import PromptTemplate
 from mv_backend.settings import OPENAI_API_KEY
 from mv_backend.lib.common import CommonChatOpenAI
 from mv_backend.lib.database import Database
-from mv_backend.lib.database import Database
 import openai
-
-from pymongo.mongo_client import MongoClient
 
 db = Database()
 openai.api_key = OPENAI_API_KEY
