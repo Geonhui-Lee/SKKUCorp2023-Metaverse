@@ -55,7 +55,7 @@ python manage.py runserver
     - `custom_persona.py`: wikipedia 정보를 통해 NPC persona를 생성하는 기능
     - `reflect.py`: reflect(user 특성 찾기) 기능
     - `retrieve.py`: retrieve(user 미진 사항 찾기) 기능
-    - `quiz.py`: user 정보를 기반으로 퀴즈 생성하는 기능
+    - `quiz_generator.py`: user 정보를 기반으로 퀴즈 생성하는 기능
     </details>
 - `lib`: Database, CommonChatOpenAI 등 공통적으로 사용되는 설정 및 클래시가 포함되어 있습니다.
 
