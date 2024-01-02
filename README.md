@@ -59,7 +59,7 @@ python manage.py runserver
     </details>
 - `lib`: Database, CommonChatOpenAI 등 공통적으로 사용되는 설정 및 클래시가 포함되어 있습니다.
 
-## [API 문서](https://www.notion.so/eb449a2cf045442d85a3cf3c65c75e7c?v=a945cf7ef8d940e7aa20a35fe26c23d4)
+## [API 문서](https://dotgeon-kingo.notion.site/eb449a2cf045442d85a3cf3c65c75e7c?v=a945cf7ef8d940e7aa20a35fe26c23d4)
 
 ## mv_backend_cefr 실행방법
 1. CEFR 레벨 평가용 백엔드 애플리케이션은 NestJS 기반으로 개발되어 있어 Node.js 및 NestJS을 셋업해야 합니다.
