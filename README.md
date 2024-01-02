@@ -47,7 +47,7 @@ python manage.py runserver
     <details><summary>function/</summary>
 
     - `cefr_simplified.py`: 활용 어휘를 기반으로 CEFR 점수가 계산되는 기능
-    - `cefr.py`: GPT를 통해 CEFR 점수가 생성되는 기능
+    - `cefr.py`: GPT를 통해 CEFR 점수가 산출되는 기능
     - `chat.py`: user 정보를 기반으로 NPC가 맞춤형 대화하는 기능
     - `reflect.py`: reflect(user 특성 찾기) 기능
     - `retrieve.py`: retrieve(user 미진 사항 찾기) 기능
