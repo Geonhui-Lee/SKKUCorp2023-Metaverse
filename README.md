@@ -2,6 +2,17 @@
 
 2023학년도 성균관대학교 소프트웨어융합대학 산학협력프로젝트 웅진씽크빅 메타버스 프로젝트의 백엔드 애플리케이션입니다.
 
+## 데모 영상
+A1 level (GPT 3.5 Turbo)
+[![Video Label](http://img.youtube.com/vi/G8IFECU7Q6k/0.jpg)](https://youtu.be/G8IFECU7Q6k?si=9RODhlfOSECArWhE)
+---
+A1 level (GPT 4)
+[![Video Label](http://img.youtube.com/vi/KTXqJFn-iWE/0.jpg)](https://youtu.be/KTXqJFn-iWE?si=6-3DD1L4wRXTHyVy)
+---
+Customizing NPC
+[![Video Label](http://img.youtube.com/vi/K7FkbBDxkEM/0.jpg)](https://youtu.be/K7FkbBDxkEM?si=BlLAKwhonpZFR2PH)
+
+
 ## 폴더 구조
 - mv_backend: 핵심 백엔드 애플리케이션 (Django)
 - mv_backend_cefr: 어휘 기반 CEFR 레벨 평가용 백엔드 애플리케이션 (NestJS)
@@ -29,7 +40,7 @@ MONGODB_CONNECTION_STRING=mongodb+srv://(MongoDB 연결 스트링 입력 )
 python manage.py runserver
 ````
 
-## mv_backend 내부구조
+## mv_backend/mv_backend 내부구조
 - `api`: 프론트엔드/백엔드 간 통신을 위한 코드가 포함되어 있습니다.
   - `load.py`: 각 프로세스 함수가 정의된 요청 디렉토리를 한 곳에 관리하는 곳입니다.
   - `function/***`: 백엔드 애플리케이션 내 핵심 기능이 구현된 함수가 포함된 곳입니다. 
