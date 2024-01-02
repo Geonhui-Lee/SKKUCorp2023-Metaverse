@@ -47,7 +47,7 @@ python manage.py runserver
 - `api`: 프론트엔드/백엔드 간 통신을 위한 코드가 포함되어 있습니다.
   - `load.py`: 각 프로세스 함수가 정의된 요청 디렉토리를 한 곳에 관리하는 곳입니다.
   - `function/***`: 백엔드 애플리케이션 내 핵심 기능이 구현된 함수가 포함된 곳입니다.
-    <details><summary>*function/*</summary>
+    <details><summary>function/</summary>
 
     - `cefr_simplified.py`: 활용 어휘를 기반으로 CEFR 점수가 계산되는 기능
     - `cefr.py`: GPT를 통해 CEFR 점수가 산출되는 기능
