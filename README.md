@@ -3,13 +3,13 @@
 2023학년도 성균관대학교 소프트웨어융합대학 산학협력프로젝트 웅진씽크빅 메타버스 프로젝트의 백엔드 애플리케이션입니다.
 
 ## 데모 영상
-A1 level (GPT 3.5 Turbo)
+- A1 level (GPT 3.5 Turbo)
 [![Video Label](http://img.youtube.com/vi/G8IFECU7Q6k/0.jpg)](https://youtu.be/G8IFECU7Q6k?si=9RODhlfOSECArWhE)
 ---
-A1 level (GPT 4)
+- A1 level (GPT 4)
 [![Video Label](http://img.youtube.com/vi/KTXqJFn-iWE/0.jpg)](https://youtu.be/KTXqJFn-iWE?si=6-3DD1L4wRXTHyVy)
 ---
-Customizing NPC
+- Customizing NPC
 [![Video Label](http://img.youtube.com/vi/K7FkbBDxkEM/0.jpg)](https://youtu.be/K7FkbBDxkEM?si=BlLAKwhonpZFR2PH)
 
 
