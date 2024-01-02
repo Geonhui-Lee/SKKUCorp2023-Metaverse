@@ -9,7 +9,6 @@ from mv_backend.lib.common import CommonChatOpenAI, gpt_model_name
 from mv_backend.api.function.retrieve import *
 from mv_backend.api.function.reflect import *
 from mv_backend.api.function.cefr import *
-#from mv_backend.api.function.cefr_simplified import *
 from mv_backend.api.function.chat import memory_dict
 from langchain.schema import (
     AIMessage,
@@ -23,9 +22,14 @@ from bson.objectid import ObjectId
 db = Database()
 
 openai.api_key = OPENAI_API_KEY
-# chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0)
 chat = CommonChatOpenAI()
-###prompt
+
+# every prompts for this code
+
+# prompt: translating the results into Korean and formatting them once again
+#
+# input:
+# {content} -- retrieve result
 translate_template = """
 content:
 {content}
@@ -54,7 +58,11 @@ translate = LLMChain(
     llm=chat,
     prompt=translate_prompt
 )
-###
+
+# prompt: translating the results into Korean and formatting them once again
+#
+# input:
+# {content} -- reflect result
 reflect_translate_template = """
 content:
 {content}
@@ -74,24 +82,8 @@ reflect_translate = LLMChain(
     llm=chat,
     prompt=reflect_translate_prompt
 )
-# important_template = """
-# Find {num} important dialogues in the following conversation of {name}.
 
-# Conversation: 
-# {event}
-
-# Ranking:
-# [1]"""
-
-# important_prompt = PromptTemplate(
-#     input_variables=["event", "name", "num"], template=important_template
-# )
-
-# important_query = LLMChain(
-#     llm=chat,
-#     prompt=important_prompt
-# )
-
+# If the conversation session ends, retrieve, reflect, and cefr functions are performed with the conversation content.
 def call(request):
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
@@ -111,7 +103,6 @@ def call(request):
     memory = memory_dict.get(user_name)
 
     conversation = Database.get_all_documents(db, user_name, "Conversations")
-    print(conversation)
     node = 0
     data_num = 0
 
@@ -142,7 +133,6 @@ def call(request):
             document_user = {"_id":ObjectId(),"node":node,"timestamp":datetimeStr,"memory":message.content,"name":"summary","opponent":opponent}
             print(Database.set_document(db, user_name, "Memory", document_user))
             node += 1
-            
     
     for chat_data in body["messages"]:
         if chat_data["role"] == user_name:
@@ -157,25 +147,12 @@ def call(request):
             print(Database.set_document(db, user_name, "Conversations", document_user))
             node += 1
     
-    # conversation = Database.get_all_documents(db, user_name, "Conversations")
-    # print(conversation)
-    # node = 0
-    # data_num = 0
-
-    # for i in conversation:
-    #     data_num += 1
-    
-    # if data_num != 0:
-    #     node = i["node"] + 1
-    
     if(memory):
         memory.clear
-
-    #retrieve_document = retrieve(opponent, user_name, chat_data_list)
-    ##reflect_document = reflect(opponent, user_name, chat_data_list)
+    
+    # retrieve, reflect, and cefr functions are performed with the conversation content
     retrieve_content = retrieve(opponent, user_name, chat_data_list)
     reflect_content = reflect(opponent, user_name, chat_data_list)
-    #cefr_content = cefr(user_name, user_chat_data_list)
     cefr_gpt_content = cefr_gpt(user_name, user_chat_data_list)
 
     retrieve_korean = translate.run(content = retrieve_content)
@@ -185,7 +162,6 @@ def call(request):
         retrieve_korean = ""
     
     previous = Database.get_all_documents(db, user_name, "Retrieves_Kor")
-    print(previous)
     data_num = 0
     node = 0
 
@@ -193,7 +169,6 @@ def call(request):
         data_num += 1
     
     if data_num != 0:
-        print(i)
         node = i["node"]
         node += 1
     
@@ -202,7 +177,6 @@ def call(request):
     print(Database.set_document(db, user_name, "Retrieves_Kor", document_user))
 
     previous = Database.get_all_documents(db, user_name, "Reflects_Kor")
-    print(previous)
     data_num = 0
     node = 0
 
@@ -210,7 +184,6 @@ def call(request):
         data_num += 1
     
     if data_num != 0:
-        print(i)
         node = i["node"]
         node += 1
     
@@ -237,8 +210,6 @@ def call(request):
             "content": "(GPT: " + cefr_gpt_content + ")"
         }
     ]
-
-    print(messages_response)
     
     return JsonResponse({
         "messages": messages_response

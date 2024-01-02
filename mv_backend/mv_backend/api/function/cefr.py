@@ -22,8 +22,9 @@ os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 chat = CommonChatOpenAI()
 
-#########
+# every prompts for this code
 
+# CEFR criteria
 CEFR = """pre-A1
 Listening & Speaking Reading & Writing
 CAN understand letters of the English alphabet when heard
@@ -106,6 +107,12 @@ A2	Uses basic sentence patterns with memorised phrases, groups of a few words an
 A1	Has a very basic repertoire of words and simple phrases related to personal details and particular concrete situations.	Shows only limited control of a few simple grammatical structures and sentence patterns in a memorised repertoire.	Can manage very short, isolated, mainly pre-packaged utterances, with much pausing to search for expressions, to articulate less familiar words, and to repair communication.	Can ask and answer questions about personal details. Can interact in a simple way but communication is totally dependent on repetition, rephrasing and repair.	Can link words or groups of words with very basic linear connectors like "and" or "then".
 """
 
+# prompt: generate the CEFR score
+#
+# input:
+# {CEFR} -- cuser's name
+# {name} -- the number of queries
+# {query} -- converstation (user -> npc)
 cefr_template = """
 I want you to act as an English teacher and professional English level assessor based on CEFR. First, learn the following CEFR guidelines for assessing English fluency. Here are the guidelines: 
 {CEFR}
@@ -122,62 +129,9 @@ generate_cefr = LLMChain(
     llm=chat,
     prompt=cefr_prompt
 )
-
-#########
-
-# interest_template = """
-# You have to find the interests of student from the conversation.
-# *MUST* If you can't find a student's interest, *don't print anything*.
-# This is what I want you to assess chat log: 
-# {query}
-# Interest format: interest1, interest2, interest3, ...
-# example: soccer, iPhone, dance
-
-# Interest:
-# """
-
-# interest_prompt = PromptTemplate(
-#     input_variables=["query"],
-#     template=interest_template,
-# )
-
-# generate_interest = LLMChain(
-#     llm=chat,
-#     prompt=interest_prompt
-# )
-
-# #########
+# cefr_gpt:
+# generate the CEFR score
 def cefr_gpt(user, chat_data_list):
-    # body_unicode = request.body.decode('utf-8')
-    # body = json.loads(body_unicode)
-
-    # check the conversation
-    # user_name = ""
-    # for chat_data in body["messages"]:
-    #     if chat_data["role"] == "user_name":
-    #         user_name = chat_data["content"]
-    #         break
-
-    # conversation = Database.get_all_documents(db, "conversations", user)
-
-    # before_chat_data = []
-    # data_num = 0
-    # for chat_data in conversation:
-    #     data_num += 1
-    #     before_chat_data.append(chat_data["name"] + ": " + chat_data["memory"])
-    
-    # if data_num == 0:
-    #     messages_response = body["messages"] + [
-    #         {
-    #             "role": "assistant",
-    #             "content": "insights: " + "None"
-    #         }
-    #     ]
-
-    #     return JsonResponse({
-    #         "messages": messages_response
-    #     })
-    
     data_num = 0
     all_chat_data_string = ""
     for chat_data in reversed(chat_data_list):
@@ -186,9 +140,8 @@ def cefr_gpt(user, chat_data_list):
             break
         all_chat_data_string += chat_data + "\n"
     
+    # generate the CEFR score
     cur_cefr = generate_cefr.run(CEFR = CEFR, name = user, query = all_chat_data_string)
-    # cur_interest = generate_interest.run(query = all_chat_data_string)
-    print(cur_cefr)
     cefr = Database.get_recent_documents(db, user, "CEFR", 1)
     
     cefr_string = "Idk"
@@ -202,7 +155,6 @@ def cefr_gpt(user, chat_data_list):
         now_cefr = "Idk"
     
     cefr_data = Database.get_all_documents(db, user, "CEFR")
-    print(cefr_data)
     node = 0
     data_num = 0
 
@@ -219,13 +171,3 @@ def cefr_gpt(user, chat_data_list):
     print(Database.set_document(db, user, "CEFR_GPT", document_user))
 
     return now_cefr
-    # messages_response = [
-    #     {
-    #         "role": user,
-    #         "content": "CEFR: " + cur_cefr
-    #     }
-    # ]
-    
-    # return JsonResponse({
-    #     "messages": messages_response
-    # })
