@@ -43,7 +43,16 @@ python manage.py runserver
 ## mv_backend/mv_backend 내부구조
 - `api`: 프론트엔드/백엔드 간 통신을 위한 코드가 포함되어 있습니다.
   - `load.py`: 각 프로세스 함수가 정의된 요청 디렉토리를 한 곳에 관리하는 곳입니다.
-  - `function/***`: 백엔드 애플리케이션 내 핵심 기능이 구현된 함수가 포함된 곳입니다. 
+  - `function/***`: 백엔드 애플리케이션 내 핵심 기능이 구현된 함수가 포함된 곳입니다.
+  <details><summary>function/</summary>
+
+    - `cefr_simplified.py`: 활용 어휘를 기반으로 CEFR 점수가 계산되는 기능
+    - `cefr.py`: GPT를 통해 CEFR 점수가 생성되는 기능
+    - `chat.py`: user 정보를 기반으로 NPC가 맞춤형 대화하는 기능
+    - `reflect.py`: reflect(user 특성 찾기) 기능
+    - `retrieve.py`: retrieve(user 미진 사항 찾기) 기능
+    - `quiz.py`: user 정보를 기반으로 퀴즈 생성 기능
+  </details>
 - `lib`: Database, CommonChatOpenAI 등 공통적으로 사용되는 설정 및 클래시가 포함되어 있습니다.
 
 ## mv_backend_cefr 실행방법
