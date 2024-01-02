@@ -37,9 +37,9 @@ persona_dict = {"Pizza Chef" : "Your name is Jake. Your job a pizza chef(Don't f
 
 #대화는 최대 2 문장으로 한다
 
-# 사용자의 reflect에 저장된 profile을 사용하여 대화한다
+#사용자의 reflect에 저장된 profile을 사용하여 대화한다
 
-#사용자의 retrieve에 저장되 있는 미진사항을 사용하여 대화한다
+#사용자의 retrieve에 저장되어 있는 미진사항을 사용하여 대화한다
 
 #사용자가 대답을 못하는 경우 도움을 주는 질문을 한다
 gpt_3_5_query_template = """
@@ -91,7 +91,7 @@ Next answer:
 
 #대화는 최대 2 문장으로 한다
 
-# 사용자의 reflect에 저장된 profile을 사용하여 대화한다
+#사용자의 reflect에 저장된 profile을 사용하여 대화한다
 
 #사용자의 retrieve에 저장되 있는 미진사항을 사용하여 대화한다
 
