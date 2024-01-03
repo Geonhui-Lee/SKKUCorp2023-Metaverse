@@ -47,17 +47,21 @@ python manage.py runserver
 - `api`: 프론트엔드/백엔드 간 통신을 위한 코드가 포함되어 있습니다.
   - `load.py`: 각 프로세스 함수가 정의된 요청 디렉토리를 한 곳에 관리하는 곳입니다.
   - `function/***`: 백엔드 애플리케이션 내 핵심 기능이 구현된 함수가 포함된 곳입니다.
-    <details><summary>function/</summary>
-
     - `cefr_simplified.py`: 활용 어휘를 기반으로 CEFR 점수가 계산되는 기능
     - `cefr.py`: GPT를 통해 CEFR 점수가 산출되는 기능
+    - `change_model.py`: CommonChatOpenAI의 모델을 변경하는 기능
     - `chat.py`: user 정보를 기반으로 NPC가 맞춤형 대화하는 기능
+    - `current.py`: 현재 retrieve, reflect, cefr 결과를 가져오는 기능
     - `custom_persona.py`: wikipedia 정보를 통해 NPC persona를 생성하는 기능
+    - `fix_json_format.py`: 잘못된 json 형식이면 수정하는 기능
+    - `profile.py`: 지금까지의 interest, conversation style, retrieve, cefr 결과를 가져오는 기능
+    - `quiz_generator.py`: user 정보를 기반으로 퀴즈 생성하는 기능
     - `reflect.py`: reflect(user 특성 찾기) 기능
     - `retrieve.py`: retrieve(user 미진 사항 찾기) 기능
-    - `quiz_generator.py`: user 정보를 기반으로 퀴즈 생성하는 기능
-    </details>
+    - `session_end.py`: 대화 세션이 종료되면 대화 내용에 대해 retrieve, reflect, cefr 단계를 수행하는 기능
 - `lib`: Database, CommonChatOpenAI 등 공통적으로 사용되는 설정 및 클래시가 포함되어 있습니다.
+  - `common.py`: CommonChatOpenAI의 모델
+  - `database.py`: database class 정의 (API 문서 - mv_backend.lib.database)
 
 ## [API 문서](https://dotgeon-kingo.notion.site/eb449a2cf045442d85a3cf3c65c75e7c?v=a945cf7ef8d940e7aa20a35fe26c23d4)
 
