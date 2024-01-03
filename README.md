@@ -53,7 +53,7 @@ python manage.py runserver
     - `chat.py`: user 정보를 기반으로 NPC가 맞춤형 대화하는 기능
     - `current.py`: 현재 retrieve, reflect, cefr 결과를 가져오는 기능
     - `custom_persona.py`: wikipedia 정보를 통해 NPC persona를 생성하는 기능
-    - `fix_json_format.py`: 잘못된 json 형식이면 수정하는 기능
+    - `fix_json_format.py`: quiz가 잘못된 json 형식이면 수정하는 기능
     - `profile.py`: 지금까지의 interest, conversation style, retrieve, cefr 결과를 가져오는 기능
     - `quiz_generator.py`: user 정보를 기반으로 퀴즈 생성하는 기능
     - `reflect.py`: reflect(user 특성 찾기) 기능
