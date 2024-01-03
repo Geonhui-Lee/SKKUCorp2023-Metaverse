@@ -62,6 +62,8 @@ python manage.py runserver
 - `lib`: Database, CommonChatOpenAI 등 공통적으로 사용되는 설정 및 클래시가 포함되어 있습니다.
   - `common.py`: CommonChatOpenAI의 모델
   - `database.py`: database class 정의 (API 문서 - mv_backend.lib.database)
+- `settings.py`: Django 환경 설정 파일
+- `urls.py`: URL 구성 관련 파일
 
 ## [API 문서](https://dotgeon-kingo.notion.site/eb449a2cf045442d85a3cf3c65c75e7c?v=a945cf7ef8d940e7aa20a35fe26c23d4)
 
