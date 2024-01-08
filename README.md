@@ -86,6 +86,7 @@ python manage.py runserver
 
 - Unity Hub로 빈 3D 프로젝트를 하나 생성합니다.
 - 첨부된 unitypackage 파일을 실행하고, 모두 import 합니다(https://drive.google.com/file/d/1_UTHz_s-KAknqiW6L9XNl1x3PIJNhLXD/view?usp=sharing).
+- Import 후, 'Assets/Scenes/Scene.unity'을 더블 클릭하여 Scene을 전환합니다.
 
 4. 프로그램 실행
 
