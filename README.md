@@ -85,7 +85,7 @@ python manage.py runserver
 3. 빈 프로젝트 생성 및 패키지 불러오기
 
 - Unity Hub로 빈 3D 프로젝트를 하나 생성합니다.
-- 첨부된 unitypackage 파일을 실행하고, 모두 import 합니다.
+- 첨부된 unitypackage 파일을 실행하고, 모두 import 합니다(https://drive.google.com/file/d/1_UTHz_s-KAknqiW6L9XNl1x3PIJNhLXD/view?usp=sharing).
 
 4. 프로그램 실행
 
