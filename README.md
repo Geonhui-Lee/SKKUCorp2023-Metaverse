@@ -91,7 +91,7 @@ python manage.py runserver
 
 - 상단의 실행 버튼을 누르고, Game 화면을 한번 클릭하면 프로그램을 플레이 가능합니다.
 
-# 유니티 조작법
+### 유니티 조작법
 
 - `WASD`: 움직임
 - `Shift + WASD`: 달리기
